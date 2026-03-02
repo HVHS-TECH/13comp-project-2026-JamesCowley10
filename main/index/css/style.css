@@ -1,0 +1,96 @@
+/*************************************************************
+  style.css
+
+  Written by James Cowley, Term 1 2026
+  index.html Styling
+*************************************************************/
+/*------------------------------------------------------------
+  Custom Font Implementation
+/*----------------------------------------------------------*/
+
+@font-face {
+    font-family: customFont;
+    src: url('../../../assets/customFont.ttf') format('truetype');
+    font-display: swap;
+  }
+  
+  /*------------------------------------------------------------
+    Body Styling
+  /*----------------------------------------------------------*/
+  body {
+    font-family: customFont;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    opacity: 0;
+    animation: fadeIn 4s forwards;
+    user-select: none;
+    scale: 0.97;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /*------------------------------------------------------------
+    Title Styling
+  /*----------------------------------------------------------*/
+  
+  #mainTitle {
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0;
+    padding: 1rem 0;
+  }
+  
+  /*------------------------------------------------------------
+    Button Styling
+  /*----------------------------------------------------------*/
+  
+  button {
+    font-family: customFont;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    text-align: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /*------------------------------------------------------------
+    Button Input Styling
+  /*----------------------------------------------------------*/
+  
+  input {
+    font-family: customFont;
+    border-color: lightgray;
+    border-radius: 5px;
+    transition: color 0.3s;
+  }
+  
+  /*------------------------------------------------------------
+    Button Hover Styling
+  /*----------------------------------------------------------*/
+  
+  button:hover {
+    color: rgb(48, 48, 48);
+    transform: scale(1.05);
+  }
+  
+  button:active {
+    transform: scale(0.9);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /*------------------------------------------------------------
+    Fade In Animation Styling
+  /*----------------------------------------------------------*/
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
