@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- STYLESHEETS *******************************************-->
+    <link rel="stylesheet" href="../reg/css/style.css">
+
+    <!-- JQUERY ************************************************-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- FIREBASE START ****************************************-->
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <!-- FIREBASE END ******************************************-->
+
+</head>
+
+<!--*************************************************************
+  BODY
+**************************************************************-->
+
+<body>
+    <script type="module" src="../regPage/regPage.mjs"></script>
+    <div id="regContainer">
+        <h1 id="mainTitle">Registration</h1>
+        <form id="regForm">
+            <input class="regInput" type="text" id="regUsername" placeholder="Username"><br>
+            <input class="regInput" type="number" id="regAge" placeholder="Age"><br>
+            <input class="regInput" type="text" id="Address" placeholder="Address"><br>
+            <input class="regInput" type="text" id="regPhoneNumber" placeholder="Phone Number"><br>
+        </form>
+        <button onclick="fb_set()">Register</button>
+    </div>
+</body>
+
+</html>
+<!--*************************************************************
+  END OF regPage.HTML
+**************************************************************-->

@@ -134,13 +134,11 @@ function fb_login() {
                     if (fb_data != null) {
                         console.log("✅ User Is An Admin");
                         sessionStorage.setItem('admin', 'y');
-                        //location.href = gameUrl;
-                        //location.href = '/main/gamePage/gamePage.html'
+                        location.href = gameUrl;
                     } else {
                         console.log("Not an admin");
                         sessionStorage.setItem('admin', 'n');
-                        //location.href = gameUrl;
-                        //location.href = '/main/gamePage/gamePage.html'
+                        location.href = gameUrl;
                     }
 
                 }).catch((error) => {
@@ -161,13 +159,11 @@ function fb_login() {
                     if (fb_data != null) {
                         console.log("✅ User Is An Admin");
                         sessionStorage.setItem('admin', 'y');
-                        //location.href = regUrl;
-                        //location.href = 'main/reg/regPage.html'
+                        location.href = regUrl;
                     } else {
                         console.log("Not an admin");
                         sessionStorage.setItem('admin', 'n');
-                        //location.href = regUrl;
-                        //location.href = 'main/reg/regPage.html'
+                        location.href = regUrl;
                     }
 
                 }).catch((error) => {
