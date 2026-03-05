@@ -130,15 +130,15 @@ function fb_login() {
                 const dbReference = ref(FB_GAMEDB, 'admins/' + userDetails.uid);
                 get(dbReference).then((snapshot) => {
                     var fb_data = snapshot.val();
-                    const gameUrl = new URL('../gamePage/gamePage.html', import.meta.url).href;
+                    const gamePageURL = new URL('../gamePage/gamePage.html', import.meta.url).href;
                     if (fb_data != null) {
                         console.log("✅ User Is An Admin");
                         sessionStorage.setItem('admin', 'y');
-                        location.href = gameUrl;
+                        location.href = gamePageURL;
                     } else {
                         console.log("Not an admin");
                         sessionStorage.setItem('admin', 'n');
-                        location.href = gameUrl;
+                        location.href = gamePageURL;
                     }
 
                 }).catch((error) => {

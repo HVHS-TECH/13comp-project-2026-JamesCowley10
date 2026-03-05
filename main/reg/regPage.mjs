@@ -19,15 +19,12 @@ window.fb_login = fb_login;
 window.fb_onAuthStateChanged = fb_onAuthStateChanged;
 window.fb_signOut = fb_signOut;
 window.fb_set = fb_set;
-window.fb_r1ad = fb_get;
+window.fb_get = fb_get;
 
 /**************************************************************/
-// index.html main code
+// regPage.html main code
 /**************************************************************/
 fb_initialise();
-
-// Get user's UID 
-const uid = sessionStorage.getItem('uid');
 
 /**************************************************************/
 //   END OF CODE
