@@ -23,16 +23,17 @@
 **************************************************************-->
 
 <body>
-    <script type="module" src="../regPage/regPage.mjs"></script>
+    <script type="module" src="../reg/regPage.mjs"></script>
     <div id="regContainer">
         <h1 id="mainTitle">Registration</h1>
         <form id="regForm">
             <input class="regInput" type="text" id="regUsername" placeholder="Username"><br>
             <input class="regInput" type="number" id="regAge" placeholder="Age"><br>
-            <input class="regInput" type="text" id="Address" placeholder="Address"><br>
-            <input class="regInput" type="text" id="regPhoneNumber" placeholder="Phone Number"><br>
+            <input class="regInput" type="text" id="regAddress" placeholder="Address"><br>
+            <input class="regInput" type="number" id="regPhoneNumber" placeholder="Phone Number"><br>
         </form>
-        <button onclick="fb_set()">Register</button>
+        <button id="regButton">Register</button>
+        <h1 hidden id="regWarning">Please fill in all fields</h1>
     </div>
 </body>
 
