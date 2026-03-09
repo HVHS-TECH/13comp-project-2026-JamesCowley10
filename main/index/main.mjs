@@ -1,6 +1,6 @@
 /**************************************************************/
 // main.mjs
-// Main entry for index.html
+// Main script for index.html
 // Written by James Cowley, Term 1 2026
 /**************************************************************/
 const COL_C = 'white';	    // These two const are part of the coloured 	
