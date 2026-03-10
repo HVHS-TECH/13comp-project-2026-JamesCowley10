@@ -10,15 +10,15 @@ console.log('%c regPage.mjs',
 
 let regWarning = document.getElementById('regWarning');
 
+
 /**************************************************************/
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
 import { fb_initialise, fb_set }
-    from './fb_io.mjs';
+    from '../index/fb_io.mjs';
 window.fb_initialise = fb_initialise;
 window.fb_set = fb_set;
-window.regCheck = checkReg;
 
 /**************************************************************/
 // Initilise Firebase
@@ -30,19 +30,13 @@ fb_initialise();
 /**************************************************************/
 
 // Sets userDetails as items from sessionStorage
-userDetails.uid = sessionStorage.getItem("uid");
-userDetails.email = sessionStorage.getItem("email");
-userDetails.photoURL = sessionStorage.getItem("photoURL");
-userDetails.displayName = sessionStorage.getItem("displayName");
-console.table(userDetails);
-
-function checkReg() {
-    // Still have to fill this in
-    console.log("Test");
-}
+//userDetails.uid = sessionStorage.getItem("uid");
+//userDetails.email = sessionStorage.getItem("email");
+//userDetails.photoURL = sessionStorage.getItem("photoURL");
+//userDetails.displayName = sessionStorage.getItem("displayName");
+//console.table(userDetails);
 
 document.getElementById("regButton").onclick = async function () {
-    console.log("Valid Inputs");
     let username = document.getElementById("regUsername").value;
     let age = document.getElementById("regAge").value;
     let address = document.getElementById("regAddress").value;
@@ -51,6 +45,7 @@ document.getElementById("regButton").onclick = async function () {
     phoneNumber = Number(phoneNumber);
 
     console.log(username, age, address, phoneNumber);
+    regWarning.hidden = false;
 }
 
 /**************************************************************/
