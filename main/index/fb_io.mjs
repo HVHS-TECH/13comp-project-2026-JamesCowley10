@@ -18,8 +18,10 @@ export let userDetails = {
     email: null,
     photoURL: null,
     uid: null,
-    name: null,
-    age: null
+    username: null,
+    age: null,
+    address: null,
+    phoneNumber: null
 };
 
 /**************************************************************/
@@ -117,12 +119,16 @@ function fb_login() {
         const dbReference = ref(FB_GAMEDB, 'userDetails/' + userDetails.uid);
         get(dbReference).then((snapshot) => {
             var fb_data = snapshot.val();
-            if (fb_data != null) {
+            if (fb_data.username != null) {
                 console.log("✅ Successful Read");
-                userDetails.name = fb_data.name;
+                userDetails.username = fb_data.username;
                 userDetails.age = fb_data.age;
-                sessionStorage.setItem("name", userDetails.name);
+                userDetails.address = fb_data.address;
+                userDetails.phoneNumber = fb_data.phoneNumber;
+                sessionStorage.setItem("username", userDetails.username);
                 sessionStorage.setItem("age", userDetails.age);
+                sessionStorage.setItem("address", userDetails.address);
+                sessionStorage.setItem("phoneNumber", userDetails.phoneNumber);
                 console.table(fb_data);
 
                 /**************************************************************/

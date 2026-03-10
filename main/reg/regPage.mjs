@@ -10,12 +10,11 @@ console.log('%c regPage.mjs',
 
 let regWarning = document.getElementById('regWarning');
 
-
 /**************************************************************/
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_initialise, fb_set }
+import { fb_initialise, fb_set, userDetails }
     from '../index/fb_io.mjs';
 window.fb_initialise = fb_initialise;
 window.fb_set = fb_set;
@@ -30,12 +29,13 @@ fb_initialise();
 /**************************************************************/
 
 // Sets userDetails as items from sessionStorage
-//userDetails.uid = sessionStorage.getItem("uid");
-//userDetails.email = sessionStorage.getItem("email");
-//userDetails.photoURL = sessionStorage.getItem("photoURL");
-//userDetails.displayName = sessionStorage.getItem("displayName");
-//console.table(userDetails);
+userDetails.uid = sessionStorage.getItem("uid");
+userDetails.email = sessionStorage.getItem("email");
+userDetails.photoURL = sessionStorage.getItem("photoURL");
+userDetails.displayName = sessionStorage.getItem("displayName");
+console.table(userDetails);
 
+// Event listener for the register button
 document.getElementById("regButton").onclick = async function () {
     let username = document.getElementById("regUsername").value;
     let age = document.getElementById("regAge").value;
@@ -43,9 +43,90 @@ document.getElementById("regButton").onclick = async function () {
     let phoneNumber = document.getElementById("regPhoneNumber").value;
     age = Number(age);
     phoneNumber = Number(phoneNumber);
+    console.table({ username, age, address, phoneNumber });
 
-    console.log(username, age, address, phoneNumber);
-    regWarning.hidden = false;
+    // Validate username input
+    if (username.trim() == "") {
+        regWarning.hidden = false;
+        regWarning.style.animation = "none";
+        regWarning.style.animation = "fadeInOut 5s forwards";
+        regWarning.innerText = "Please enter a username!";
+        return;
+    }
+
+    if (!/^[A-Za-z]+$/.test(username)) {
+        regWarning.hidden = false;
+        regWarning.style.animation = "none";
+        regWarning.style.animation = "fadeInOut 5s forwards";
+        regWarning.innerText = "Username must only contain letters!";
+        return;
+    }
+
+    if (username.length > 15) {
+        regWarning.hidden = false;
+        regWarning.style.animation = "none";
+        regWarning.style.animation = "fadeInOut 5s forwards";
+        regWarning.innerText = "Username must be 15 letters or under!";
+        return;
+    }
+
+    // Validate age input
+    if (age === null) {
+        regWarning.hidden = false;
+        regWarning.style.animation = "none";
+        regWarning.style.animation = "fadeInOut 5s forwards";
+        regWarning.innerText = "Please enter an age!";
+        return;
+    }
+
+    if (isNaN(age) || Number(age) < 1 || Number(age) > 150) {
+        regWarning.hidden = false;
+        regWarning.style.animation = "none";
+        regWarning.style.animation = "fadeInOut 5s forwards";
+        regWarning.innerText = "Age must be a number from 1-150!";
+        return;
+    }
+
+    // Validate address input
+    if (address.trim() == "") {
+        regWarning.hidden = false;
+        regWarning.style.animation = "none";
+        regWarning.style.animation = "fadeInOut 5s forwards";
+        regWarning.innerText = "Please enter an address!";
+        return;
+    }
+
+    // Validate phone number input
+    if (phoneNumber === null || phoneNumber === "" || isNaN(phoneNumber) || phoneNumber < 1000000000 || phoneNumber > 9999999999) {
+        regWarning.hidden = false;
+        regWarning.style.animation = "none";
+        regWarning.style.animation = "fadeInOut 5s forwards";
+        regWarning.innerText = "Please enter a valid phone number!";
+        return;
+    }
+
+    // If all validation is passed then set user's details and proceed
+    console.log("Valid Inputs");
+
+    userDetails.username = username;
+    userDetails.age = age;
+    userDetails.address = address;
+    userDetails.phoneNumber = phoneNumber;
+
+    sessionStorage.setItem("username", username);
+    sessionStorage.setItem("age", age);
+    sessionStorage.setItem("address", address);
+    sessionStorage.setItem("phoneNumber", phoneNumber);
+
+    // Sets the username and age to the user's userDetails and shows an error if one occurs
+    try {
+        await fb_set('userDetails/' + userDetails.uid, userDetails);
+        console.table(userDetails);
+        const gameUrl = new URL('../gamePage/gamePage.html', import.meta.url).href;
+        location.href = gameUrl;
+    } catch (error) {
+        console.error(error);
+        regWarning.hidden = false;}
 }
 
 /**************************************************************/
