@@ -9,6 +9,7 @@ console.log('%c regPage.mjs',
     'color: blue; background-color: white;');
 
 let regWarning = document.getElementById('regWarning');
+let regButton = document.getElementById('regButton');
 
 /**************************************************************/
 // Import all external constants & functions required
@@ -45,7 +46,7 @@ document.getElementById("regButton").onclick = async function () {
     phoneNumber = Number(phoneNumber);
     console.table({ username, age, address, phoneNumber });
 
-    // Validate username input
+    // Validate username input is not empty
     if (username.trim() == "") {
         regWarning.hidden = false;
         regWarning.style.animation = "none";
@@ -54,6 +55,7 @@ document.getElementById("regButton").onclick = async function () {
         return;
     }
 
+    // Validate username input only contains letters
     if (!/^[A-Za-z]+$/.test(username)) {
         regWarning.hidden = false;
         regWarning.style.animation = "none";
@@ -62,6 +64,7 @@ document.getElementById("regButton").onclick = async function () {
         return;
     }
 
+    // Validate username input is 15 characters or under
     if (username.length > 15) {
         regWarning.hidden = false;
         regWarning.style.animation = "none";
@@ -70,15 +73,15 @@ document.getElementById("regButton").onclick = async function () {
         return;
     }
 
-    // Validate age input
-    if (age === null) {
+    // Validate age input is not empty
+    if (age === null || age === "") {
         regWarning.hidden = false;
         regWarning.style.animation = "none";
         regWarning.style.animation = "fadeInOut 5s forwards";
         regWarning.innerText = "Please enter an age!";
         return;
     }
-
+    // Validates age input is a number between 1 and 150
     if (isNaN(age) || Number(age) < 1 || Number(age) > 150) {
         regWarning.hidden = false;
         regWarning.style.animation = "none";
@@ -87,7 +90,7 @@ document.getElementById("regButton").onclick = async function () {
         return;
     }
 
-    // Validate address input
+    // Validate address input is not empty
     if (address.trim() == "") {
         regWarning.hidden = false;
         regWarning.style.animation = "none";
@@ -96,7 +99,7 @@ document.getElementById("regButton").onclick = async function () {
         return;
     }
 
-    // Validate phone number input
+    // Validate phone number input is not empty and is a valid number
     if (phoneNumber === null || phoneNumber === "" || isNaN(phoneNumber) || phoneNumber < 1000000000 || phoneNumber > 9999999999) {
         regWarning.hidden = false;
         regWarning.style.animation = "none";
