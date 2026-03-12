@@ -130,6 +130,20 @@
     font-size: 18px;
     margin-top: 30px;
   }
+
+  /*------------------------------------------------------------
+    Profile Image Styling
+  /*----------------------------------------------------------*/
+  
+  #profileImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 20px;
+    position: absolute;
+    top: 0;
+    right: 1%;
+  }
   
   /*------------------------------------------------------------
     Fade In Animation Styling
