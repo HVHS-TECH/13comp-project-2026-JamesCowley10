@@ -25,28 +25,24 @@
 
   <!-- JQUERY ************************************************-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 </head>
 
 <!--*************************************************************
   BODY
 **************************************************************-->
 
-<body>
-
+<body class="zombzBody">
+  <script type="module" src="./zombzGame.mjs"></script>
   <column>
-    <h1 class="gameTitle">Zombz</h1>
-    <button onClick="location.href = './zg_mainGame.html'">START</button>
-    <button onClick="location.href = './zg_informationScreen.html'">INFORMATION</button>
-    <button onClick="location.href = './zg_controlScreen.html'">CONTROLS</button>
-    <button onClick="location.href = './zg_leaderboard.html'">LEADERBOARD</button>
+    <h1 class="endTitle" id="endScreenTitle">GAME OVER</h1>
+    <p class="endScoreText" id="endScoreText"></p>
+    <button class="menuButton" id="menuButton" onClick="location.href = './zombzMenuScreen.html'">MENU</button>
+    <button class="playAgainButton" id="playAgainButton" onClick="location.href = './zombzMainGame.html'">PLAY
+      AGAIN</button>
   </column>
-
-  <button class="returnButton" onClick="location.href = '../../main/gamePage/gamePage.html'">BACK</button>
-
 </body>
 
 </html>
 <!--*************************************************************
-  END OF zg_menuScreen.html
+  END OF zombzMainGame.html
 **************************************************************-->
