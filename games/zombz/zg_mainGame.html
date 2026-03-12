@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Zombz</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- stylesheets *******************************************-->
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- P5.js & P5.play ***************************************-->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"
+    integrity="sha512-bzpp8klYroR6PFgL3RJ+VkvY5hJna7Zd38OA56peUDHSNQpSiN9lDQVnMYtcw7hoAVhbR6mAOdH+ymzg1o+G0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.js"
+    integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+
+  <!-- New P5.js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.4/lib/p5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.4/lib/addons/p5.sound.min.js"></script>
+  <script src="https://p5play.org/v3/planck.min.js"></script>
+  <script src="https://p5play.org/v3/p5play.js"></script>
+
+  <!-- JQUERY ************************************************-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<!--*************************************************************
+  BODY
+**************************************************************-->
+
+<body class="zombzBody">
+  <script type="module" src="./zg_zombzGame.mjs"></script>
+  <column>
+    <h1 class="endTitle" id="endScreenTitle">GAME OVER</h1>
+    <p class="endScoreText" id="endScoreText"></p>
+    <button class="menuButton" id="menuButton" onClick="location.href = './zg_menuScreen.html'">MENU</button>
+    <button class="playAgainButton" id="playAgainButton" onClick="location.href = './zg_mainGame.html'">PLAY
+      AGAIN</button>
+  </column>
+</body>
+
+</html>
+<!--*************************************************************
+  END OF zg_mainGame.html
+**************************************************************-->

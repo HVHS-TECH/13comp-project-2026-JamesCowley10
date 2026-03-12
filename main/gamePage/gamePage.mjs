@@ -11,7 +11,7 @@ console.log('%c gamePage.mjs',
 let gtnButton = document.getElementById('gtnButton');
 let zombzButton = document.getElementById('zombzButton');
 const gtnPageURL = new URL('../../games/gtn/gtnLobby.html', import.meta.url).href;
-const zombzPageURL = new URL('../../games/zombz/zombzLobby.html', import.meta.url).href;
+const zombzPageURL = new URL('../../games/zombz/zg_menuScreen.html', import.meta.url).href;
 let profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 

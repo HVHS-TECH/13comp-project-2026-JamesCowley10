@@ -1,0 +1,420 @@
+/*************************************************************
+  style.css
+
+  Written by James Cowley, Term 1 2025, Edited By James Cowley For Database Assignment, Term 2 2025
+  zg_mainGame.html Styling
+*************************************************************/
+/*------------------------------------------------------------
+  Custom Font Implementation
+/*----------------------------------------------------------*/
+
+@font-face {
+  font-family: pixelFont;
+  /*src: url(/games/zg/assets/pixelFont.ttf);*/
+  src: url('../assets/pixelFont.ttf') format('truetype');
+  font-display: swap;
+}
+
+/*------------------------------------------------------------
+  Body Styling
+/*----------------------------------------------------------*/
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  height: 100vh;
+  background-color: #000000;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  opacity: 0;
+  animation: fadeIn 4s forwards;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Leaderboard Styling
+/*----------------------------------------------------------*/
+
+#leaderboard {
+  font-family: pixelFont;
+  font-size: 100px;
+  background-color: darkslategray;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Leaderboard Elements Styling
+/*----------------------------------------------------------*/
+
+table {
+  border: 3px solid rgb(34, 58, 58);
+  width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+th {
+  border: 1px solid rgb(34, 58, 58);
+  margin: 25%;
+  text-align: center;
+  color: rgb(34, 58, 58);
+}
+
+td {
+  border: 1px solid rgb(34, 58, 58);
+  text-align: center;
+  color: rgb(34, 58, 58);
+}
+
+/*------------------------------------------------------------
+  Zombz Body Text Styling
+/*----------------------------------------------------------*/
+
+.zombzBody {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: #000000;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  opacity: 0;
+  animation: fadeIn 4s forwards;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Column Styling
+/*----------------------------------------------------------*/
+
+.column {
+  display: flex;
+  flex-direction: column;
+  margin: 1px;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Game Title Styling
+/*----------------------------------------------------------*/
+
+.gameTitle {
+  font-family: pixelFont;
+  font-size: 350px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  text-align: main;
+  margin-bottom: -40px;
+  margin-top: -30px;
+  padding-left: 60px;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Leaderboard Title Styling
+/*----------------------------------------------------------*/
+
+.leaderboardTitle {
+  font-family: pixelFont;
+  margin-top: -20px;
+  margin-bottom: 10px;
+  font-size: 120px;
+  background-color: transparent;
+  color: rgb(34, 58, 58);
+  text-align: center;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  End Title Styling
+/*----------------------------------------------------------*/
+
+.endTitle {
+  font-family: pixelFont;
+  font-size: 350px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  text-align: main;
+  top: -30%;
+  right: 12%;
+  user-select: none;
+  position: absolute;
+}
+
+/*------------------------------------------------------------
+  Controls Title Styling
+/*----------------------------------------------------------*/
+
+.controlsTitle {
+  font-family: pixelFont;
+  font-size: 350px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  text-align: main;
+  margin-bottom: -40px;
+  margin-top: -30px;
+  padding-left: 260px;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Main Text Styling
+/*----------------------------------------------------------*/
+
+.mainText {
+  font-family: pixelFont;
+  font-size: 90px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 40px;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Controls Main Text Styling
+/*----------------------------------------------------------*/
+
+.mainTextControls {
+  font-family: pixelFont;
+  font-size: 90px;
+  border-radius: 5px;
+  padding-left: 70px;
+  background-color: transparent;
+  color: darkslategray;
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 40px;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Kills Text Styling
+/*----------------------------------------------------------*/
+
+.killsText {
+  font-family: pixelFont;
+  font-size: 90px;
+  font-style: oblique;
+  position: absolute;
+  z-index: 2;
+  left: 9.2%;
+  top: 16%;
+  background-color: transparent;
+  color: black;
+  opacity: 0.3;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Time Text Styling
+/*----------------------------------------------------------*/
+
+.timeText {
+  font-family: pixelFont;
+  font-size: 90px;
+  font-style: oblique;
+  position: absolute;
+  z-index: 2;
+  left: 8.7%;
+  top: 24%;
+  background-color: transparent;
+  color: black;
+  opacity: 0.3;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Ammo Text Styling
+/*----------------------------------------------------------*/
+
+.ammoText {
+  font-family: pixelFont;
+  font-size: 90px;
+  font-style: oblique;
+  position: absolute;
+  z-index: 2;
+  left: 8.7%;
+  top: 32%;
+  background-color: transparent;
+  color: black;
+  opacity: 0.3;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Wave Text Styling
+/*----------------------------------------------------------*/
+
+.waveText {
+  font-family: pixelFont;
+  font-size: 90px;
+  font-style: oblique;
+  position: absolute;
+  z-index: 2;
+  left: 8.7%;
+  top: 40%;
+  background-color: transparent;
+  color: black;
+  opacity: 0.3;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  End Score Text Styling
+/*----------------------------------------------------------*/
+
+.endScoreText {
+  font-family: pixelFont;
+  font-size: 130px;
+  font-style: oblique;
+  position: absolute;
+  text-align: center;
+  z-index: 2;
+  left: 39%;
+  top: 22%;
+  background-color: transparent;
+  color: white;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Button Styling
+/*----------------------------------------------------------*/
+
+button {
+  font-family: pixelFont;
+  font-size: 150px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  transition: color 0.3s;
+  width: 2000px;
+  /* Set a fixed width */
+  height: 50px;
+  text-align: left;
+  padding-left: 60px;
+  user-select: none;
+}
+
+/*------------------------------------------------------------
+  Return Button Styling
+/*----------------------------------------------------------*/
+
+.returnButton {
+  font-family: pixelFont;
+  font-size: 100px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  transition: color 0.3s;
+  width: 350px;
+  /* Set a fixed width */
+  height: 50px;
+  bottom: 8%;
+  text-align: left;
+  left: 40%;
+  user-select: none;
+  position: absolute;
+}
+
+/*------------------------------------------------------------
+  Return Button Controls Styling
+/*----------------------------------------------------------*/
+
+.returnButtonControls {
+  font-family: pixelFont;
+  font-size: 100px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  transition: color 0.3s;
+  width: 100px;
+  height: 50px;
+  text-align: left;
+  padding-left: 1250px;
+  padding-top: 155px;
+  user-select: none;
+  position: absolute;
+}
+
+/*------------------------------------------------------------
+  Play Again Button Styling
+/*----------------------------------------------------------*/
+
+.playAgainButton {
+  font-family: pixelFont;
+  font-size: 100px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  transition: color 0.3s;
+  width: 600px;
+  height: 100px;
+  text-align: center;
+  right: 32%;
+  top: 55%;
+  user-select: none;
+  position: absolute;
+}
+
+/*------------------------------------------------------------
+  Menu Button Styling
+/*----------------------------------------------------------*/
+
+.menuButton {
+  font-family: pixelFont;
+  font-size: 100px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: darkslategray;
+  transition: color 0.3s;
+  width: 600px;
+  height: 100px;
+  text-align: center;
+  right: 32%;
+  top: 65%;
+  user-select: none;
+  position: absolute;
+}
+
+/*------------------------------------------------------------
+  Button Hover Styling
+/*----------------------------------------------------------*/
+
+button:hover {
+  color: rgb(74, 118, 118);
+}
+
+/*------------------------------------------------------------
+  Fade In Animation Styling
+/*----------------------------------------------------------*/
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
