@@ -10,6 +10,14 @@ console.log('%c regPage.mjs',
 
 let regWarning = document.getElementById('regWarning');
 let regButton = document.getElementById('regButton');
+const maxUsernameLength = 15;
+
+function regWarningFade(text) {
+    regWarning.hidden = false;
+    regWarning.style.animation = "none";
+    regWarning.style.animation = "fadeInOut 5s forwards";
+    regWarning.innerText = text;
+}
 
 /**************************************************************/
 // Import all external constants & functions required
@@ -48,37 +56,25 @@ document.getElementById("regButton").onclick = async function () {
 
     // Validate username input is not empty
     if (username.trim() == "") {
-        regWarning.hidden = false;
-        regWarning.style.animation = "none";
-        regWarning.style.animation = "fadeInOut 5s forwards";
-        regWarning.innerText = "Please enter a username!";
+        regWarningFade("Please enter a username!");
         return;
     }
 
     // Validate username input only contains letters
     if (!/^[A-Za-z]+$/.test(username)) {
-        regWarning.hidden = false;
-        regWarning.style.animation = "none";
-        regWarning.style.animation = "fadeInOut 5s forwards";
-        regWarning.innerText = "Username must only contain letters!";
+        regWarningFade("Username must only contain letters!");
         return;
     }
 
-    // Validate username input is 15 characters or under
-    if (username.length > 15) {
-        regWarning.hidden = false;
-        regWarning.style.animation = "none";
-        regWarning.style.animation = "fadeInOut 5s forwards";
-        regWarning.innerText = "Username must be 15 letters or under!";
+    // Validate username input is within the allowed length
+    if (username.length > maxUsernameLength) {
+        regWarningFade("Username must be 15 letters or under!");
         return;
     }
 
     // Validate age input is not empty
     if (age === null || age === "") {
-        regWarning.hidden = false;
-        regWarning.style.animation = "none";
-        regWarning.style.animation = "fadeInOut 5s forwards";
-        regWarning.innerText = "Please enter an age!";
+        regWarningFade("Please enter an age!");
         return;
     }
     // Validates age input is a number between 1 and 150
@@ -86,25 +82,19 @@ document.getElementById("regButton").onclick = async function () {
         regWarning.hidden = false;
         regWarning.style.animation = "none";
         regWarning.style.animation = "fadeInOut 5s forwards";
-        regWarning.innerText = "Age must be a number from 1-150!";
+        regWarningFade("Age must be a number from 1-150!");
         return;
     }
 
     // Validate address input is not empty
     if (address.trim() == "") {
-        regWarning.hidden = false;
-        regWarning.style.animation = "none";
-        regWarning.style.animation = "fadeInOut 5s forwards";
-        regWarning.innerText = "Please enter an address!";
+        regWarningFade("Please enter an address!");
         return;
     }
 
     // Validate phone number input is not empty and is a valid number
     if (phoneNumber === null || phoneNumber === "" || isNaN(phoneNumber) || phoneNumber < 1000000000 || phoneNumber > 9999999999) {
-        regWarning.hidden = false;
-        regWarning.style.animation = "none";
-        regWarning.style.animation = "fadeInOut 5s forwards";
-        regWarning.innerText = "Please enter a valid phone number!";
+        regWarningFade("Please enter a valid phone number!");
         return;
     }
 
