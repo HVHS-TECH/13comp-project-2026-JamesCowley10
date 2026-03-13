@@ -73,6 +73,7 @@ function checkPhoneNumber(phoneNumber) {
     return true;
 }
 
+// Runs functions to validate all inputs, returns true if all inputs are valid, else returns false
 function checkInputs(username, age, address, phoneNumber) {
     if (!checkName(username)) {
         return false;
