@@ -10,6 +10,10 @@ console.log('%c regPage.mjs',
 
 let regWarning = document.getElementById('regWarning');
 let regButton = document.getElementById('regButton');
+let username = document.getElementById("regUsername").value;
+let age = document.getElementById("regAge").value;
+let address = document.getElementById("regAddress").value;
+let phoneNumber = document.getElementById("regPhoneNumber").value;
 const maxUsernameLength = 15;
 
 // Displays a warning message
@@ -20,8 +24,8 @@ function regWarningFade(text) {
     regWarning.innerText = text;
 }
 
-// Validates username input, returns true if valid, else displays an error message and returns false
-function checkName(username) {
+// Validates user inputs, returns true if valid, else displays corresponding error message and returns false
+function checkInputs(username, age, address, phoneNumber) {
     // Validate username input is not empty
     if (username.trim() == "") {
         regWarningFade("Please enter a username!");
@@ -37,11 +41,6 @@ function checkName(username) {
         regWarningFade("Username must be 15 letters or under!");
         return false;
     }
-    return true;
-}
-
-// Validates age input, returns true if valid, else displays an error message and returns false
-function checkAge(age) {
     // Validate age input is not empty
     if (age === null || age === "") {
         regWarningFade("Please enter an age!");
@@ -52,39 +51,14 @@ function checkAge(age) {
         regWarningFade("Age must be a number from 1-150!");
         return false;
     }
-    return true;
-}
-
-// Validates address input, returns true if valid, else displays an error message and returns false
-function checkAddress(address) {
+    // Validates address input is not empty
     if (address.trim() == "") {
         regWarningFade("Please enter an address!");
         return false;
     }
-    return true;
-}
-
-// Validates phone number input, returns true if valid, else displays an error message and returns false
-function checkPhoneNumber(phoneNumber) {
+    // Validates phone number input
     if (phoneNumber === null || phoneNumber === "" || isNaN(phoneNumber) || phoneNumber < 1000000000 || phoneNumber > 9999999999) {
         regWarningFade("Please enter a valid phone number!");
-        return false;
-    }
-    return true;
-}
-
-// Runs functions to validate all inputs, returns true if all inputs are valid, else returns false
-function checkInputs(username, age, address, phoneNumber) {
-    if (!checkName(username)) {
-        return false;
-    }
-    if (!checkAge(age)) {
-        return false;
-    }
-    if (!checkAddress(address)) {
-        return false;
-    }
-    if (!checkPhoneNumber(phoneNumber)) {
         return false;
     }
     return true;
@@ -134,6 +108,40 @@ fb_initialise();
 // regPage.html main code
 /**************************************************************/
 
+// If input changes in username input field, then changes colour depending on validity
+document.getElementById("regForm").addEventListener("input", function () {
+    // Get current values of input fields
+    username = document.getElementById("regUsername").value;
+    age = document.getElementById("regAge").value;
+    address = document.getElementById("regAddress").value;
+    phoneNumber = document.getElementById("regPhoneNumber").value;
+
+    // If username input is valid, change colour to green, else change to red
+    if (/^[A-Za-z]+$/.test(username) && username.length <= 15) {
+        document.getElementById("regUsername").style.color = "green";
+    } else {
+        document.getElementById("regUsername").style.color = "red";
+    }
+    // If age input is valid, change colour to green, else change to red
+    if (!isNaN(age) && Number(age) >= 1 && Number(age) <= 150) {
+        document.getElementById("regAge").style.color = "green";
+    } else {
+        document.getElementById("regAge").style.color = "red";
+    }
+    // If address input is valid, change colour to green, else change to red
+    if (address.trim() != "") {
+        document.getElementById("regAddress").style.color = "green";
+    } else {
+        document.getElementById("regAddress").style.color = "red";
+    }
+    // If phone number input is valid, change colour to green, else change to red
+    if (!isNaN(phoneNumber) && Number(phoneNumber) >= 1000000000 && Number(phoneNumber) <= 9999999999) {
+        document.getElementById("regPhoneNumber").style.color = "green";
+    } else {
+        document.getElementById("regPhoneNumber").style.color = "red";
+    }
+});
+
 // Sets userDetails as items from sessionStorage
 userDetails.uid = sessionStorage.getItem("uid");
 userDetails.email = sessionStorage.getItem("email");
@@ -144,14 +152,15 @@ console.table(userDetails);
 // Event listener for the register button
 document.getElementById("regButton").onclick = async function () {
     // Get input values
-    let username = document.getElementById("regUsername").value;
-    let age = document.getElementById("regAge").value;
-    let address = document.getElementById("regAddress").value;
-    let phoneNumber = document.getElementById("regPhoneNumber").value;
+    username = document.getElementById("regUsername").value;
+    age = document.getElementById("regAge").value;
+    address = document.getElementById("regAddress").value;
+    phoneNumber = document.getElementById("regPhoneNumber").value;
     age = Number(age);
     phoneNumber = Number(phoneNumber);
     console.table({ username, age, address, phoneNumber });
 
+    // Check inputs and if valid fires function for registration success
     if (!checkInputs(username, age, address, phoneNumber)) {
         return;
     } else {
