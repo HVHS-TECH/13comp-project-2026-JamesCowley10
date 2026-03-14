@@ -10,6 +10,7 @@ console.log('%c regPage.mjs',
 
 let regWarning = document.getElementById('regWarning');
 let regButton = document.getElementById('regButton');
+let returnToLoginButton = document.getElementById('returnToLoginButton');
 let username = document.getElementById("regUsername").value;
 let age = document.getElementById("regAge").value;
 let address = document.getElementById("regAddress").value;
@@ -150,7 +151,7 @@ userDetails.displayName = sessionStorage.getItem("displayName");
 console.table(userDetails);
 
 // Event listener for the register button
-document.getElementById("regButton").onclick = async function () {
+regButton.onclick = async function () {
     // Get input values
     username = document.getElementById("regUsername").value;
     age = document.getElementById("regAge").value;
@@ -166,6 +167,13 @@ document.getElementById("regButton").onclick = async function () {
     } else {
         await registrationSuccess(username, age, address, phoneNumber);
     }
+}
+
+// Event listener for the return to login button, on click returns user to login page
+returnToLoginButton.onclick = function () {
+    // Sends user to login page
+    const loginUrl = new URL('../../index.html', import.meta.url).href;
+    location.href = loginUrl;
 }
 
 /**************************************************************/
