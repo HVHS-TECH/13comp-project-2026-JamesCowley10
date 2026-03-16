@@ -10,7 +10,7 @@ console.log('%c gamePage.mjs',
 
 let gtnButton = document.getElementById('gtnButton');
 let zombzButton = document.getElementById('zombzButton');
-const gtnPageURL = new URL('../../games/gtn/gtnLobby.html', import.meta.url).href;
+const gtnPageURL = new URL('../../games/gtn/lobby/gtnLobby.html', import.meta.url).href;
 const zombzPageURL = new URL('../../games/zombz/zombzMenuScreen.html', import.meta.url).href;
 let profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
