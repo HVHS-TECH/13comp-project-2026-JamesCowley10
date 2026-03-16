@@ -15,6 +15,7 @@ function searchingForGame(text) {
     gameSearchButton.disabled = true;
     gameSearchButton.innerText = text;
     gameSearchButton.style.backgroundColor = 'rgb(226, 226, 226)';
+    console.log("Searching for game...");
 }
 
 /**************************************************************/
