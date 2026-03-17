@@ -8,6 +8,8 @@ const COL_B = '#CD7F32';	//  console.log for functions scheme
 console.log('%c main.mjs',
     'color: blue; background-color: white;');
 
+let loginButton = document.getElementById('loginButton');
+
 /**************************************************************/
 // Import all external constants & functions required
 /**************************************************************/
@@ -25,6 +27,14 @@ window.fb_get = fb_get;
 // index.html main code
 /**************************************************************/
 fb_initialise();
+
+// Event listener for the login button
+loginButton.onclick = function () {
+    fb_login();
+    loginButton.disabled = true;
+    loginButton.innerText = ("Logging in...");
+    loginButton.style.backgroundColor = 'rgb(226, 226, 226)';
+}
 
 /**************************************************************/
 //   END OF CODE

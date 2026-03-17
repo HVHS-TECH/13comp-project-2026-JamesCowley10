@@ -16,6 +16,8 @@ let age = document.getElementById("regAge").value;
 let address = document.getElementById("regAddress").value;
 let phoneNumber = document.getElementById("regPhoneNumber").value;
 const maxUsernameLength = 15;
+let profileImg = document.getElementById('profileImg');
+const profileImgURL = sessionStorage.getItem("photoURL");
 
 // Displays a warning message
 function regWarningFade(text) {
@@ -149,6 +151,12 @@ userDetails.email = sessionStorage.getItem("email");
 userDetails.photoURL = sessionStorage.getItem("photoURL");
 userDetails.displayName = sessionStorage.getItem("displayName");
 console.table(userDetails);
+
+// Checks if profileImgURL exists in sessionStorage, if so sets it as src for profileImg
+if (profileImgURL != null) {
+    profileImg.src = profileImgURL;
+    console.log("Profile image loaded");
+}
 
 // Event listener for the register button
 regButton.onclick = async function () {

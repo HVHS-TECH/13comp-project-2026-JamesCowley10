@@ -36,10 +36,17 @@ fb_initialise();
 if (profileImgURL != null) {
     profileImg.src = profileImgURL;
     console.log("Profile image loaded");
-} else { // If profileImg is null, loads placeholder image
-    console.log("No profile image found, using placeholder");
 }
 
+// Sets userDetails as items from sessionStorage
+userDetails.uid = sessionStorage.getItem("uid");
+userDetails.email = sessionStorage.getItem("email");
+userDetails.photoURL = sessionStorage.getItem("photoURL");
+userDetails.displayName = sessionStorage.getItem("displayName");
+userDetails.username = sessionStorage.getItem("username");
+userDetails.address = sessionStorage.getItem("address");
+userDetails.age = sessionStorage.getItem("age");
+userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
 console.table(userDetails);
 
 // Event listener for the GTN button
