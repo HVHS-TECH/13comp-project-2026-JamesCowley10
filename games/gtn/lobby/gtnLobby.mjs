@@ -12,7 +12,7 @@ let gameSearchButton = document.getElementById('gameSearchButton');
 let returnButton = document.getElementById('returnButton');
 let profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
-let gameNumber = 1;
+let gameNumber;
 let numberOfGames;
 
 function searchingForGame(text) {
@@ -21,6 +21,28 @@ function searchingForGame(text) {
     gameSearchButton.style.backgroundColor = 'rgb(226, 226, 226)';
     console.log("Searching for game...");
 
+    // Read the number of games in the liveGames to determine the gameNumber if a game needs to be created
+    fb_get('liveGames/').then((liveGames) => {
+        if (liveGames != null) {
+            numberOfGames = Object.keys(liveGames).length;
+            console.log("Number of games: " + numberOfGames);
+
+            // Read number of players in game with highest game number, if less than 2 players join game, else create new game
+
+            gameNumber = numberOfGames + 1;
+            console.log("Game number: " + gameNumber);
+        } else {
+            console.log("No games found");
+            // If no games are found, create a new game with chosen gameNumber
+            gameNumber = 1;
+            console.log("Game number: " + gameNumber);
+        }
+    }).catch((error) => {
+        console.error(error);
+    }
+    );
+
+    /*
     fb_set('liveGames/' + "game" + gameNumber, {
         players: "",
         game: "",
@@ -37,6 +59,7 @@ function searchingForGame(text) {
         player1Guess: "test",
         player2Guess: "test",
     });
+    */
 }
 
 /**************************************************************/
@@ -78,6 +101,7 @@ console.table(userDetails);
 // Event listener for the play button
 gameSearchButton.onclick = function () {
     searchingForGame("Searching for game...");
+    
 }
 
 // On click of returnButton returns player to game page
