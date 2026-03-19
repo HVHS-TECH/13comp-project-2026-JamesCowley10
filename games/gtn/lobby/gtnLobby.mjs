@@ -12,6 +12,8 @@ let gameSearchButton = document.getElementById('gameSearchButton');
 let returnButton = document.getElementById('returnButton');
 let profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
+let gameNumber = 1;
+let numberOfGames;
 
 function searchingForGame(text) {
     gameSearchButton.disabled = true;
@@ -19,8 +21,23 @@ function searchingForGame(text) {
     gameSearchButton.style.backgroundColor = 'rgb(226, 226, 226)';
     console.log("Searching for game...");
 
-    // Looks for open lobbies in realtime database
-}    
+    fb_set('liveGames/' + "game" + gameNumber, {
+        players: "",
+        game: "",
+    });
+
+    fb_set('liveGames/game' + gameNumber + "/players/", {
+        player1: "test",
+        player1photoURL: "test",
+        player2: "test",
+        player2photoURL: "test",
+    });
+
+    fb_set('liveGames/game' + gameNumber + "/game/", {
+        player1Guess: "test",
+        player2Guess: "test",
+    });
+}
 
 /**************************************************************/
 // Import all external constants & functions required
