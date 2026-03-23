@@ -21,6 +21,27 @@ function searchingForGame(text) {
     gameSearchButton.style.backgroundColor = 'rgb(226, 226, 226)';
     console.log("Searching for game...");
 
+    // Read the number of games in the liveGames to determine the gameNumber if a game needs to be created
+    fb_get('liveGames/').then((liveGames) => {
+        if (liveGames != null) {
+            numberOfGames = Object.keys(liveGames).length;
+            console.log("Number of games: " + numberOfGames);
+
+            // Read number of players in game with highest game number, if less than 2 players join game, else create new game
+
+            gameNumber = numberOfGames + 1;
+            console.log("Game number: " + gameNumber);
+        } else {
+            console.log("No games found");
+            // If no games are found, create a new game with chosen gameNumber
+            gameNumber = 1;
+            console.log("Game number: " + gameNumber);
+        }
+    }).catch((error) => {
+        console.error(error);
+    }
+    );
+
     fb_set('liveGames/' + "game" + gameNumber, {
         players: "",
         game: "",
