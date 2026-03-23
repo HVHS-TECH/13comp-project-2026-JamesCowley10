@@ -12,8 +12,8 @@ let gameSearchButton = document.getElementById('gameSearchButton');
 let returnButton = document.getElementById('returnButton');
 let profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
-let gameNumber;
-let numberOfGames;
+let gameNumber = 1;
+let numberOfGames = 0;
 
 function searchingForGame(text) {
     gameSearchButton.disabled = true;
@@ -25,16 +25,19 @@ function searchingForGame(text) {
     fb_get('liveGames/').then((liveGames) => {
         if (liveGames != null) {
             numberOfGames = Object.keys(liveGames).length;
+            numberOfGames = Number(numberOfGames);
             console.log("Number of games: " + numberOfGames);
 
             // Read number of players in game with highest game number, if less than 2 players join game, else create new game
 
             gameNumber = numberOfGames + 1;
+            gameNumber = Number(gameNumber);
             console.log("Game number: " + gameNumber);
         } else {
             console.log("No games found");
             // If no games are found, create a new game with chosen gameNumber
             gameNumber = 1;
+            gameNumber = Number(gameNumber);
             console.log("Game number: " + gameNumber);
         }
     }).catch((error) => {
