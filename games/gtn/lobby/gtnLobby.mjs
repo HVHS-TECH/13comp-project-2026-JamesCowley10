@@ -57,7 +57,13 @@ function searchingForGame(text) {
                                     player1photoURL: userDetails.photoURL
                                 }
                             },
-                            game: "",
+                            game: {
+                                player1Guess: "",
+                                player2Guess: "",
+                                isPlayer1Turn: true,
+                                isPlayer2Turn: false,
+                                randomNumber: Math.floor(Math.random() * 100) + 1,
+                            }
                         });
                     }
                 }
