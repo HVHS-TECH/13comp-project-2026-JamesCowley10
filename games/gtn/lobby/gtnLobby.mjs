@@ -22,46 +22,77 @@ function searchingForGame(text) {
     console.log("Searching for game...");
 
     // Read the number of games in the liveGames to determine the gameNumber if a game needs to be created
-    fb_get('liveGames/').then((liveGames) => {
+    fb_get('liveGames/').then((snapshot) => {
+        const liveGames = snapshot
         if (liveGames != null) {
             numberOfGames = Object.keys(liveGames).length;
             numberOfGames = Number(numberOfGames);
             console.log("Number of games: " + numberOfGames);
 
-            // Read number of players in game with highest game number, if less than 2 players join game, else create new game
+            fb_get('liveGames/game' + numberOfGames + '/players/').then((snapshot) => {
+                const players = snapshot
+                if (players != null) {
+                    const numberOfPlayers = Object.keys(players).length;
+                    console.log("Players in game" + numberOfGames + ": " + numberOfPlayers);
+                    // If there are less than 2 players in game, join the game
+                    if (numberOfPlayers < 2) {
+                        console.log("Joining game" + numberOfGames + " as player 2");
+                        fb_set('liveGames/' + "game" + gameNumber + "/players/" + "player2", {
+                            player2uid: userDetails.uid,
+                            player2username: userDetails.username,
+                            player2photoURL: userDetails.photoURL,
+                        });
+                    }
 
-            gameNumber = numberOfGames + 1;
-            gameNumber = Number(gameNumber);
-            console.log("Game number: " + gameNumber);
+                    else {
+                        console.log("All games full, creating new game");
+                        gameNumber = numberOfGames + 1;
+                        gameNumber = Number(gameNumber);
+                        console.log("Game number: " + gameNumber);
+                        fb_set('liveGames/' + "game" + gameNumber, {
+                            players: {
+                                player1: {
+                                    player1uid: userDetails.uid,
+                                    player1username: userDetails.username,
+                                    player1photoURL: userDetails.photoURL
+                                }
+                            },
+                            game: "",
+                        });
+                    }
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+
         } else {
-            console.log("No games found");
             // If no games are found, create a new game with chosen gameNumber
+            console.log("No games found");
             gameNumber = 1;
             gameNumber = Number(gameNumber);
             console.log("Game number: " + gameNumber);
+
+            fb_set('liveGames/' + "game" + gameNumber, {
+                players: {
+                    player1: {
+                        player1uid: userDetails.uid,
+                        player1username: userDetails.username,
+                        player1photoURL: userDetails.photoURL
+                    }
+                },
+                game: {
+                    player1Guess: "",
+                    player2Guess: "",
+                    isPlayer1Turn: true,
+                    isPlayer2Turn: false,
+                    randomNumber: Math.floor(Math.random() * 100) + 1,
+                }
+            });
         }
     }).catch((error) => {
         console.error(error);
     }
     );
-
-    fb_set('liveGames/' + "game" + gameNumber, {
-        players: "",
-        game: "",
-    });
-
-    fb_set('liveGames/game' + gameNumber + "/players/", {
-        player1: "test",
-        player1photoURL: "test",
-        player2: "test",
-        player2photoURL: "test",
-    });
-
-    fb_set('liveGames/game' + gameNumber + "/game/", {
-        player1Guess: "test",
-        player2Guess: "test",
-    });
-    
 }
 
 /**************************************************************/
@@ -103,7 +134,6 @@ console.table(userDetails);
 // Event listener for the play button
 gameSearchButton.onclick = function () {
     searchingForGame("Searching for game...");
-    
 }
 
 // On click of returnButton returns player to game page
