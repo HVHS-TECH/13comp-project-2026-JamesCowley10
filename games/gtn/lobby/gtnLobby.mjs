@@ -14,6 +14,7 @@ let profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 let gameNumber = 1;
 let numberOfGames = 0;
+const gtnGameURL = new URL('../../game/gtnGame.html', import.meta.url).href;
 
 function searchingForGame(text) {
     gameSearchButton.disabled = true;
@@ -99,7 +100,9 @@ function searchingForGame(text) {
         console.error(error);
     }
     );
+    window.location.href = gtnGameURL;
 }
+
 
 /**************************************************************/
 // Import all external constants & functions required
