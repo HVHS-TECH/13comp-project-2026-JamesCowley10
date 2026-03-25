@@ -99,7 +99,7 @@
 
   @keyframes mainTitleAnimationLoop {
     from {
-      scale: 0.95;
+      scale: 0.98;
     }
     to {
       scale: 1;

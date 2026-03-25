@@ -2,19 +2,19 @@
 <html lang="en">
 
 <head>
-    <title>Guess The Number</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess The Number</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- STYLESHEETS *******************************************-->
-    <link rel="stylesheet" href="../game/css/style.css">
+  <!-- STYLESHEETS *******************************************-->
+  <link rel="stylesheet" href="../game/css/style.css">
 
-    <!-- JQUERY ************************************************-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- JQUERY ************************************************-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <!-- FIREBASE START ****************************************-->
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-    <!-- FIREBASE END ******************************************-->
+  <!-- FIREBASE START ****************************************-->
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+  <!-- FIREBASE END ******************************************-->
 
 </head>
 
@@ -23,12 +23,16 @@
 **************************************************************-->
 
 <body>
-    <script type="module" src="../game/gtnGame.mjs"></script>
-    <h1 id="mainTitle">Waiting for another player..</h1>
-    <img id="profileImg" src="../../assets/pfpPlaceholder.jpg" alt="Profile Image">
-    <div id="gameButtons">
-        <button id="gtnButton">Guess</button><br>
-    </div>
+  <script type="module" src="../game/gtnGame.mjs"></script>
+  <h1 id="mainTitle">Waiting for another player..</h1>
+  <div id="profileImgs">
+    <img class="profileImg" id="player1ProfileImg" src="../../../assets/pfpPlaceholder.jpg" alt="Player 1 Profile Image">
+    <img class="profileImg" id="player2ProfileImg" src="../../../assets/pfpPlaceholder.jpg" alt="Player 2 Profile Image">
+  </div>
+
+  <div id="gameButtons">
+    <button id="leaveGameButton">Leave Game</button><br>
+  </div>
 </body>
 
 

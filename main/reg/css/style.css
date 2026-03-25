@@ -9,159 +9,170 @@
 /*----------------------------------------------------------*/
 
 @font-face {
-    font-family: customFont;
-    src: url('../../../assets/customFont.ttf') format('truetype');
-    font-display: swap;
-  }
-  
-  /*------------------------------------------------------------
+  font-family: customFont;
+  src: url('../../../assets/customFont.ttf') format('truetype');
+  font-display: swap;
+}
+
+/*------------------------------------------------------------
     Body Styling
   /*----------------------------------------------------------*/
-  body {
-    font-family: customFont;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    opacity: 0;
-    animation: fadeIn 4s forwards;
-    user-select: none;
-    scale: 0.95;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /*------------------------------------------------------------
+body {
+  font-family: customFont;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  opacity: 0;
+  animation: fadeIn 4s forwards;
+  user-select: none;
+  scale: 0.95;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/*------------------------------------------------------------
     Title Styling
   /*----------------------------------------------------------*/
-  
-  #mainTitle {
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    margin: 0;
-    padding-bottom: 15px;
-    font-size: 50px;
-  }
-  
-  /*------------------------------------------------------------
+
+#mainTitle {
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 15px;
+  font-size: 50px;
+  animation: mainTitleAnimationLoop 2s ease-in-out infinite alternate;
+}
+
+/*------------------------------------------------------------
     Button Styling
   /*----------------------------------------------------------*/
-  
-  button {
-    font-family: customFont;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-    text-align: center;
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  /*------------------------------------------------------------
+
+button {
+  font-family: customFont;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+  text-align: center;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/*------------------------------------------------------------
     Button Input Styling
   /*----------------------------------------------------------*/
-  
-  input {
-    font-family: customFont;
-    border-color: lightgray;
-    border-radius: 5px;
-    transition: color 0.3s;
-  }
-  
-  /*------------------------------------------------------------
+
+input {
+  font-family: customFont;
+  border-color: lightgray;
+  border-radius: 5px;
+  transition: color 0.3s;
+}
+
+/*------------------------------------------------------------
     Button Hover Styling
   /*----------------------------------------------------------*/
-  
-  button:hover {
-    background-color: rgb(224, 224, 224);
-    transform: scale(1.05);
-  }
-  
-  button:active {
-    transform: scale(0.9);
-  }
 
-  /*------------------------------------------------------------
+button:hover {
+  background-color: rgb(224, 224, 224);
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.9);
+}
+
+/*------------------------------------------------------------
     Registration Form Styling
   /*----------------------------------------------------------*/
-  
-  #regForm {
-    padding-bottom: 20px;
-  }
 
-  /*------------------------------------------------------------
+#regForm {
+  padding-bottom: 20px;
+}
+
+/*------------------------------------------------------------
     Registration Container Styling
   /*----------------------------------------------------------*/
-  
-  #regContainer {
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    border: solid lightgray;
-    border-width: thin;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
 
-  /*------------------------------------------------------------
+#regContainer {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  border: solid lightgray;
+  border-width: thin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*------------------------------------------------------------
     Registration Input Styling
   /*----------------------------------------------------------*/
-  
-  .regInput {
-    margin: 5px 0;
-    height: 25px;
-    width: 200px;
-    text-align: center;
-    border: 0.5px solid lightgray;
-    text-align: left;
-    text-indent: 5px;
-  }
 
-  /*------------------------------------------------------------
+.regInput {
+  margin: 5px 0;
+  height: 25px;
+  width: 200px;
+  text-align: center;
+  border: 0.5px solid lightgray;
+  text-align: left;
+  text-indent: 5px;
+}
+
+/*------------------------------------------------------------
     Registration Warning Styling
   /*----------------------------------------------------------*/
-  
-  #regWarning {
-    color: red;
-    font-size: 18px;
-    margin-top: 30px;
-  }
 
-  /*------------------------------------------------------------
+#regWarning {
+  color: red;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+/*------------------------------------------------------------
     Profile Image Styling
   /*----------------------------------------------------------*/
-  
-  #profileImg {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-top: 20px;
-    position: absolute;
-    top: 0;
-    right: 1%;
-  }
-  
-  /*------------------------------------------------------------
+
+#profileImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-top: 20px;
+  position: absolute;
+  top: 0;
+  right: 1%;
+}
+
+/*------------------------------------------------------------
     Return To Login Button Styling
   /*----------------------------------------------------------*/
-  
-  #returnToLoginButton {
-    margin-top: 20px;
-  }
 
-  /*------------------------------------------------------------
+#returnToLoginButton {
+  margin-top: 20px;
+}
+
+/*------------------------------------------------------------
     Fade In Animation Styling
   /*----------------------------------------------------------*/
-  
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-      scale: 1;
-    }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    scale: 1;
   }
+}
+
+@keyframes mainTitleAnimationLoop {
+  from {
+    scale: 0.98;
+  }
+
+  to {
+    scale: 1;
+  }
+}

@@ -8,11 +8,11 @@ const COL_B = '#CD7F32';	//  console.log for functions scheme
 console.log('%c gamePage.mjs',
     'color: blue; background-color: white;');
 
-let gtnButton = document.getElementById('gtnButton');
-let zombzButton = document.getElementById('zombzButton');
+const gtnButton = document.getElementById('gtnButton');
+const zombzButton = document.getElementById('zombzButton');
 const gtnPageURL = new URL('../../games/gtn/lobby/gtnLobby.html', import.meta.url).href;
 const zombzPageURL = new URL('../../games/zombz/zombzMenuScreen.html', import.meta.url).href;
-let profileImg = document.getElementById('profileImg');
+const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 
 /**************************************************************/

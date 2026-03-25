@@ -8,19 +8,24 @@ const COL_B = '#CD7F32';	//  console.log for functions scheme
 console.log('%c gtnLobby.mjs',
     'color: blue; background-color: white;');
 
-let gameSearchButton = document.getElementById('gameSearchButton');
-let returnButton = document.getElementById('returnButton');
-let profileImg = document.getElementById('profileImg');
+const gameSearchButton = document.getElementById('gameSearchButton');
+const returnButton = document.getElementById('returnButton');
+const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
+const gtnGameURL = new URL('../../game/gtnGame.html', import.meta.url).href;
 let gameNumber = 1;
 let numberOfGames = 0;
-const gtnGameURL = new URL('../../game/gtnGame.html', import.meta.url).href;
 
+// Function to update a button's text, background colour, and disable it
+function updateButton(button, text, backgroundColor) {
+    button.disabled = true;
+    button.innerText = text;
+    button.style.backgroundColor = backgroundColor;
+}
+
+// Function to search for an available game
 function searchingForGame(text) {
-    gameSearchButton.disabled = true;
-    gameSearchButton.innerText = text;
-    gameSearchButton.style.backgroundColor = 'rgb(226, 226, 226)';
-    console.log("Searching for game...");
+    updateButton(gameSearchButton, text, 'rgb(226, 226, 226)');
 
     // Read the number of games in the liveGames to determine the gameNumber if a game needs to be created
     fb_get('liveGames/').then((snapshot) => {
@@ -145,10 +150,11 @@ gameSearchButton.onclick = function () {
     searchingForGame("Searching for game...");
 }
 
-// On click of returnButton returns player to game page
+//  Event listener for on click of returnButton returns player to gamePage.html
 returnButton.onclick = function () {
     const gamePageURL = new URL('../../../main/gamePage/gamePage.html', import.meta.url).href;
     location.href = gamePageURL;
+    updateButton(returnButton, "Returning...", 'rgb(226, 226, 226)');
 }
 
 /**************************************************************/

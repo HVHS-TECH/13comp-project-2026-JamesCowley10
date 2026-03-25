@@ -8,23 +8,28 @@ const COL_B = '#CD7F32';	//  console.log for functions scheme
 console.log('%c regPage.mjs',
     'color: blue; background-color: white;');
 
-let regWarning = document.getElementById('regWarning');
-let regButton = document.getElementById('regButton');
-let returnToLoginButton = document.getElementById('returnToLoginButton');
+const regWarning = document.getElementById('regWarning');
+const regButton = document.getElementById('regButton');
+const returnToLoginButton = document.getElementById('returnToLoginButton');
+const profileImg = document.getElementById('profileImg');
+const profileImgURL = sessionStorage.getItem("photoURL");
+const maxUsernameLength = 15;
 let username = document.getElementById("regUsername").value;
 let age = document.getElementById("regAge").value;
 let address = document.getElementById("regAddress").value;
 let phoneNumber = document.getElementById("regPhoneNumber").value;
-const maxUsernameLength = 15;
-let profileImg = document.getElementById('profileImg');
-const profileImgURL = sessionStorage.getItem("photoURL");
 
 // Displays a warning message
 function regWarningFade(text) {
     regWarning.hidden = false;
-    regWarning.style.animation = "none";
-    regWarning.style.animation = "fadeInOut 5s forwards";
     regWarning.innerText = text;
+}
+
+// Function to update a button's text, background colour, and disable it
+function updateButton(button, text, backgroundColor) {
+    button.disabled = true;
+    button.innerText = text;
+    button.style.backgroundColor = backgroundColor;
 }
 
 // Validates user inputs, returns true if valid, else displays corresponding error message and returns false
@@ -71,9 +76,7 @@ async function registrationSuccess(username, age, address, phoneNumber) {
     // If all validation is passed then set user's details and proceed
     console.log("Valid Inputs");
 
-    regButton.disabled = true;
-    regButton.innerText = ("Registering...");
-    regButton.style.backgroundColor = 'rgb(226, 226, 226)';
+    updateButton(regButton, "Registering...", 'rgb(226, 226, 226)');
 
     userDetails.username = username;
     userDetails.age = age;
@@ -183,9 +186,10 @@ regButton.onclick = async function () {
 
 // Event listener for the return to login button, on click returns user to login page
 returnToLoginButton.onclick = function () {
-    // Sends user to login page
+    // Sends user to loginPage.html
     const loginUrl = new URL('../../index.html', import.meta.url).href;
     location.href = loginUrl;
+    updateButton(returnToLoginButton, "Returning to login...", 'rgb(226, 226, 226)');
 }
 
 /**************************************************************/

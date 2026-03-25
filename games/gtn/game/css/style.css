@@ -43,6 +43,7 @@
     margin: 0;
     padding-bottom: 15px;
     font-size: 50px;
+    animation: mainTitleAnimationLoop 2s ease-in-out infinite alternate;
   }
   
   /*------------------------------------------------------------
@@ -86,17 +87,27 @@
   }
 
   /*------------------------------------------------------------
+    Profile Images Container
+  /*----------------------------------------------------------*/
+  
+  #profileImgs {
+    display: flex;
+  }
+
+
+  /*------------------------------------------------------------
     Profile Image Styling
   /*----------------------------------------------------------*/
   
-  #profileImg {
-    width: 50px;
-    height: 50px;
+  .profileImg {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     margin-top: 20px;
-    position: absolute;
-    top: 0;
-    right: 1%;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
 
   /*------------------------------------------------------------
@@ -106,6 +117,15 @@
   @keyframes fadeIn {
     to {
       opacity: 1;
+      scale: 1;
+    }
+  }
+
+  @keyframes mainTitleAnimationLoop {
+    from {
+      scale: 0.98;
+    }
+    to {
       scale: 1;
     }
   }

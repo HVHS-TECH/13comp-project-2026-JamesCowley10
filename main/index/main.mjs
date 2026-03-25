@@ -8,7 +8,7 @@ const COL_B = '#CD7F32';	//  console.log for functions scheme
 console.log('%c main.mjs',
     'color: blue; background-color: white;');
 
-let loginButton = document.getElementById('loginButton');
+const loginButton = document.getElementById('loginButton');
 
 /**************************************************************/
 // Import all external constants & functions required
