@@ -12,6 +12,7 @@ const leaveGameButton = document.getElementById('leaveGameButton');
 const player1ProfileImg = document.getElementById('player1ProfileImg');
 const player2ProfileImg = document.getElementById('player2ProfileImg');
 const gtnLobbyURL = new URL('../lobby/gtnLobby.html', import.meta.url).href;
+const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 
 // Function to update a button's text, background colour, and disable it
 function updateButton(button, text, backgroundColor) {
@@ -53,7 +54,7 @@ console.table(userDetails);
 // Event listener for on click of leaveGameButton returns player to gtnLobby.html
 leaveGameButton.onclick = function () {
     window.location.href = gtnLobbyURL;
-    updateButton(leaveGameButton, "Leaving game...", 'rgb(226, 226, 226)');
+    updateButton(leaveGameButton, "Leaving game...", buttonSelectBackgroundColor);
 }
 
 

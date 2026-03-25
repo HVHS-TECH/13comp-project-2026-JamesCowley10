@@ -14,6 +14,7 @@ const returnToLoginButton = document.getElementById('returnToLoginButton');
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const maxUsernameLength = 15;
+const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 let username = document.getElementById("regUsername").value;
 let age = document.getElementById("regAge").value;
 let address = document.getElementById("regAddress").value;
@@ -76,7 +77,7 @@ async function registrationSuccess(username, age, address, phoneNumber) {
     // If all validation is passed then set user's details and proceed
     console.log("Valid Inputs");
 
-    updateButton(regButton, "Registering...", 'rgb(226, 226, 226)');
+    updateButton(regButton, "Registering...", buttonSelectBackgroundColor);
 
     userDetails.username = username;
     userDetails.age = age;
@@ -189,7 +190,7 @@ returnToLoginButton.onclick = function () {
     // Sends user to loginPage.html
     const loginUrl = new URL('../../index.html', import.meta.url).href;
     location.href = loginUrl;
-    updateButton(returnToLoginButton, "Returning to login...", 'rgb(226, 226, 226)');
+    updateButton(returnToLoginButton, "Returning to login...", buttonSelectBackgroundColor);
 }
 
 /**************************************************************/

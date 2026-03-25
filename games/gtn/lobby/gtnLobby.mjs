@@ -13,6 +13,7 @@ const returnButton = document.getElementById('returnButton');
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const gtnGameURL = new URL('../../game/gtnGame.html', import.meta.url).href;
+const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 let gameNumber = 1;
 let numberOfGames = 0;
 
@@ -25,7 +26,7 @@ function updateButton(button, text, backgroundColor) {
 
 // Function to search for an available game
 function searchingForGame(text) {
-    updateButton(gameSearchButton, text, 'rgb(226, 226, 226)');
+    updateButton(gameSearchButton, text, buttonSelectBackgroundColor);
 
     // Read the number of games in the liveGames to determine the gameNumber if a game needs to be created
     fb_get('liveGames/').then((snapshot) => {
@@ -154,7 +155,7 @@ gameSearchButton.onclick = function () {
 returnButton.onclick = function () {
     const gamePageURL = new URL('../../../main/gamePage/gamePage.html', import.meta.url).href;
     location.href = gamePageURL;
-    updateButton(returnButton, "Returning...", 'rgb(226, 226, 226)');
+    updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
 }
 
 /**************************************************************/

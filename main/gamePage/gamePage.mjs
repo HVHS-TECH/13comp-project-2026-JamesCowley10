@@ -14,6 +14,7 @@ const gtnPageURL = new URL('../../games/gtn/lobby/gtnLobby.html', import.meta.ur
 const zombzPageURL = new URL('../../games/zombz/zombzMenuScreen.html', import.meta.url).href;
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
+const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 
 /**************************************************************/
 // Import all external constants & functions required

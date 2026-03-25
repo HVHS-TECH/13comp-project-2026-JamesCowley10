@@ -9,6 +9,14 @@ console.log('%c main.mjs',
     'color: blue; background-color: white;');
 
 const loginButton = document.getElementById('loginButton');
+const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
+
+// Function to update a button's text, background colour, and disable it
+function updateButton(button, text, backgroundColor) {
+    button.disabled = true;
+    button.innerText = text;
+    button.style.backgroundColor = backgroundColor;
+}
 
 /**************************************************************/
 // Import all external constants & functions required
@@ -31,9 +39,7 @@ fb_initialise();
 // Event listener for the login button
 loginButton.onclick = function () {
     fb_login();
-    loginButton.disabled = true;
-    loginButton.innerText = ("Logging in...");
-    loginButton.style.backgroundColor = 'rgb(226, 226, 226)';
+    updateButton(loginButton, "Logging In...", buttonSelectBackgroundColor);
 }
 
 /**************************************************************/
