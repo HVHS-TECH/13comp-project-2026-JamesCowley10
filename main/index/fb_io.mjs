@@ -31,7 +31,7 @@ export let userDetails = {
 
 import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst }
+import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, onValue }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
@@ -44,7 +44,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 // Return: N/A
 /**************************************************************/
 export {
-    fb_initialise, fb_login, fb_onAuthStateChanged, fb_signOut, fb_set, fb_get, fb_getAll, fb_update, fb_readSorted
+    fb_initialise, fb_login, fb_onAuthStateChanged, fb_signOut, fb_set, fb_get, fb_getAll, fb_update, fb_readSorted, fb_onValueChange
 };
 
 function fb_initialise() {
@@ -64,7 +64,7 @@ function fb_initialise() {
 
     const FB_GAMEAPP = initializeApp(FB_GAMECONFIG);
     FB_GAMEDB = getDatabase(FB_GAMEAPP);
-    console.info(FB_GAMEDB);         	//DIAG
+    console.info(FB_GAMEDB);
 
     const AUTH = getAuth();
 
@@ -362,6 +362,29 @@ async function fb_readSorted(path, sortkey, number) {
     } catch (error) {
         console.error(error);;
     }
+}
+
+/**************************************************************/
+// fb_onValueChange(path, callback)
+// Called to listen for changes in a path in the database
+// Listen for value changes
+// Input: path (string), callback (function)
+// Return: N/A but returns sorted data to console
+/**************************************************************/
+
+async function fb_onValueChange(path, callback) {
+    console.log('%c fb_onValueChange(): ',
+        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
+    const dbReference = ref(FB_GAMEDB, path);
+    onValue(dbReference, (snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            console.log("✅ " + path + " Changed");
+            callback(snapshot);
+        }
+    }, (error) => {
+        console.error(error);;
+    });
 }
 
 /**************************************************************/

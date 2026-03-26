@@ -12,7 +12,7 @@ const gameSearchButton = document.getElementById('gameSearchButton');
 const returnButton = document.getElementById('returnButton');
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
-const gtnGameURL = new URL('../../game/gtnGame.html', import.meta.url).href;
+const gtnGameURL = new URL('../game/gtnGame.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 let gameNumber = 1;
 let numberOfGames = 0;
@@ -41,21 +41,27 @@ function searchingForGame(text) {
                 if (players != null) {
                     const numberOfPlayers = Object.keys(players).length;
                     console.log("Players in game" + numberOfGames + ": " + numberOfPlayers);
-                    // If there are less than 2 players in game, join the game
+                    // If there are less than 2 players in game, join the game as player 2
                     if (numberOfPlayers < 2) {
                         console.log("Joining game" + numberOfGames + " as player 2");
+                        sessionStorage.setItem("playerNumber", 2);
+                        sessionStorage.setItem("gameNumber", gameNumber);
                         fb_set('liveGames/' + "game" + gameNumber + "/players/" + "player2", {
                             player2uid: userDetails.uid,
                             player2username: userDetails.username,
                             player2photoURL: userDetails.photoURL,
                         });
+                        window.location.href = gtnGameURL;
                     }
 
                     else {
+                        // If there are no available games, create new game, and join as player 1
                         console.log("All games full, creating new game");
                         gameNumber = numberOfGames + 1;
                         gameNumber = Number(gameNumber);
                         console.log("Game number: " + gameNumber);
+                        sessionStorage.setItem("playerNumber", 1);
+                        sessionStorage.setItem("gameNumber", gameNumber);
                         fb_set('liveGames/' + "game" + gameNumber, {
                             players: {
                                 player1: {
@@ -72,6 +78,7 @@ function searchingForGame(text) {
                                 randomNumber: Math.floor(Math.random() * 100) + 1,
                             }
                         });
+                        window.location.href = gtnGameURL;
                     }
                 }
             }).catch((error) => {
@@ -79,11 +86,13 @@ function searchingForGame(text) {
             });
 
         } else {
-            // If no games are found, create a new game with chosen gameNumber
+            // If no games are found, create a new game with chosen gameNumber, and join as player 1
             console.log("No games found");
             gameNumber = 1;
             gameNumber = Number(gameNumber);
             console.log("Game number: " + gameNumber);
+            sessionStorage.setItem("playerNumber", 1);
+            sessionStorage.setItem("gameNumber", gameNumber);
 
             fb_set('liveGames/' + "game" + gameNumber, {
                 players: {
@@ -101,12 +110,12 @@ function searchingForGame(text) {
                     randomNumber: Math.floor(Math.random() * 100) + 1,
                 }
             });
+            window.location.href = gtnGameURL;
         }
     }).catch((error) => {
         console.error(error);
     }
     );
-    window.location.href = gtnGameURL;
 }
 
 
