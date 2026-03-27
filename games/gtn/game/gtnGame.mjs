@@ -79,6 +79,9 @@ console.table(userDetails);
 leaveGameButton.onclick = function () {
     window.location.href = gtnLobbyURL;
     updateButton(leaveGameButton, "Leaving game...", buttonSelectBackgroundColor);
+    
+    // Removes player from the players section in database
+    fb_set('liveGames/game' + gameNumber + '/players/player' + playerNumber, null);
 }
 
 // Onload calls setPlayerInfo() to set player profile info

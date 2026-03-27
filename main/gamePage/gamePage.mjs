@@ -10,11 +10,21 @@ console.log('%c gamePage.mjs',
 
 const gtnButton = document.getElementById('gtnButton');
 const zombzButton = document.getElementById('zombzButton');
+const adminButton = document.getElementById('adminButton');
 const gtnPageURL = new URL('../../games/gtn/lobby/gtnLobby.html', import.meta.url).href;
 const zombzPageURL = new URL('../../games/zombz/zombzMenuScreen.html', import.meta.url).href;
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
+let isAdmin = sessionStorage.getItem('admin');
+
+function checkAdmin() {
+    if (isAdmin == 'y') {
+        adminButton.style.hidden = false;
+    } else {
+        adminButton.style.hidden = true;
+    }
+}
 
 /**************************************************************/
 // Import all external constants & functions required
