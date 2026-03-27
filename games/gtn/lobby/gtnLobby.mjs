@@ -24,6 +24,49 @@ function updateButton(button, text, backgroundColor) {
     button.style.backgroundColor = backgroundColor;
 }
 
+// Function to create a game in the database and join as player 1
+function createGame() {
+    console.log("No games found");
+    gameNumber = 1;
+    gameNumber = Number(gameNumber);
+    console.log("Game number: " + gameNumber);
+    sessionStorage.setItem("playerNumber", 1);
+    sessionStorage.setItem("gameNumber", gameNumber);
+
+    fb_set('liveGames/' + "game" + gameNumber, {
+        players: {
+            player1: {
+                player1uid: userDetails.uid,
+                player1username: userDetails.username,
+                player1photoURL: userDetails.photoURL
+            }
+        },
+        game: {
+            player1Guess: "",
+            player2Guess: "",
+            isPlayer1Turn: true,
+            isPlayer2Turn: false,
+            randomNumber: Math.floor(Math.random() * 100) + 1,
+        }
+    });
+    // Send user to gtnGame.html
+    window.location.href = gtnGameURL;
+}
+
+// Function to join game as player 2
+function joinGame() {
+    console.log("Joining game" + numberOfGames + " as player 2");
+    sessionStorage.setItem("playerNumber", 2);
+    sessionStorage.setItem("gameNumber", gameNumber);
+    fb_set('liveGames/' + "game" + gameNumber + "/players/" + "player2", {
+        player2uid: userDetails.uid,
+        player2username: userDetails.username,
+        player2photoURL: userDetails.photoURL,
+    });
+    // Send user to gtnGame.html
+    window.location.href = gtnGameURL;
+}
+
 // Function to search for an available game
 function searchingForGame(text) {
     updateButton(gameSearchButton, text, buttonSelectBackgroundColor);
@@ -31,6 +74,7 @@ function searchingForGame(text) {
     // Read the number of games in the liveGames to determine the gameNumber if a game needs to be created
     fb_get('liveGames/').then((snapshot) => {
         const liveGames = snapshot
+        // If liveGames does not have nothing in it, create a game and join as player 1
         if (liveGames != null) {
             numberOfGames = Object.keys(liveGames).length;
             numberOfGames = Number(numberOfGames);
@@ -43,42 +87,12 @@ function searchingForGame(text) {
                     console.log("Players in game" + numberOfGames + ": " + numberOfPlayers);
                     // If there are less than 2 players in game, join the game as player 2
                     if (numberOfPlayers < 2) {
-                        console.log("Joining game" + numberOfGames + " as player 2");
-                        sessionStorage.setItem("playerNumber", 2);
-                        sessionStorage.setItem("gameNumber", gameNumber);
-                        fb_set('liveGames/' + "game" + gameNumber + "/players/" + "player2", {
-                            player2uid: userDetails.uid,
-                            player2username: userDetails.username,
-                            player2photoURL: userDetails.photoURL,
-                        });
-                        window.location.href = gtnGameURL;
+                        joinGame();
                     }
 
                     else {
                         // If there are no available games, create new game, and join as player 1
-                        console.log("All games full, creating new game");
-                        gameNumber = numberOfGames + 1;
-                        gameNumber = Number(gameNumber);
-                        console.log("Game number: " + gameNumber);
-                        sessionStorage.setItem("playerNumber", 1);
-                        sessionStorage.setItem("gameNumber", gameNumber);
-                        fb_set('liveGames/' + "game" + gameNumber, {
-                            players: {
-                                player1: {
-                                    player1uid: userDetails.uid,
-                                    player1username: userDetails.username,
-                                    player1photoURL: userDetails.photoURL
-                                }
-                            },
-                            game: {
-                                player1Guess: "",
-                                player2Guess: "",
-                                isPlayer1Turn: true,
-                                isPlayer2Turn: false,
-                                randomNumber: Math.floor(Math.random() * 100) + 1,
-                            }
-                        });
-                        window.location.href = gtnGameURL;
+                        createGame();
                     }
                 }
             }).catch((error) => {
@@ -87,30 +101,7 @@ function searchingForGame(text) {
 
         } else {
             // If no games are found, create a new game with chosen gameNumber, and join as player 1
-            console.log("No games found");
-            gameNumber = 1;
-            gameNumber = Number(gameNumber);
-            console.log("Game number: " + gameNumber);
-            sessionStorage.setItem("playerNumber", 1);
-            sessionStorage.setItem("gameNumber", gameNumber);
-
-            fb_set('liveGames/' + "game" + gameNumber, {
-                players: {
-                    player1: {
-                        player1uid: userDetails.uid,
-                        player1username: userDetails.username,
-                        player1photoURL: userDetails.photoURL
-                    }
-                },
-                game: {
-                    player1Guess: "",
-                    player2Guess: "",
-                    isPlayer1Turn: true,
-                    isPlayer2Turn: false,
-                    randomNumber: Math.floor(Math.random() * 100) + 1,
-                }
-            });
-            window.location.href = gtnGameURL;
+            createGame();
         }
     }).catch((error) => {
         console.error(error);
