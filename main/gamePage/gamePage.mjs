@@ -13,6 +13,7 @@ const zombzButton = document.getElementById('zombzButton');
 const adminButton = document.getElementById('adminButton');
 const gtnPageURL = new URL('../../games/gtn/lobby/gtnLobby.html', import.meta.url).href;
 const zombzPageURL = new URL('../../games/zombz/zombzMenuScreen.html', import.meta.url).href;
+const adminPageURL = new URL('../admin/adminPage.html', import.meta.url).href;
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
@@ -20,9 +21,9 @@ let isAdmin = sessionStorage.getItem('admin');
 
 function checkAdmin() {
     if (isAdmin == 'y') {
-        adminButton.style.hidden = false;
+        adminButton.hidden = false;
     } else {
-        adminButton.style.hidden = true;
+        adminButton.hidden = true;
     }
 }
 
@@ -68,6 +69,11 @@ gtnButton.onclick = async function () {
 // Event listener for the Zombz button
 zombzButton.onclick = async function () {
     window.location.href = zombzPageURL;
+}
+
+// Event listener for the Admin button
+adminButton.onclick = async function () {
+    window.location.href = adminPageURL;
 }
 
 /**************************************************************/

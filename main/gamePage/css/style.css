@@ -113,6 +113,19 @@
   }
   
   /*------------------------------------------------------------
+    Admin Button Styling
+  /*----------------------------------------------------------*/
+  
+  #adminButton {
+    margin-top: 20px;
+    position: absolute;
+    bottom: 2%;
+    right: 1%;
+    font-size: 30px;
+    background-image: linear-gradient(#f3f3f3, #cecece);
+  }
+  
+  /*------------------------------------------------------------
     Fade In Animation Styling
   /*----------------------------------------------------------*/
   
