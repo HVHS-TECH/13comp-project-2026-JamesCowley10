@@ -71,11 +71,12 @@
     border-radius: 5px;
     transition: color 0.3s;
     margin: 5px 0;
-    height: 25px;
+    height: 45px;
     width: 200px;
     text-align: center;
     border: 0.5px solid lightgray;
     text-indent: 5px;
+    font-size: 20px;
   }
   
   /*------------------------------------------------------------

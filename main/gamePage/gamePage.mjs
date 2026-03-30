@@ -76,6 +76,9 @@ adminButton.onclick = async function () {
     window.location.href = adminPageURL;
 }
 
+// Call checkAdmin function to set admin button as visible or not
+checkAdmin();
+
 /**************************************************************/
 //   END OF CODE
 /**************************************************************/

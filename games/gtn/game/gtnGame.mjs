@@ -15,6 +15,8 @@ const player1Name = document.getElementById('player1Name');
 const player2Name = document.getElementById('player2Name');
 const gtnLobbyURL = new URL('../lobby/gtnLobby.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
+const waitingDiv = document.getElementById('waitingDiv');
+const gameDiv = document.getElementById('gameDiv');
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameNumber = sessionStorage.getItem("gameNumber");
 
@@ -42,6 +44,13 @@ function setPlayerInfo() {
             }
         });
     }
+}
+
+// Function to set up game html and start game when there are 2 players in game
+function startGame() {
+    console.log("Game starting...");
+   // waitingDiv.hidden = true;
+  //  gameDiv.hidden = false;
 }
 
 /**************************************************************/
@@ -77,23 +86,29 @@ console.table(userDetails);
 
 // Event listener for on click of leaveGameButton returns player to gtnLobby.html
 leaveGameButton.onclick = function () {
+    // Removes player from the players section in database
+    if (playerNumber == 1) {
+        // Delete whole game from database
+        fb_set('liveGames/game' + gameNumber, null);
+    } else {
+        // Delete player 2 from database
+        fb_set('liveGames/game' + gameNumber + '/players/player' + playerNumber, null);
+    }
+
     window.location.href = gtnLobbyURL;
     updateButton(leaveGameButton, "Leaving game...", buttonSelectBackgroundColor);
-    
-    // Removes player from the players section in database
-    fb_set('liveGames/game' + gameNumber + '/players/player' + playerNumber, null);
 }
 
-// Onload calls setPlayerInfo() to set player profile info
+// Onload calls setPlayerInfo function to set player profile info
 setPlayerInfo();
 
 fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
     const players = snapshot.val();
     if (players.player1 != null && players.player2 != null) {
-        player1ProfileImg.src = players.player1.player1photoURL;
-        player1Name.innerText = players.player1.player1username;
-        player2ProfileImg.src = players.player2.player2photoURL;
-        player2Name.innerText = players.player2.player2username;
+        // Update player info for joined player
+        setPlayerInfo();
+        // Call startGame function
+        startGame();
     }
 });
 
