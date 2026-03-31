@@ -17,6 +17,7 @@ const gtnLobbyURL = new URL('../lobby/gtnLobby.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const waitingDiv = document.getElementById('waitingDiv');
 const gameDiv = document.getElementById('gameDiv');
+const mainTitle = document.getElementById('mainTitle');
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameNumber = sessionStorage.getItem("gameNumber");
 
@@ -49,8 +50,13 @@ function setPlayerInfo() {
 // Function to set up game html and start game when there are 2 players in game
 function startGame() {
     console.log("Game starting...");
-   // waitingDiv.hidden = true;
-  //  gameDiv.hidden = false;
+    waitingDiv.hidden = true;
+    gameDiv.hidden = false;
+    if (playerNumber == 1) {
+        mainTitle.innerText = "Your Turn!";
+    } else if (playerNumber == 2) {
+        mainTitle.innerText = "Other Player's Turn!";
+    }
 }
 
 /**************************************************************/
