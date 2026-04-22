@@ -8,16 +8,23 @@ const COL_B = '#CD7F32';	//  console.log for functions scheme
 console.log('%c gtnGame.mjs',
     'color: blue; background-color: white;');
 
-const leaveGameButton = document.getElementById('leaveGameButton');
-const player1ProfileImg = document.getElementById('player1ProfileImg');
-const player2ProfileImg = document.getElementById('player2ProfileImg');
+const leaveGameButtonWaiting = document.getElementById('leaveGameButtonWaiting');
+const leaveGameButtonGame = document.getElementById('leaveGameButtonGame');
+const player1ProfileImgWaiting = document.getElementById('player1ProfileImgWaiting');
+const player2ProfileImgWaiting = document.getElementById('player2ProfileImgWaiting');
+const player1ProfileImgGame = document.getElementById('player1ProfileImgGame');
+const player2ProfileImgGame = document.getElementById('player2ProfileImgGame');
 const player1Name = document.getElementById('player1Name');
+const player1NameGame = document.getElementById('player1NameGame');
 const player2Name = document.getElementById('player2Name');
+const player2NameGame = document.getElementById('player2NameGame');
 const gtnLobbyURL = new URL('../lobby/gtnLobby.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const waitingDiv = document.getElementById('waitingDiv');
 const gameDiv = document.getElementById('gameDiv');
-const mainTitle = document.getElementById('mainTitle');
+const mainTitleGame = document.getElementById('mainTitleGame');
+const guessInput = document.getElementById('guessInput');
+const guessButton = document.getElementById('guessButton');
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameNumber = sessionStorage.getItem("gameNumber");
 
@@ -31,31 +38,33 @@ function updateButton(button, text, backgroundColor) {
 // Function to set player profile info on load
 function setPlayerInfo() {
     if (playerNumber == 1) {
-        player1ProfileImg.src = userDetails.photoURL;
+        player1ProfileImgWaiting.src = userDetails.photoURL;
         player1Name.innerText = userDetails.username;
     }
     else if (playerNumber == 2) {
-        player2ProfileImg.src = userDetails.photoURL;
+        player2ProfileImgWaiting.src = userDetails.photoURL;
         player2Name.innerText = userDetails.username;
-        fb_get('liveGames/game' + gameNumber + '/players/player1/').then((snapshot) => {
-            const player1Info = snapshot
-            if (player1Info != null) {
-                player1ProfileImg.src = player1Info.player1photoURL;
-                player1Name.innerText = player1Info.player1username;
-            }
-        });
     }
 }
 
 // Function to set up game html and start game when there are 2 players in game
 function startGame() {
     console.log("Game starting...");
+    console.log("Player number: " + playerNumber);
     waitingDiv.hidden = true;
     gameDiv.hidden = false;
     if (playerNumber == 1) {
-        mainTitle.innerText = "Your Turn!";
+        mainTitleGame.innerText = "Your Turn!";
+        player1NameGame.innerText = userDetails.username;
+        player1ProfileImgGame.src = userDetails.photoURL;
+        player2ProfileImgGame.src = player2ProfileImgWaiting.src;
+        player2NameGame.innerText = player2Name.innerText;
     } else if (playerNumber == 2) {
-        mainTitle.innerText = "Other Player's Turn!";
+        mainTitleGame.innerText = "Other Player's Turn!";
+        player2NameGame.innerText = userDetails.username;
+        player2ProfileImgGame.src = userDetails.photoURL;
+        player1ProfileImgGame.src = player1ProfileImgWaiting.src;
+        player1NameGame.innerText = player1Name.innerText;
     }
 }
 
@@ -91,7 +100,7 @@ userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
 console.table(userDetails);
 
 // Event listener for on click of leaveGameButton returns player to gtnLobby.html
-leaveGameButton.onclick = function () {
+leaveGameButtonWaiting.onclick = function () {
     // Removes player from the players section in database
     if (playerNumber == 1) {
         // Delete whole game from database
@@ -102,7 +111,16 @@ leaveGameButton.onclick = function () {
     }
 
     window.location.href = gtnLobbyURL;
-    updateButton(leaveGameButton, "Leaving game...", buttonSelectBackgroundColor);
+    updateButton(leaveGameButtonWaiting, "Leaving game...", buttonSelectBackgroundColor);
+}
+
+// Event listener for on click of leaveGameButtonGame returns player to gtnLobby.html
+leaveGameButtonGame.onclick = function () {
+    // Delete whole game from database
+    fb_set('liveGames/game' + gameNumber, null);
+
+    window.location.href = gtnLobbyURL;
+    updateButton(leaveGameButtonGame, "Leaving game...", buttonSelectBackgroundColor);
 }
 
 // Onload calls setPlayerInfo function to set player profile info
@@ -111,7 +129,21 @@ setPlayerInfo();
 fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
     const players = snapshot.val();
     if (players.player1 != null && players.player2 != null) {
-        // Update player info for joined player
+        if (playerNumber == 1) {
+            // Set player 1 profile info to userDetails
+            player1ProfileImgWaiting.src = userDetails.photoURL;
+            player1Name.innerText = userDetails.username;
+            // Set player 2 profile info to player2Info from database
+            player2ProfileImgWaiting.src = players.player2.player2photoURL;
+            player2Name.innerText = players.player2.player2username;
+        } else if (playerNumber == 2) {
+            // Set player 2 profile info to userDetails
+            player2ProfileImgWaiting.src = userDetails.photoURL;
+            player2Name.innerText = userDetails.username;
+            // Set player 1 profile info to player1Info from database
+            player1ProfileImgWaiting.src = players.player1.player1photoURL;
+            player1Name.innerText = players.player1.player1username;
+        }
         setPlayerInfo();
         // Call startGame function
         startGame();

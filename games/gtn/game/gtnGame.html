@@ -26,49 +26,50 @@
   <script type="module" src="../game/gtnGame.mjs"></script>
 
   <!-- HTML FOR WAITING FOR ENOUGH PLAYERS -->
-  <div hidden = "true" id="waitingDiv">
+  <div id="waitingDiv">
     <h1 id="mainTitle">Waiting for another player..</h1>
     <div id="profileImgs">
       <div class="playerContainer" id="player1">
         <h2 class="playerName" id="player1Name">Waiting...</h2>
-        <img class="profileImg" id="player1ProfileImg" src="../../../assets/pfpPlaceholder.jpg"
+        <img class="profileImg" id="player1ProfileImgWaiting" src="../../../assets/pfpPlaceholder.jpg"
           alt="Player 1 Profile Image">
       </div>
       <div class="playerContainer" id="player2">
         <h2 class="playerName" id="player2Name">Waiting...</h2>
-        <img class="profileImg" id="player2ProfileImg" src="../../../assets/pfpPlaceholder.jpg"
+        <img class="profileImg" id="player2ProfileImgWaiting" src="../../../assets/pfpPlaceholder.jpg"
           alt="Player 2 Profile Image">
       </div>
     </div>
 
     <div id="gameButtons">
-      <button id="leaveGameButton">Leave Game</button><br>
+      <button id="leaveGameButtonWaiting">Leave Game</button><br>
     </div>
   </div>
   <!-- END OF HTML FOR WAITING FOR ENOUGH PLAYERS -->
 
   <!-- HTML FOR GAME -->
-  <div id="gameDiv">
-    <h1 id="mainTitle">Player 1's Turn</h1>
+  <div hidden="true" id="gameDiv">
+    <h1 id="mainTitleGame">Player 1's Turn</h1>
     <div id="profileImgs">
       <div class="playerContainer" id="player1">
-        <h2 class="playerName" id="player1Name">Player 1</h2>
+        <h2 class="playerName" id="player1NameGame">Player 1</h2>
         <h2 class="playerStatus" id="player1Status">Guessing...</h2>
-        <img class="profileImg" id="player1ProfileImg" src="../../../assets/pfpPlaceholder.jpg"
+        <img class="profileImg" id="player1ProfileImgGame" src="../../../assets/pfpPlaceholder.jpg"
           alt="Player 1 Profile Image">
       </div>
       <h1 id="vsText">VS</h1>
       <div class="playerContainer" id="player2">
-        <h2 class="playerName" id="player2Name">Player 2</h2>
+        <h2 class="playerName" id="player2NameGame">Player 2</h2>
         <h2 class="playerStatus" id="player2Status">Waiting...</h2>
-        <img class="profileImg" id="player2ProfileImg" src="../../../assets/pfpPlaceholder.jpg"
+        <img class="profileImg" id="player2ProfileImgGame" src="../../../assets/pfpPlaceholder.jpg"
           alt="Player 2 Profile Image">
       </div>
     </div>
 
     <div id="gameButtons">
       <input type="number" id="guessInput" placeholder="Enter your guess"><br>
-      <button id="leaveGameButton">Guess</button><br>
+      <button id="guessButton">Guess</button><br>
+      <button id="leaveGameButtonGame">Leave Game</button><br>
     </div>
   </div>
 

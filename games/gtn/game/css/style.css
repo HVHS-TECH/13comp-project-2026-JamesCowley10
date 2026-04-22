@@ -45,6 +45,17 @@
     font-size: 50px;
     animation: mainTitleAnimationLoop 2s ease-in-out infinite alternate;
   }
+
+  #mainTitleGame {
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0;
+    padding-bottom: 15px;
+    font-size: 50px;
+    animation: mainTitleAnimationLoop 2s ease-in-out infinite alternate;
+  }
+  
   
   /*------------------------------------------------------------
     Button Styling
