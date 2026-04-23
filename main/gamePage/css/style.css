@@ -9,8 +9,8 @@
 /*----------------------------------------------------------*/
 
 @font-face {
-    font-family: customFont;
-    src: url('../../../assets/customFont.ttf') format('truetype');
+    font-family: mainFont;
+    src: url('../../../assets/mainFont.ttf') format('truetype');
     font-display: swap;
   }
   
@@ -18,7 +18,7 @@
     Body Styling
   /*----------------------------------------------------------*/
   body {
-    font-family: customFont;
+    font-family: mainFont;
     overflow-y: hidden;
     overflow-x: hidden;
     opacity: 0;
@@ -51,7 +51,7 @@
   /*----------------------------------------------------------*/
   
   button {
-    font-family: customFont;
+    font-family: mainFont;
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -67,7 +67,7 @@
   /*----------------------------------------------------------*/
   
   input {
-    font-family: customFont;
+    font-family: mainFont;
     border-color: lightgray;
     border-radius: 5px;
     transition: color 0.3s;

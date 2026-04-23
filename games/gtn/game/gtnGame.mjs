@@ -27,6 +27,7 @@ const guessInput = document.getElementById('guessInput');
 const guessButton = document.getElementById('guessButton');
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameNumber = sessionStorage.getItem("gameNumber");
+let gameData = {};
 
 // Function to update a button's text, background colour, and disable it
 function updateButton(button, text, backgroundColor) {
@@ -48,23 +49,41 @@ function setPlayerInfo() {
 }
 
 // Function to set up game html and start game when there are 2 players in game
-function startGame() {
+async function startGame() {
     console.log("Game starting...");
     console.log("Player number: " + playerNumber);
     waitingDiv.hidden = true;
     gameDiv.hidden = false;
+
+    await fb_get('liveGames/game' + gameNumber + '/game/').then((snapshot) => {
+        gameData = snapshot;
+    }).catch((error) => {
+        console.error(error);
+    });
+
     if (playerNumber == 1) {
-        mainTitleGame.innerText = "Your Turn!";
+        mainTitleGame.innerText = "Guess a number 1-100!";
         player1NameGame.innerText = userDetails.username;
         player1ProfileImgGame.src = userDetails.photoURL;
         player2ProfileImgGame.src = player2ProfileImgWaiting.src;
         player2NameGame.innerText = player2Name.innerText;
     } else if (playerNumber == 2) {
-        mainTitleGame.innerText = "Other Player's Turn!";
+        mainTitleGame.innerText = player1Name.innerHTML + " is guessing...";
         player2NameGame.innerText = userDetails.username;
         player2ProfileImgGame.src = userDetails.photoURL;
         player1ProfileImgGame.src = player1ProfileImgWaiting.src;
         player1NameGame.innerText = player1Name.innerText;
+        guessInput.hidden = true;
+        guessButton.hidden = true;
+    }
+}
+
+// Function to check if player's guess is the same as random number
+function checkGuess() {
+    if (guessInput.value == gameData.randomNumber) {
+        console.log("Correct guess!");
+    } else {
+        console.log("Wrong guess!");
     }
 }
 
@@ -149,6 +168,13 @@ fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
         startGame();
     }
 });
+
+// Event listener for on click of guessButton, calls checkGuess function
+guessButton.onclick = function () {
+    // Call checkGuess function
+    checkGuess();
+    guessInput.value = "";
+}
 
 /**************************************************************/
 //   END OF CODE
