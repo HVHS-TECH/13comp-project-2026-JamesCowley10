@@ -62,8 +62,8 @@ console.log('%c ad_manager.mjs',
 
 // ENSURE THE PATH NAMES ARE CORRECT                                    //<=======
 const DETAILS = 'userDetails';                                          //<=======
-const ZZ = 'userScores/Zombz';                                            //<=======
-const SI = 'userScores/Ballerz';                                            //<=======
+const ZZ = 'userScores/zombz';                                            //<=======
+const SI = 'userScores/gtn';                                            //<=======
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 // Import all external constants & functions required                   //<=MODULAR-API
