@@ -110,6 +110,7 @@
     position: absolute;
     top: 0;
     right: 1%;
+    -webkit-user-drag: none;
   }
   
   /*------------------------------------------------------------

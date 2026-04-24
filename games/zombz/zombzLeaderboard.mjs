@@ -1,11 +1,11 @@
 /**************************************************************/
-// zg_leaderboard.mjs
-// Main script for zg_leaderboard.mjs
+// zombzLeaderboard.mjs
+// Main script for zombzLeaderboard.mjs
 // Written by James Cowley, Term 2 2025
 /**************************************************************/
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
-console.log('%c zg_leaderboard.mjs',
+console.log('%c zombzLeaderboard.mjs',
     'color: blue; background-color: white;');
 
 /**************************************************************/
@@ -21,12 +21,13 @@ window.fb_readSorted = fb_readSorted;
 // Initialize Firebase
 /**************************************************************/
 fb_initialise();
-fb_readSorted('userScores/Zombz', 'score', 10);
+fb_readSorted('userScores/zombz', 'score', 10);
 
 /**************************************************************/
-// zg_leaderboard.mjs main code
+// zombzLeaderboard.mjs main code
 /**************************************************************/
-export async function displayLeaderboard(leaderboardData) { // Displays leaderboard data found from fb_readSorted
+// Displays leaderboard data found from fb_readSorted
+export async function displayLeaderboard(leaderboardData) {
     console.log(leaderboardData);
     let leaderboardTable = document.createElement("table");
 

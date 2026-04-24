@@ -353,7 +353,9 @@ async function fb_readSorted(path, sortkey, number) {
                 result.push(child.val())
             });
             console.log("✅ Successful Sorted Read");
-            const { displayLeaderboard } = await import("../../games/zg/zg_leaderboard.mjs"); // Import displayLeaderboard when running fb_readSorted to avoid overrunning code
+            // Import displayLeaderboard when running fb_readSorted to avoid overrunning code
+            const { displayLeaderboard } = await import("../../games/zombz/zombzLeaderboard.mjs");
+            // Reverses the scores so that scores are from highest to lowest
             result.reverse(); // Reverses the scores so that scores are from highest to lowest
             displayLeaderboard(result);
         } else {

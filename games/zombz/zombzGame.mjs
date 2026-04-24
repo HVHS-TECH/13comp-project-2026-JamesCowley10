@@ -5,7 +5,7 @@
 /*******************************************************/
 // Variables
 
-import { fb_initialise, fb_readSorted, fb_set, userDetails, fb_get } 
+import { fb_initialise, fb_set, userDetails, fb_get } 
     from "../../main/index/fb_io.mjs";
 
 /*******************************************************/
