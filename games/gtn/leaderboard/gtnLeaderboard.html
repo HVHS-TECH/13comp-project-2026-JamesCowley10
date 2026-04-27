@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Guess The Number</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- STYLESHEETS *******************************************-->
+  <link rel="stylesheet" href="../leaderboard/css/style.css">
+
+  <!-- JQUERY ************************************************-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- FIREBASE START ****************************************-->
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+  <!-- FIREBASE END ******************************************-->
+
+</head>
+
+<!--*************************************************************
+  BODY
+**************************************************************-->
+
+<body>
+  <script type="module" src="../leaderboard/gtnLeaderboard.mjs"></script>
+  <div id="leaderboardContainer">
+    <h1 id="mainTitle">Leaderboard</h1>
+    <table id="leaderboardTable">
+      <tr class="leaderboardRow">
+        <th class="leaderboardHeading">Rank</th>
+        <th class="leaderboardHeading">Name</th>
+        <th class="leaderboardHeading">Wins</th>
+      </tr>
+      <tr class="leaderboardRow">
+        <td class="leaderboardTextItem">1</td>
+        <td class="leaderboardTextItem">Player1</td>
+        <td class="leaderboardTextItem">50</td>
+      </tr>
+      <tr class="leaderboardRow">
+        <td class="leaderboardTextItem">2</td>
+        <td class="leaderboardTextItem">Player2</td>
+        <td class="leaderboardTextItem">49</td>
+      </tr>
+    </table>
+    <button id="returnButton">Return</button>
+  </div>
+  <img id="profileImg" src="../../../assets/pfpPlaceholder.jpg" alt="Profile Image">
+</body>
+
+
+</html>
+<!--*************************************************************
+  END OF gtnLobby.HTML
+**************************************************************-->

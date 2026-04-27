@@ -9,10 +9,13 @@ console.log('%c gtnLobby.mjs',
     'color: blue; background-color: white;');
 
 const gameSearchButton = document.getElementById('gameSearchButton');
+const leaderboardButton = document.getElementById('leaderboardButton');
 const returnButton = document.getElementById('returnButton');
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const gtnGameURL = new URL('../game/gtnGame.html', import.meta.url).href;
+const gamePageURL = new URL('../../../main/gamePage/gamePage.html', import.meta.url).href;
+const leaderboardPageURL = new URL('../leaderboard/gtnLeaderboard.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 let gameNumber = 1;
 let numberOfGames = 0;
@@ -151,9 +154,14 @@ gameSearchButton.onclick = function () {
     searchingForGame("Searching for game...");
 }
 
-//  Event listener for on click of returnButton returns player to gamePage.html
+//  Event listener for on click of leaderboardButton sends user to leaderboardPage.html
+leaderboardButton.onclick = function () {
+    location.href = leaderboardPageURL;
+    updateButton(leaderboardButton, "Sending...", buttonSelectBackgroundColor);
+}
+
+//  Event listener for on click of returnButton returns user to gamePage.html
 returnButton.onclick = function () {
-    const gamePageURL = new URL('../../../main/gamePage/gamePage.html', import.meta.url).href;
     location.href = gamePageURL;
     updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
 }
