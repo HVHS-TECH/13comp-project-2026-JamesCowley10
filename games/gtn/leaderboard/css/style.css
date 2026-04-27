@@ -108,24 +108,15 @@
   #leaderboardContainer {
     margin-top: 20px;
     position: absolute;
-    background-color: rgb(231, 231, 231);
+    background-image: linear-gradient(#f3f3f3, #cecece);
     border-radius: 5px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-
-  /*------------------------------------------------------------
-    Leaderboard Row Styling
-  /*----------------------------------------------------------*/
-  
-  #leaderboardRow {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: mainTitleAnimationLoop 2s ease-in-out infinite alternate;
   }
 
   /*------------------------------------------------------------
