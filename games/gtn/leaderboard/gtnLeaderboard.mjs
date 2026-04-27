@@ -26,11 +26,10 @@ function updateButton(button, text, backgroundColor) {
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_initialise, fb_set, fb_get, userDetails }
+import { fb_initialise, fb_readSorted, userDetails }
     from '../../../main/index/fb_io.mjs';
 window.fb_initialise = fb_initialise;
-window.fb_set = fb_set;
-window.fb_get = fb_get;
+window.fb_readSorted = fb_readSorted;
 
 /**************************************************************/
 // Initilise Firebase
