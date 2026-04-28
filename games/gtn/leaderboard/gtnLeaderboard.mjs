@@ -35,6 +35,7 @@ window.fb_readSorted = fb_readSorted;
 // Initilise Firebase
 /**************************************************************/
 fb_initialise();
+fb_readSorted('userScores/gtn', 'wins', 10, "../../games/gtn/leaderboard/gtnLeaderboard.mjs");
 
 /**************************************************************/
 // gtnLeaderboard.html main code
@@ -61,6 +62,24 @@ console.table(userDetails);
 returnButton.onclick = function () {
     location.href = gtnLobbyURL;
     updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
+}
+
+// Displays leaderboard data found from fb_readSorted
+export async function displayLeaderboard(leaderboardData) {
+    console.log(leaderboardData);
+    let leaderboardTable = document.createElement("table");
+
+    for (let i = 0; i < leaderboardData.length; i++) {
+        let leaderboardEntry = document.createElement("tr");
+        let name = document.createElement("td");
+        let score = document.createElement("td");
+        name.innerHTML = leaderboardData[i].name
+        score.innerHTML = leaderboardData[i].score
+        leaderboardEntry.appendChild(name);
+        leaderboardEntry.appendChild(score);
+        leaderboardTable.appendChild(leaderboardEntry);
+    }
+    document.getElementById("leaderboardContainer").appendChild(leaderboardTable);
 }
 
 /**************************************************************/

@@ -21,7 +21,7 @@ window.fb_readSorted = fb_readSorted;
 // Initialize Firebase
 /**************************************************************/
 fb_initialise();
-fb_readSorted('userScores/zombz', 'score', 10);
+fb_readSorted('userScores/zombz', 'score', 10, "../../games/zombz/zombzLeaderboard.mjs");
 
 /**************************************************************/
 // zombzLeaderboard.mjs main code

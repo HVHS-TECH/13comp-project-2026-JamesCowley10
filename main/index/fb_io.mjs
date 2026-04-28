@@ -334,13 +334,13 @@ function fb_update() {
 }
 
 /**************************************************************/
-// fb_readSorted(path, sortkey, number)
+// fb_readSorted(path, sortkey, number, leaderboardPath)
 // Called to retrieve and sort desired data from realtime database
 // Read sorted
-// Input: path (string), sortkey (string) number (number)
+// Input: path (string), sortkey (string) number (number), leaderboardPath (string)
 // Return: N/A but returns sorted data to console
 /**************************************************************/
-async function fb_readSorted(path, sortkey, number) {
+async function fb_readSorted(path, sortkey, number, leaderboardPath) {
     console.log('%c fb_readSorted(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     const dbReference = query(ref(FB_GAMEDB, path), orderByChild(sortkey), limitToFirst(number));
@@ -354,7 +354,7 @@ async function fb_readSorted(path, sortkey, number) {
             });
             console.log("✅ Successful Sorted Read");
             // Import displayLeaderboard when running fb_readSorted to avoid overrunning code
-            const { displayLeaderboard } = await import("../../games/zombz/zombzLeaderboard.mjs");
+            const { displayLeaderboard } = await import(leaderboardPath);
             // Reverses the scores so that scores are from highest to lowest
             result.reverse(); // Reverses the scores so that scores are from highest to lowest
             displayLeaderboard(result);
