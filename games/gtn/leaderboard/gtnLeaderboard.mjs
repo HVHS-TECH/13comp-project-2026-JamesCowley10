@@ -14,6 +14,7 @@ const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const gtnLobbyURL = new URL('../lobby/gtnLobby.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
+const leaderboardTable = document.getElementById("leaderboardTable");
 
 // Function to update a button's text, background colour, and disable it
 function updateButton(button, text, backgroundColor) {
@@ -67,19 +68,36 @@ returnButton.onclick = function () {
 // Displays leaderboard data found from fb_readSorted
 export async function displayLeaderboard(leaderboardData) {
     console.log(leaderboardData);
-    let leaderboardTable = document.createElement("table");
 
     for (let i = 0; i < leaderboardData.length; i++) {
         let leaderboardEntry = document.createElement("tr");
+        leaderboardEntry.classList.add("leaderboardRow");
+        let rank = document.createElement("td");
+        rank.classList.add("leaderboardTextItem");
         let name = document.createElement("td");
-        let score = document.createElement("td");
+        name.classList.add("leaderboardTextItem");
+        let wins = document.createElement("td");
+        wins.classList.add("leaderboardTextItem");
         name.innerHTML = leaderboardData[i].name
-        score.innerHTML = leaderboardData[i].score
+        wins.innerHTML = leaderboardData[i].wins
+
+        // Makes rank inner html the value of the current index + 1 to show rank of player
+        rank.innerHTML = i + 1;
+
+        // If rank is 1, 2, or 3, changes colour to corresponding colour to show podium spot
+        if (rank.innerHTML == 1) {
+            leaderboardEntry.style.color = "#c5a100";
+        } else if (rank.innerHTML == 2) {
+            leaderboardEntry.style.color = "#686868";
+        } else if (rank.innerHTML == 3) {
+            leaderboardEntry.style.color = "#CD7F32";
+        }
+
+        leaderboardEntry.appendChild(rank);
         leaderboardEntry.appendChild(name);
-        leaderboardEntry.appendChild(score);
+        leaderboardEntry.appendChild(wins);
         leaderboardTable.appendChild(leaderboardEntry);
     }
-    document.getElementById("leaderboardContainer").appendChild(leaderboardTable);
 }
 
 /**************************************************************/
