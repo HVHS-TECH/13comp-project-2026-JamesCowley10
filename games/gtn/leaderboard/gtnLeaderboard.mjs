@@ -92,7 +92,7 @@ export async function displayLeaderboard(leaderboardData) {
         } else if (rank.innerHTML == 3) {
             leaderboardEntry.style.color = "#CD7F32";
         }
-
+        
         leaderboardEntry.appendChild(rank);
         leaderboardEntry.appendChild(name);
         leaderboardEntry.appendChild(wins);
