@@ -92,7 +92,12 @@ export async function displayLeaderboard(leaderboardData) {
         } else if (rank.innerHTML == 3) {
             leaderboardEntry.style.color = "#CD7F32";
         }
-        
+
+        // If name of leaderboard entry is name of user, makes font weight bold to show user who they are
+        if (leaderboardData[i].name == userDetails.username) {
+            leaderboardEntry.style.fontWeight = "bolder";
+        }
+
         leaderboardEntry.appendChild(rank);
         leaderboardEntry.appendChild(name);
         leaderboardEntry.appendChild(wins);
