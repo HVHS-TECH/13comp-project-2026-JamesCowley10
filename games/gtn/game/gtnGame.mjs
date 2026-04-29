@@ -18,6 +18,8 @@ const player1Name = document.getElementById('player1Name');
 const player1NameGame = document.getElementById('player1NameGame');
 const player2Name = document.getElementById('player2Name');
 const player2NameGame = document.getElementById('player2NameGame');
+const player1Status = document.getElementById('player1Status');
+const player2Status = document.getElementById('player2Status');
 const gtnLobbyURL = new URL('../lobby/gtnLobby.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const waitingDiv = document.getElementById('waitingDiv');
@@ -79,11 +81,33 @@ async function startGame() {
 }
 
 // Function to check if player's guess is the same as random number
-function checkGuess() {
-    if (guessInput.value == gameData.randomNumber) {
+async function checkGuess() {
+    const playerGuess = guessInput.value
+    if (playerNumber == 1) {
+        console.log("Player 1 guessed: " + guessInput.value);
+        await fb_set('liveGames/game' + gameNumber + '/game/player1Guess', playerGuess);
+    } else if (playerNumber == 2) {
+        console.log("Player 2 guessed: " + guessInput.value);
+        await fb_set('liveGames/game' + gameNumber + '/game/player2Guess', playerGuess);
+    }
+
+    if (playerGuess == gameData.randomNumber) {
         console.log("Correct guess!");
     } else {
         console.log("Wrong guess!");
+        setGuessingPlayer();
+    }
+}
+
+// Function to change which player is guessing and update html 
+function setGuessingPlayer() {
+    console.log("Changing guessing player...");
+    if (playerNumber == 1) {
+        fb_set('liveGames/game' + gameNumber + '/game/isPlayer1Turn', false);
+        fb_set('liveGames/game' + gameNumber + '/game/isPlayer2Turn', true);
+    } else if (playerNumber == 2) {
+        fb_set('liveGames/game' + gameNumber + '/game/isPlayer1Turn', true);
+        fb_set('liveGames/game' + gameNumber + '/game/isPlayer2Turn', false);
     }
 }
 
@@ -145,6 +169,7 @@ leaveGameButtonGame.onclick = function () {
 // Onload calls setPlayerInfo function to set player profile info
 setPlayerInfo();
 
+// Calls startGame when there are 2 players in game and sets html
 fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
     const players = snapshot.val();
     if (players.player1 != null && players.player2 != null) {
@@ -166,6 +191,40 @@ fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
         setPlayerInfo();
         // Call startGame function
         startGame();
+    }
+});
+
+// On value change of game data, update html to show who is guessing
+fb_onValueChange('liveGames/game' + gameNumber + '/game/', (snapshot) => {
+    gameData = snapshot.val();
+    if (gameData.isPlayer1Turn) {
+        if (playerNumber == 1) {
+            mainTitleGame.innerText = "Guess a number 1-100!";
+            guessInput.hidden = false;
+            guessButton.hidden = false;
+            player1Status.innerText = "Guessing...";
+            player2Status.innerText = "Waiting...";
+        } else if (playerNumber == 2) {
+            mainTitleGame.innerText = player1Name.innerHTML + " is guessing...";
+            guessInput.hidden = true;
+            guessButton.hidden = true;
+            player2Status.innerText = "Waiting...";
+            player1Status.innerText = "Guessing...";
+        }
+    } else if (gameData.isPlayer2Turn) {
+        if (playerNumber == 1) {
+            mainTitleGame.innerText = "Wrong! " + player2Name.innerHTML + " is guessing...";
+            guessInput.hidden = true;
+            guessButton.hidden = true;
+            player1Status.innerText = "Waiting...";
+            player2Status.innerText = "Guessing...";
+        } else if (playerNumber == 2) {
+            mainTitleGame.innerText = "Wrong! " + player1Name.innerHTML + " is guessing...";
+            guessInput.hidden = false;
+            guessButton.hidden = false;
+            player2Status.innerText = "Waiting...";
+            player1Status.innerText = "Guessing...";
+        }
     }
 });
 
