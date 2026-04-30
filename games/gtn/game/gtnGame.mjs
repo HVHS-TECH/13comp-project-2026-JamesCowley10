@@ -25,7 +25,10 @@ const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const waitingDiv = document.getElementById('waitingDiv');
 const gameDiv = document.getElementById('gameDiv');
 const mainTitleGame = document.getElementById('mainTitleGame');
-const guessInput = document.getElementById('guessInput');
+const guessDiv = document.getElementById('guessDiv');
+const guessNumber = document.getElementById('guessNumber');
+const lowerGuessButton = document.getElementById('lowerGuessButton');
+const higherGuessButton = document.getElementById('higherGuessButton');
 const guessButton = document.getElementById('guessButton');
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameNumber = sessionStorage.getItem("gameNumber");
@@ -75,19 +78,21 @@ async function startGame() {
         player2ProfileImgGame.src = userDetails.photoURL;
         player1ProfileImgGame.src = player1ProfileImgWaiting.src;
         player1NameGame.innerText = player1Name.innerText;
-        guessInput.hidden = true;
         guessButton.hidden = true;
+        lowerGuessButton.hidden = true;
+        higherGuessButton.hidden = true;
+        guessNumber.hidden = true;
     }
 }
 
 // Function to check if player's guess is the same as random number
 async function checkGuess() {
-    const playerGuess = guessInput.value
+    const playerGuess = guessNumber.innerHTML;
     if (playerNumber == 1) {
-        console.log("Player 1 guessed: " + guessInput.value);
+        console.log("Player 1 guessed: " + playerGuess);
         await fb_set('liveGames/game' + gameNumber + '/game/player1Guess', playerGuess);
     } else if (playerNumber == 2) {
-        console.log("Player 2 guessed: " + guessInput.value);
+        console.log("Player 2 guessed: " + playerGuess);
         await fb_set('liveGames/game' + gameNumber + '/game/player2Guess', playerGuess);
     }
 
@@ -200,30 +205,38 @@ fb_onValueChange('liveGames/game' + gameNumber + '/game/', (snapshot) => {
     if (gameData.isPlayer1Turn) {
         if (playerNumber == 1) {
             mainTitleGame.innerText = "Guess a number 1-100!";
-            guessInput.hidden = false;
             guessButton.hidden = false;
+            lowerGuessButton.hidden = false;
+            higherGuessButton.hidden = false;
+            guessNumber.hidden = false;
             player1Status.innerText = "Guessing...";
             player2Status.innerText = "Waiting...";
         } else if (playerNumber == 2) {
-            mainTitleGame.innerText = player1Name.innerHTML + " is guessing...";
-            guessInput.hidden = true;
+            mainTitleGame.innerText = "Wrong! " + player1Name.innerHTML + " is guessing...";
             guessButton.hidden = true;
+            lowerGuessButton.hidden = true;
+            higherGuessButton.hidden = true;
+            guessNumber.hidden = true;
             player2Status.innerText = "Waiting...";
             player1Status.innerText = "Guessing...";
         }
     } else if (gameData.isPlayer2Turn) {
         if (playerNumber == 1) {
             mainTitleGame.innerText = "Wrong! " + player2Name.innerHTML + " is guessing...";
-            guessInput.hidden = true;
             guessButton.hidden = true;
+            lowerGuessButton.hidden = true;
+            higherGuessButton.hidden = true;
+            guessNumber.hidden = true;
             player1Status.innerText = "Waiting...";
             player2Status.innerText = "Guessing...";
         } else if (playerNumber == 2) {
-            mainTitleGame.innerText = "Wrong! " + player1Name.innerHTML + " is guessing...";
-            guessInput.hidden = false;
+            mainTitleGame.innerText = "Guess a number 1-100!";
             guessButton.hidden = false;
-            player2Status.innerText = "Waiting...";
-            player1Status.innerText = "Guessing...";
+            lowerGuessButton.hidden = false;
+            higherGuessButton.hidden = false;
+            guessNumber.hidden = false;
+            player2Status.innerText = "Guessing...";
+            player1Status.innerText = "Waiting...";
         }
     }
 });
@@ -232,8 +245,18 @@ fb_onValueChange('liveGames/game' + gameNumber + '/game/', (snapshot) => {
 guessButton.onclick = function () {
     // Call checkGuess function
     checkGuess();
-    guessInput.value = "";
 }
+
+// Event listener for on click of lowerGuessButton
+lowerGuessButton.onclick = function () {
+    guessNumber.innerHTML = Number(guessNumber.innerHTML) - 1;
+}
+
+// Event listener for on click of higherGuessButton
+higherGuessButton.onclick = function () {
+    guessNumber.innerHTML = Number(guessNumber.innerHTML) + 1;
+}
+
 
 /**************************************************************/
 //   END OF CODE
