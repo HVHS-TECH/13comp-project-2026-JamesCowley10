@@ -98,8 +98,18 @@ async function checkGuess() {
 
     if (playerGuess == gameData.randomNumber) {
         console.log("Correct guess!");
+        if (playerNumber == 1) {
+            await fb_set('liveGames/game' + gameNumber + '/game/winner', "player1");
+        } else if (playerNumber == 2) {
+            await fb_set('liveGames/game' + gameNumber + '/game/winner', "player2");
+        }
     } else {
         console.log("Wrong guess!");
+        if (playerGuess < gameData.randomNumber) {
+            console.log("Guess is too low!");
+        } else if (playerGuess > gameData.randomNumber) {
+            console.log("Guess is too high!");
+        }
         setGuessingPlayer();
     }
 }

@@ -268,7 +268,6 @@ function fb_get(path) {
             var fb_data = snapshot.val();
             if (fb_data != null) {
                 console.log("✅ Successful Read");
-                console.table(fb_data);
                 return fb_data;
             } else {
                 console.log("❓ No Record Found");

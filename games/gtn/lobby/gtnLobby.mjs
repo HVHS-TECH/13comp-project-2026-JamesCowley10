@@ -49,6 +49,7 @@ function createGame() {
             player2Guess: "",
             isPlayer1Turn: true,
             isPlayer2Turn: false,
+            winner: "",
             randomNumber: Math.floor(Math.random() * 100) + 1,
         }
     });
