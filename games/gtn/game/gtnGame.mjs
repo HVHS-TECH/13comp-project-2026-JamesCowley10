@@ -33,6 +33,7 @@ const guessButton = document.getElementById('guessButton');
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameNumber = sessionStorage.getItem("gameNumber");
 let gameData = {};
+let players = {};
 
 // Function to update a button's text, background colour, and disable it
 function updateButton(button, text, backgroundColor) {
@@ -141,7 +142,6 @@ window.fb_onValueChange = fb_onValueChange;
 // Initilise Firebase
 /**************************************************************/
 fb_initialise();
-
 /**************************************************************/
 // gtnGame.html main code
 /**************************************************************/
@@ -186,7 +186,7 @@ setPlayerInfo();
 
 // Calls startGame when there are 2 players in game and sets html
 fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
-    const players = snapshot.val();
+    players = snapshot.val();
     if (players.player1 != null && players.player2 != null) {
         if (playerNumber == 1) {
             // Set player 1 profile info to userDetails
@@ -259,14 +259,56 @@ guessButton.onclick = function () {
 
 // Event listener for on click of lowerGuessButton
 lowerGuessButton.onclick = function () {
-    guessNumber.innerHTML = Number(guessNumber.innerHTML) - 1;
+    if (Number(guessNumber.innerHTML) > 1) {
+        guessNumber.innerHTML = Number(guessNumber.innerHTML) - 1;
+    }
 }
 
 // Event listener for on click of higherGuessButton
 higherGuessButton.onclick = function () {
-    guessNumber.innerHTML = Number(guessNumber.innerHTML) + 1;
+    if (Number(guessNumber.innerHTML) < 100) {
+        guessNumber.innerHTML = Number(guessNumber.innerHTML) + 1;
+    }
 }
 
+// Calls endGame when there is a winner in database and updates html to show winner
+fb_onValueChange('liveGames/game' + gameNumber + '/game/winner', (snapshot) => {
+    const winner = snapshot.val();
+    if (winner != "") {
+        // Hide guessing elements for both players
+        guessButton.hidden = true;
+        lowerGuessButton.hidden = true;
+        higherGuessButton.hidden = true;
+        guessNumber.hidden = true;
+        if (winner == "player1") {
+            mainTitleGame.innerText = player1Name.innerHTML + " wins!";
+        } else if (winner == "player2") {
+            mainTitleGame.innerText = player2Name.innerHTML + " wins!";
+        }
+    }
+    // Add 1 win to winning player's wins in database, userScores.gtn.uid.wins
+    if (winner == "player1") {
+        fb_get('userScores/gtn/' + players.player1.player1uid + '/wins').then((snapshot) => {
+            const wins = snapshot
+            if (wins != null) {
+                fb_set('userScores/gtn/' + players.player1.player1uid + '/wins', wins + 1);
+            } else {
+                fb_set('userScores/gtn/' + players.player1.player1uid + '/wins', 1);
+            }
+            fb_set('liveGames/game' + gameNumber, null);
+        });
+    } else if (winner == "player2") {
+        fb_get('userScores/gtn/' + players.player2.player2uid + '/wins').then((snapshot) => {
+            const wins = snapshot
+            if (wins != null) {
+                fb_set('userScores/gtn/' + players.player2.player2uid + '/wins', wins + 1);
+            } else {
+                fb_set('userScores/gtn/' + players.player2.player2uid + '/wins', 1);
+            }
+            fb_set('liveGames/game' + gameNumber, null);
+        });
+    }
+});
 
 /**************************************************************/
 //   END OF CODE
