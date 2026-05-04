@@ -17,6 +17,7 @@ const gtnGameURL = new URL('../game/gtnGame.html', import.meta.url).href;
 const gamePageURL = new URL('../../../main/gamePage/gamePage.html', import.meta.url).href;
 const leaderboardPageURL = new URL('../leaderboard/gtnLeaderboard.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
+const mainTitle = document.getElementById('mainTitle');
 let gameNumber = 1;
 let numberOfGames = 0;
 
@@ -30,7 +31,6 @@ function updateButton(button, text, backgroundColor) {
 // Function to create a game in the database and join as player 1
 function createGame() {
     console.log("No games found");
-    gameNumber = 1;
     gameNumber = Number(gameNumber);
     console.log("Game number: " + gameNumber);
     sessionStorage.setItem("playerNumber", 1);

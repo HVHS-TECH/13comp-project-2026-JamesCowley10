@@ -62,8 +62,14 @@ console.log('%c ad_manager.mjs',
 
 // ENSURE THE PATH NAMES ARE CORRECT                                    //<=======
 const DETAILS = 'userDetails';                                          //<=======
-const ZZ = 'userScores/zombz';                                            //<=======
+const ZZ = 'userScores/zombz';                                           //<=======
 const SI = 'userScores/gtn';                                            //<=======
+const GTN = 'userScores/gtn';                                           //<=======
+const ZOMBZ = 'userScores/zombz';                                        //<=======
+const USER = 'userDetails';                                             //<=======
+const GN = 'userScores/gtn';                                            //<=======
+const GN_SCORE = 'userScores/gtn';                                      //<=======
+const GN_RECORD = 'userScores/gtn';
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 // Import all external constants & functions required                   //<=MODULAR-API
@@ -295,7 +301,7 @@ function ad_processZZReadAll(_result, _path, _snapshot, _save, _error) {
         //  MATCH YOUR FIREBASE RECORDS FOR THE PATH                    //<=======
         ad_adminArray.push({
           uid: childKey,
-          name: childData.username,
+          name: childData.name,
           score: childData.score
         });
       });
@@ -367,8 +373,8 @@ function ad_processSIReadAll(_result, _path, _snapshot, _save, _error) {
         //  MATCH YOUR FIREBASE RECORDS FOR THE PATH                    //<=======
         ad_adminArray.push({
           uid: childKey,
-          name: childData.username,
-          score: childData.score
+          name: childData.name,
+          wins: childData.wins
         });
       });
     }

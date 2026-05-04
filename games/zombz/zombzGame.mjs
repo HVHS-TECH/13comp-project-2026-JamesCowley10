@@ -166,7 +166,7 @@ function preload() {
 /*******************************************************/
 function setup() {
     fb_initialise();
-    highscore = fb_get('userScores/Zombz/' + sessionStorage.getItem("uid") + '/score');
+    highscore = fb_get('userScores/zombz/' + sessionStorage.getItem("uid") + '/score');
     frameRate(60);
     console.log("Starting Setup...");
     cnv = new Canvas(336, 240, "pixelated x4");
@@ -541,17 +541,17 @@ function endScreen() {
     let uid = sessionStorage.getItem("uid");
 
     // Get the user's current highscore first
-    fb_get('userScores/Zombz/' + uid).then((fb_data) => {
+    fb_get('userScores/zombz/' + uid).then((fb_data) => {
         let highscore = fb_data ? fb_data.score : null;
 
         if (highscore === null || highscore === undefined) {
             // No previous score, set as highscore
             console.log("No previous highscore. Setting new highscore: " + score);
-            fb_set('userScores/Zombz/' + uid, { score: score, name: name });
+            fb_set('userScores/zombz/' + uid, { score: score, name: name });
         } else if (score > highscore) {
             // New highscore
             console.log("New High Score! Previous: " + highscore + " New: " + score);
-            fb_set('userScores/Zombz/' + uid, { score: score, name: name });
+            fb_set('userScores/zombz/' + uid, { score: score, name: name });
         } else {
             // Not a highscore
             console.log("No New High Score. Current: " + score + ", Highscore: " + highscore);
