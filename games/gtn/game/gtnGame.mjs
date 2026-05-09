@@ -119,11 +119,9 @@ async function checkGuess() {
 function setGuessingPlayer() {
     console.log("Changing guessing player...");
     if (playerNumber == 1) {
-        fb_set('liveGames/game' + gameNumber + '/game/isPlayer1Turn', false);
-        fb_set('liveGames/game' + gameNumber + '/game/isPlayer2Turn', true);
+        fb_set('liveGames/game' + gameNumber + '/game/playerTurn', 2);
     } else if (playerNumber == 2) {
-        fb_set('liveGames/game' + gameNumber + '/game/isPlayer1Turn', true);
-        fb_set('liveGames/game' + gameNumber + '/game/isPlayer2Turn', false);
+        fb_set('liveGames/game' + gameNumber + '/game/playerTurn', 1);
     }
 }
 
@@ -212,7 +210,7 @@ fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
 // On value change of game data, update html to show who is guessing
 fb_onValueChange('liveGames/game' + gameNumber + '/game/', (snapshot) => {
     gameData = snapshot.val();
-    if (gameData.isPlayer1Turn) {
+    if (gameData.playerTurn == 1) {
         if (Number(gameData.player2Guess) < gameData.randomNumber) {
             mainTitleGame.innerText = "Wrong! " + gameData.player2Guess + " is too low!";
         } else if (Number(gameData.player2Guess) > gameData.randomNumber) {
@@ -233,12 +231,12 @@ fb_onValueChange('liveGames/game' + gameNumber + '/game/', (snapshot) => {
             player2Status.innerText = "Waiting...";
             player1Status.innerText = "Guessing...";
         }
-    } else if (gameData.isPlayer2Turn) {
-            if (Number(gameData.player1Guess) < gameData.randomNumber) {
-                mainTitleGame.innerText = "Wrong! " + gameData.player1Guess + " is too low!";
-            } else if (Number(gameData.player1Guess) > gameData.randomNumber) {
-                mainTitleGame.innerText = "Wrong! " + gameData.player1Guess + " is too high!";
-            }
+    } else if (gameData.playerTurn == 2) {
+        if (Number(gameData.player1Guess) < gameData.randomNumber) {
+            mainTitleGame.innerText = "Wrong! " + gameData.player1Guess + " is too low!";
+        } else if (Number(gameData.player1Guess) > gameData.randomNumber) {
+            mainTitleGame.innerText = "Wrong! " + gameData.player1Guess + " is too high!";
+        }
         if (playerNumber == 1) {
             guessButton.hidden = true;
             lowerGuessButton.hidden = true;
