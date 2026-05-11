@@ -36,6 +36,8 @@ window.fb_readSorted = fb_readSorted;
 // Initilise Firebase
 /**************************************************************/
 fb_initialise();
+
+// Reads sorted top 10 player's wins from database to display on gtn leaderboard
 fb_readSorted('userScores/gtn', 'wins', 10, "../../games/gtn/leaderboard/gtnLeaderboard.mjs");
 
 /**************************************************************/
