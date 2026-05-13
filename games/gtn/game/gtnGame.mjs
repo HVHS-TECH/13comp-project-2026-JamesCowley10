@@ -34,6 +34,8 @@ let playerNumber = sessionStorage.getItem("playerNumber");
 let gameNumber = sessionStorage.getItem("gameNumber");
 let gameData = {};
 let players = {};
+let gameStarted = false;
+let otherPlayerLeft = false;
 
 // Function to update a button's text, background colour, and disable it
 function updateButton(button, text, backgroundColor) {
@@ -54,10 +56,30 @@ function setPlayerInfo() {
     }
 }
 
+// Function when player leaves game to show remaining player that other player has left game
+function playerLeaves() {
+    if (otherPlayerLeft) {
+        return;
+    }
+    otherPlayerLeft = true;
+    if (playerNumber == 1) {
+        mainTitleGame.innerText = player2Name.innerText + " has left the game!";
+    } else if (playerNumber == 2) {
+        mainTitleGame.innerText = player1Name.innerText + " has left the game!";
+    }
+    player1Status.innerText = "";
+    player2Status.innerText = "";
+    guessButton.hidden = true;
+    lowerGuessButton.hidden = true;
+    higherGuessButton.hidden = true;
+    guessNumber.hidden = true;
+}
+
 // Function to set up game html and start game when there are 2 players in game
 async function startGame() {
     console.log("Game starting...");
     console.log("Player number: " + playerNumber);
+    gameStarted = true;
     waitingDiv.hidden = true;
     gameDiv.hidden = false;
 
@@ -129,17 +151,25 @@ function setGuessingPlayer() {
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_initialise, fb_set, fb_get, userDetails, fb_onValueChange }
+import { fb_initialise, fb_set, fb_get, userDetails, fb_onValueChange, fb_onDisconnect }
     from '../../../main/index/fb_io.mjs';
 window.fb_initialise = fb_initialise;
 window.fb_set = fb_set;
 window.fb_get = fb_get;
 window.fb_onValueChange = fb_onValueChange;
+window.fb_onDisconnect = fb_onDisconnect;
 
 /**************************************************************/
 // Initilise Firebase
 /**************************************************************/
 fb_initialise();
+
+// If player disconnects from page, delete game from database and set html for other player to show other players has left
+fb_onDisconnect('liveGames/game' + gameNumber, () => {
+    console.log("Player disconnected, removing game from database...");
+    playerLeaves();
+});
+
 /**************************************************************/
 // gtnGame.html main code
 /**************************************************************/
@@ -185,7 +215,14 @@ setPlayerInfo();
 // Calls startGame when there are 2 players in game and sets html
 fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
     players = snapshot.val();
-    if (players.player1 != null && players.player2 != null) {
+    if (players == null || players.player1 == null || players.player2 == null) {
+        if (gameStarted) {
+            playerLeaves();
+        }
+        return;
+    }
+
+    if (!gameStarted) {
         if (playerNumber == 1) {
             // Set player 1 profile info to userDetails
             player1ProfileImgWaiting.src = userDetails.photoURL;
@@ -210,6 +247,9 @@ fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
 // On value change of game data, update html to show who is guessing
 fb_onValueChange('liveGames/game' + gameNumber + '/game/', (snapshot) => {
     gameData = snapshot.val();
+    if (gameData == null) {
+        return;
+    }
     if (gameData.playerTurn == 1) {
         if (Number(gameData.player2Guess) < gameData.randomNumber) {
             mainTitleGame.innerText = "Wrong! " + gameData.player2Guess + " is too low!";
@@ -278,6 +318,9 @@ higherGuessButton.onclick = function () {
 // Calls endGame when there is a winner in database and updates html to show winner
 fb_onValueChange('liveGames/game' + gameNumber + '/game/winner', (snapshot) => {
     const winner = snapshot.val();
+    if (winner == null) {
+        return;
+    }
     // Add 1 win to winning player's wins in database, userScores.gtn.uid.wins
     if (winner == "player1") {
         fb_get('userScores/gtn/' + players.player1.player1uid + '/wins').then((snapshot) => {
@@ -319,6 +362,8 @@ fb_onValueChange('liveGames/game' + gameNumber + '/game/winner', (snapshot) => {
         });
     }
 });
+
+// onDisconnect handler to remove player from game if they close the tab or lose connection
 
 /**************************************************************/
 //   END OF CODE

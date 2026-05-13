@@ -31,7 +31,7 @@ export let userDetails = {
 
 import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, onValue }
+import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, onValue, onDisconnect }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
@@ -44,7 +44,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 // Return: N/A
 /**************************************************************/
 export {
-    fb_initialise, fb_login, fb_onAuthStateChanged, fb_signOut, fb_set, fb_get, fb_getAll, fb_update, fb_readSorted, fb_onValueChange
+    fb_initialise, fb_login, fb_onAuthStateChanged, fb_signOut, fb_set, fb_get, fb_getAll, fb_update, fb_readSorted, fb_onValueChange, fb_onDisconnect
 };
 
 function fb_initialise() {
@@ -378,12 +378,27 @@ async function fb_onValueChange(path, callback) {
         'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     const dbReference = ref(FB_GAMEDB, path);
     onValue(dbReference, (snapshot) => {
-        var fb_data = snapshot.val();
-        if (fb_data != null) {
-            console.log("✅ " + path + " Changed");
-            callback(snapshot);
-        }
+        console.log("✅ " + path + " Changed");
+        callback(snapshot);
     }, (error) => {
+        console.error(error);;
+    });
+}
+
+/**************************************************************/
+// fb_onDisconnect()
+// Called to set up a disconnect handler for a path in the database
+// Check if a user has disconnected
+// Input: path (string), callback (function)
+// Return: N/A
+/**************************************************************/
+function fb_onDisconnect(path, callback) {
+    console.log('%c fb_onDisconnect(): ',
+        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
+    const dbReference = ref(FB_GAMEDB, path);
+    onDisconnect(dbReference).remove().then(() => {
+        console.log("✅ Disconnect handler set for " + path);
+    }).catch((error) => {
         console.error(error);;
     });
 }
