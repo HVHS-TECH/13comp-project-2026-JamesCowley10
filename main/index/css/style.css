@@ -85,6 +85,24 @@
     transform: scale(0.9);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
+
+  /*------------------------------------------------------------
+    Registration Title Container Styling
+  /*----------------------------------------------------------*/
+#regTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+  /*------------------------------------------------------------
+    Icon Image Styling
+  /*----------------------------------------------------------*/
+#iconImg {
+  width: 20px;
+  height: 20px;
+}
   
   /*------------------------------------------------------------
     Fade In Animation Styling
