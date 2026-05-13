@@ -41,7 +41,7 @@ body {
   border-radius: 5px;
   text-align: center;
   margin: 0;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
   font-size: 50px;
   animation: mainTitleAnimationLoop 2s ease-in-out infinite alternate;
 }
@@ -154,6 +154,23 @@ button:active {
 
 #returnToLoginButton {
   margin-top: 20px;
+}
+
+  /*------------------------------------------------------------
+    Registration Title Container Styling
+  /*----------------------------------------------------------*/
+#regTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+  /*------------------------------------------------------------
+    Icon Image Styling
+  /*----------------------------------------------------------*/
+#iconImg {
+  font-size: 50px;
 }
 
   /*------------------------------------------------------------
