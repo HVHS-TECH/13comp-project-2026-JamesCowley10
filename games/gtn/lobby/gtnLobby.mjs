@@ -156,7 +156,7 @@ gameSearchButton.onclick = function () {
 //  Event listener for on click of leaderboardButton sends user to leaderboardPage.html
 leaderboardButton.onclick = function () {
     location.href = leaderboardPageURL;
-    updateButton(leaderboardButton, "Sending...", buttonSelectBackgroundColor);
+    updateButton(leaderboardButton, "Opening...", buttonSelectBackgroundColor);
 }
 
 //  Event listener for on click of returnButton returns user to gamePage.html
