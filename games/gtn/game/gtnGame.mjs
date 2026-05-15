@@ -363,8 +363,6 @@ fb_onValueChange('liveGames/game' + gameNumber + '/game/winner', (snapshot) => {
     }
 });
 
-// onDisconnect handler to remove player from game if they close the tab or lose connection
-
 /**************************************************************/
 //   END OF CODE
 /**************************************************************/
