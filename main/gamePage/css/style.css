@@ -125,6 +125,18 @@
     font-size: 30px;
     background-image: linear-gradient(#f3f3f3, #cecece);
   }
+
+  /*------------------------------------------------------------
+    Logout Button Styling
+  /*----------------------------------------------------------*/
+  
+  #logoutButton {
+    margin-top: 20px;
+    position: absolute;
+    bottom: 2%;
+    left: 1%;
+    font-size: 30px;
+  }
   
   /*------------------------------------------------------------
     Fade In Animation Styling

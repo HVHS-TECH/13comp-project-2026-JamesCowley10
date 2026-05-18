@@ -222,7 +222,7 @@ function fb_signOut() {
 
     const AUTH = getAuth();
     signOut(AUTH).then(() => {
-        console.log("✅ Login Successful");
+        console.log("✅ Logout Successful");
     })
         .catch((error) => {
             console.error(error);;

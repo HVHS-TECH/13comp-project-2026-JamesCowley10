@@ -60,11 +60,6 @@ function checkInputs(username, age, address, phoneNumber) {
         regWarningFade("Age must be a number from 1-150!");
         return false;
     }
-    // Validates address input is not empty
-    if (address.trim() == "") {
-        regWarningFade("Please enter an address!");
-        return false;
-    }
     // Validates phone number input
     if (phoneNumber === null || phoneNumber === "" || isNaN(phoneNumber) || phoneNumber < 1000000000 || phoneNumber > 9999999999) {
         regWarningFade("Please enter a valid phone number!");

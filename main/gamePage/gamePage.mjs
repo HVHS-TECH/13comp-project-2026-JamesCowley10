@@ -14,9 +14,11 @@ const adminButton = document.getElementById('adminButton');
 const gtnPageURL = new URL('../../games/gtn/lobby/gtnLobby.html', import.meta.url).href;
 const zombzPageURL = new URL('../../games/zombz/zombzMenuScreen.html', import.meta.url).href;
 const adminPageURL = new URL('../admin/adminPage.html', import.meta.url).href;
+const indexPageURL = new URL('../../index.html', import.meta.url).href;
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
+const logoutButton = document.getElementById('logoutButton');
 let isAdmin = sessionStorage.getItem('admin');
 
 function checkAdmin() {
@@ -31,9 +33,10 @@ function checkAdmin() {
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_initialise, userDetails }
+import { fb_initialise, userDetails, fb_signOut }
     from '../index/fb_io.mjs';
 window.fb_initialise = fb_initialise;
+window.fb_signOut = fb_signOut;
 
 /**************************************************************/
 // Initilise Firebase
@@ -74,6 +77,15 @@ zombzButton.onclick = async function () {
 // Event listener for the Admin button
 adminButton.onclick = async function () {
     window.location.href = adminPageURL;
+}
+
+// Event listener for the Logout button
+logoutButton.onclick = async function () {
+    await fb_signOut();
+    // Clear sessionStorage after logout
+    sessionStorage.clear();
+    // Redirect to login page after logout
+    window.location.href = indexPageURL;
 }
 
 // Call checkAdmin function to set admin button as visible or not
