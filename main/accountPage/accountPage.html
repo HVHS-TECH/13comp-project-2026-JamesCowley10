@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- STYLESHEETS *******************************************-->
+    <link rel="stylesheet" href="../accountPage/css/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- JQUERY ************************************************-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- FIREBASE START ****************************************-->
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <!-- FIREBASE END ******************************************-->
+
+</head>
+
+<!--*************************************************************
+  BODY
+**************************************************************-->
+
+<body>
+    <script type="module" src="../accountPage/accountPage.mjs"></script>
+    <div id="regContainer">
+        <div id="regTitleContainer">
+            <h1 id="mainTitle">Account</h1>
+            <span id="iconImg" class="material-symbols-outlined">account_box</span>
+        </div>
+        <form id="regForm">
+            <input class="regInput" type="text" id="regUsername" placeholder="Username"><br>
+            <input class="regInput" type="number" id="regAge" placeholder="Age"><br>
+            <input class="regInput" type="text" id="regAddress" placeholder="Address"><br>
+            <input class="regInput" type="number" id="regPhoneNumber" placeholder="Phone Number"><br>
+        </form>
+        <button id="regButton">Update Details</button>
+        <h1 hidden onclick="regCheck()" id="regWarning">Please fill in all fields</h1>
+    </div>
+    <img id="profileImg" src="../../assets/pfpPlaceholder.jpg" alt="Profile Image">
+    <button id="returnButton">Return</button>
+</body>
+
+</html>
+<!--*************************************************************
+  END OF accountPage.HTML
+**************************************************************-->
