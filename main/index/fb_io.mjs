@@ -50,6 +50,7 @@ export {
 function fb_initialise() {
     console.log('%c fb_initialise(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';');
+    sessionStorage.setItem("mustRegister", "n");
 
     const FB_GAMECONFIG = {
         apiKey: "AIzaSyCYwD2IYqCFh8TK4j1zgBfVm0XBXQOs_BE",
@@ -127,6 +128,8 @@ function fb_login() {
                 sessionStorage.setItem("age", userDetails.age);
                 sessionStorage.setItem("address", userDetails.address);
                 sessionStorage.setItem("phoneNumber", userDetails.phoneNumber);
+                sessionStorage.setItem("loggedIn", "y");
+                sessionStorage.setItem("mustRegister", "n");
                 console.table(fb_data);
 
                 /**************************************************************/
@@ -153,6 +156,7 @@ function fb_login() {
 
             } else {
                 console.log("❓ No Record Found"); // Succesful read but no record found
+                sessionStorage.setItem("mustRegister", "y");
 
                 /**************************************************************/
                 // USER IS NOT REGISTERED, BUT ARE THEY ADMIN

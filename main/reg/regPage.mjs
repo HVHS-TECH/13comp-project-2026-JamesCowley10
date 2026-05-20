@@ -88,6 +88,8 @@ async function registrationSuccess(username, age, address, phoneNumber) {
     try {
         await fb_set('userDetails/' + userDetails.uid, userDetails);
         console.table(userDetails);
+        sessionStorage.setItem("loggedIn", "y");
+        sessionStorage.setItem("mustRegister", "n");
         const gameUrl = new URL('../gamePage/gamePage.html', import.meta.url).href;
         location.href = gameUrl;
     } catch (error) {
@@ -186,6 +188,14 @@ returnToLoginButton.onclick = function () {
     const loginUrl = new URL('../../index.html', import.meta.url).href;
     location.href = loginUrl;
     updateButton(returnToLoginButton, "Returning to login...", buttonSelectBackgroundColor);
+}
+
+// Onload if sessionStorage.mustRegister is not y, then send user to last page
+window.onload = function () {
+    if (sessionStorage.getItem("mustRegister") != "y") {
+        const lastUrl = new URL('../gamePage/gamePage.html', import.meta.url).href;
+        location.href = lastUrl;
+    }
 }
 
 /**************************************************************/

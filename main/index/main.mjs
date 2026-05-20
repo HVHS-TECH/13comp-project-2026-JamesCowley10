@@ -43,6 +43,14 @@ loginButton.onclick = function () {
     updateButton(loginButton, "Logging In...", buttonSelectBackgroundColor, loginText);
 }
 
+// Onload if sessionStorage.loggedIn is y, then send user to last page
+window.onload = function () {
+    if (sessionStorage.getItem("loggedIn") == "y") {
+        const lastUrl = new URL('../gamePage/gamePage.html', import.meta.url).href;
+        location.href = lastUrl;
+    }
+}
+
 /**************************************************************/
 //   END OF CODE
 /**************************************************************/
