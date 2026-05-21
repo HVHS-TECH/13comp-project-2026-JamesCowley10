@@ -60,6 +60,11 @@ function checkInputs(username, age, address, phoneNumber) {
         regWarningFade("Age must be a number from 1-150!");
         return false;
     }
+    // Validate address input is not empty and has a valid address selected
+    if (address.trim() == "" || !address) {
+        regWarningFade("Please enter a valid address!");
+        return false;
+    }
     // Validates phone number input
     if (phoneNumber === null || phoneNumber === "" || isNaN(phoneNumber) || phoneNumber < 1000000000 || phoneNumber > 9999999999) {
         regWarningFade("Please enter a valid phone number!");
@@ -137,7 +142,7 @@ document.getElementById("regForm").addEventListener("input", function () {
         document.getElementById("regAge").style.color = "red";
     }
     // If address input is valid, change colour to green, else change to red
-    if (address.trim() != "") {
+    if (address.trim() != "" && address) {
         document.getElementById("regAddress").style.color = "green";
     } else {
         document.getElementById("regAddress").style.color = "red";
@@ -188,14 +193,6 @@ returnToLoginButton.onclick = function () {
     const loginUrl = new URL('../../index.html', import.meta.url).href;
     location.href = loginUrl;
     updateButton(returnToLoginButton, "Returning to login...", buttonSelectBackgroundColor);
-}
-
-// Onload if sessionStorage.mustRegister is not y, then send user to last page
-window.onload = function () {
-    if (sessionStorage.getItem("mustRegister") != "y") {
-        const lastUrl = new URL('../gamePage/gamePage.html', import.meta.url).href;
-        location.href = lastUrl;
-    }
 }
 
 /**************************************************************/
