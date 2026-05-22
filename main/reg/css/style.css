@@ -111,10 +111,10 @@ button:active {
 }
 
   /*------------------------------------------------------------
-    Registration Input Styling
+    Registration Form Input Styling
   /*----------------------------------------------------------*/
 
-.regInput {
+#regForm input {
   margin: 5px 0;
   height: 25px;
   width: 200px;
@@ -173,6 +173,7 @@ button:active {
   /*------------------------------------------------------------
     Registration Title Container Styling
   /*----------------------------------------------------------*/
+
 #regTitleContainer {
   display: flex;
   align-items: center;
@@ -183,6 +184,7 @@ button:active {
   /*------------------------------------------------------------
     Icon Image Styling
   /*----------------------------------------------------------*/
+
 #iconImg {
   font-size: 50px;
 }
