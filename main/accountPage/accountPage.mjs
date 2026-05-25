@@ -15,6 +15,7 @@ const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const maxUsernameLength = 15;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
+const gamePageURL = new URL('../gamePage/gamePage.html', import.meta.url).href;
 let username = document.getElementById("regUsername").value;
 let age = document.getElementById("regAge").value;
 let address = document.getElementById("regAddress").value;
@@ -185,7 +186,13 @@ regButton.onclick = async function () {
     }
 }
 
-// Event listener for the return to login button, on click returns user to login page
+//  Event listener for on click of returnButton returns user to gamePage.html
+returnButton.onclick = function () {
+    location.href = gamePageURL;
+    updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
+}
+
+/* // Event listener for the return to login button, on click returns user to login page
 returnButton.onclick = function () {
     // Sends user to loginPage.html
     const loginUrl = new URL('../../index.html', import.meta.url).href;
@@ -199,7 +206,7 @@ window.onload = function () {
         const lastUrl = new URL('../index.html', import.meta.url).href;
         location.href = lastUrl;
     }
-}
+} */
 
 /**************************************************************/
 //   END OF CODE

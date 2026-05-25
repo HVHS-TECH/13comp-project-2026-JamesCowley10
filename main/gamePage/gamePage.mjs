@@ -15,6 +15,7 @@ const gtnPageURL = new URL('../../games/gtn/lobby/gtnLobby.html', import.meta.ur
 const zombzPageURL = new URL('../../games/zombz/zombzMenuScreen.html', import.meta.url).href;
 const adminPageURL = new URL('../admin/adminPage.html', import.meta.url).href;
 const indexPageURL = new URL('../../index.html', import.meta.url).href;
+const accountPageURL = new URL('../accountPage/accountPage.html', import.meta.url).href;
 const profileImg = document.getElementById('profileImg');
 const profileImgURL = sessionStorage.getItem("photoURL");
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
@@ -88,16 +89,21 @@ logoutButton.onclick = async function () {
     window.location.href = indexPageURL;
 }
 
+// Event listener for the profileImg button
+profileImg.onclick = async function () {
+    window.location.href = accountPageURL;
+}
+
 // Call checkAdmin function to set admin button as visible or not
 checkAdmin();
 
-// Onload if sessionStorage.loggedIn is not y, then send user to last page
+/* // Onload if sessionStorage.loggedIn is not y, then send user to last page
 window.onload = function () {
     if (sessionStorage.getItem("loggedIn") != "y") {
         const lastUrl = new URL('../index.html', import.meta.url).href;
         location.href = lastUrl;
     }
-}
+} */
 
 /**************************************************************/
 //   END OF CODE
