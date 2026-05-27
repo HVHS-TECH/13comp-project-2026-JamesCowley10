@@ -61,9 +61,9 @@ function checkInputs(username, age, address, phoneNumber) {
         regWarningFade("Age must be a number from 1-150!");
         return false;
     }
-    // Validates address input is not empty
-    if (address.trim() == "") {
-        regWarningFade("Please enter an address!");
+    // Validate address input is not empty and has a valid address selected
+    if (address.trim() == "" || !address) {
+        regWarningFade("Please enter a valid address!");
         return false;
     }
     // Validates phone number input
@@ -102,14 +102,23 @@ async function registrationSuccess(username, age, address, phoneNumber) {
     }
 }
 
+function setInitialDetails () {
+    // Sets values and placeholders of input fields to current userDetails values
+    document.getElementById("regUsername").value = userDetails.username;
+    document.getElementById("regAge").value = userDetails.age;
+    document.getElementById("regAddress").value = userDetails.address;
+    document.getElementById("regPhoneNumber").value = userDetails.phoneNumber;
+}
+
 /**************************************************************/
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_initialise, fb_set, userDetails }
+import { fb_initialise, fb_set, userDetails, fb_get }
     from '../index/fb_io.mjs';
 window.fb_initialise = fb_initialise;
 window.fb_set = fb_set;
+window.fb_get = fb_get;
 
 /**************************************************************/
 // Initilise Firebase
@@ -159,6 +168,10 @@ userDetails.uid = sessionStorage.getItem("uid");
 userDetails.email = sessionStorage.getItem("email");
 userDetails.photoURL = sessionStorage.getItem("photoURL");
 userDetails.displayName = sessionStorage.getItem("displayName");
+userDetails.username = sessionStorage.getItem("username");
+userDetails.address = sessionStorage.getItem("address");
+userDetails.age = sessionStorage.getItem("age");
+userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
 console.table(userDetails);
 
 // Checks if profileImgURL exists in sessionStorage, if so sets it as src for profileImg
@@ -166,6 +179,8 @@ if (profileImgURL != null) {
     profileImg.src = profileImgURL;
     console.log("Profile image loaded");
 }
+
+setInitialDetails();
 
 // Event listener for the register button
 regButton.onclick = async function () {
@@ -192,7 +207,7 @@ returnButton.onclick = function () {
     updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
 }
 
-/* // Event listener for the return to login button, on click returns user to login page
+// Event listener for the return to login button, on click returns user to login page
 returnButton.onclick = function () {
     // Sends user to loginPage.html
     const loginUrl = new URL('../../index.html', import.meta.url).href;
@@ -203,10 +218,10 @@ returnButton.onclick = function () {
 // Onload if sessionStorage.loggedIn is not y, then send user to last page
 window.onload = function () {
     if (sessionStorage.getItem("loggedIn") != "y") {
-        const lastUrl = new URL('../index.html', import.meta.url).href;
+        const lastUrl = new URL('../regPage.html', import.meta.url).href;
         location.href = lastUrl;
     }
-} */
+}
 
 /**************************************************************/
 //   END OF CODE

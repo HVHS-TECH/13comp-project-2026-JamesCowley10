@@ -32,16 +32,17 @@
             <span id="iconImg" class="material-symbols-outlined">account_box</span>
         </div>
         <form id="regForm">
-            <input class="regInput" type="text" id="regUsername" placeholder="Username"><br>
-            <input class="regInput" type="number" id="regAge" placeholder="Age"><br>
-            <input class="regInput" type="text" id="regAddress" placeholder="Address"><br>
-            <input class="regInput" type="number" id="regPhoneNumber" placeholder="Phone Number"><br>
+            <input type="text" id="regUsername" placeholder="Username"><br>
+            <input type="number" id="regAge" placeholder="Age"><br>
+            <input type="text" class="addy-line1" id="regAddress" placeholder="Address" /><br>
+            <input type="number" id="regPhoneNumber" placeholder="Phone Number"><br>
         </form>
         <button id="regButton">Update Details</button>
         <h1 hidden onclick="regCheck()" id="regWarning">Please fill in all fields</h1>
     </div>
     <img id="profileImg" src="../../assets/pfpPlaceholder.jpg" alt="Profile Image">
     <button id="returnButton">Return</button>
+    <script src="https://www.addysolutions.com/address-lookup/1.6.3/js/addy.min.js?nzKey=5c9362734f6f4937bc02f7f8d4bcb894&country=nz&loadcss=true" async defer></script>
 </body>
 
 </html>

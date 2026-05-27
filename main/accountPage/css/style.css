@@ -73,7 +73,7 @@ input {
 }
 
   /*------------------------------------------------------------
-    Button Hover Styling
+    Butter Animation Styling
   /*----------------------------------------------------------*/
 
 button:hover {
@@ -111,10 +111,24 @@ button:active {
 }
 
   /*------------------------------------------------------------
-    Registration Input Styling
+    Registration Form Input Styling
   /*----------------------------------------------------------*/
 
-.regInput {
+#regForm input {
+  margin: 5px 0;
+  height: 25px;
+  width: 200px;
+  text-align: center;
+  border: 0.5px solid lightgray;
+  text-align: left;
+  text-indent: 5px;
+}
+
+  /*------------------------------------------------------------
+    regAddress Input Styling
+  /*----------------------------------------------------------*/
+
+#regAddress {
   margin: 5px 0;
   height: 25px;
   width: 200px;
@@ -152,13 +166,14 @@ button:active {
     Return To Login Button Styling
   /*----------------------------------------------------------*/
 
-#returnButton {
+#returnToLoginButton {
   margin-top: 20px;
 }
 
   /*------------------------------------------------------------
     Registration Title Container Styling
   /*----------------------------------------------------------*/
+
 #regTitleContainer {
   display: flex;
   align-items: center;
@@ -169,6 +184,7 @@ button:active {
   /*------------------------------------------------------------
     Icon Image Styling
   /*----------------------------------------------------------*/
+
 #iconImg {
   font-size: 50px;
 }

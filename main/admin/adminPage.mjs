@@ -70,6 +70,8 @@ const USER = 'userDetails';                                             //<=====
 const GN = 'userScores/gtn';                                            //<=======
 const GN_SCORE = 'userScores/gtn';                                      //<=======
 const GN_RECORD = 'userScores/gtn';
+const returnButton = document.getElementById('returnButton');
+const gamePageURL = new URL('../gamePage/gamePage.html', import.meta.url).href;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 // Import all external constants & functions required                   //<=MODULAR-API
@@ -921,6 +923,12 @@ window.onload = function () {
         const lastUrl = new URL('../index.html', import.meta.url).href;
         location.href = lastUrl;
     }
+}
+
+//  Event listener for on click of returnButton returns user to gamePage.html
+returnButton.onclick = function () {
+    location.href = gamePageURL;
+    updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
 }
 
 /**************************************************************/
