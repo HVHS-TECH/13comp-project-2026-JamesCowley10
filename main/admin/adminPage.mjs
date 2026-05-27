@@ -149,7 +149,7 @@ export function ad_user() {
     'color: ' + AD_COL_C + '; background-color: ' + AD_COL_B + ';');
 
   ad_alterClass('ad_btn', 'grey');
-  document.getElementById("b_ad_user").style.backgroundColor = "cyan";
+  document.getElementById("b_ad_user").style.backgroundColor = "rgb(224, 224, 224)";
   ad_readAll(DETAILS, null, ad_processUSERReadAll);                     //<=======                  
 }
 
@@ -165,7 +165,7 @@ export function ad_ZZ() {
     'color: ' + AD_COL_C + '; background-color: ' + AD_COL_B + ';');
 
   ad_alterClass('ad_btn', 'grey');
-  document.getElementById("b_ad_ZZ").style.backgroundColor = "cyan";
+  document.getElementById("b_ad_ZZ").style.backgroundColor = "rgb(224, 224, 224)";
   ad_readAll(ZZ, null, ad_processZZReadAll);                            //<=======           
 }
 
@@ -181,7 +181,7 @@ export function ad_SI() {
     'color: ' + AD_COL_C + '; background-color: ' + AD_COL_B + ';');
 
   ad_alterClass('ad_btn', 'grey');
-  document.getElementById("b_ad_SI").style.backgroundColor = "cyan";
+  document.getElementById("b_ad_SI").style.backgroundColor = "rgb(224, 224, 224)";
   ad_readAll(SI, null, ad_processSIReadAll);                            //<=======
 }
 
