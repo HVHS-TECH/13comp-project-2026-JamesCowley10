@@ -108,6 +108,7 @@ button:active {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
   /*------------------------------------------------------------
@@ -122,6 +123,7 @@ button:active {
   border: 0.5px solid lightgray;
   text-align: left;
   text-indent: 5px;
+  color: green;
 }
 
   /*------------------------------------------------------------

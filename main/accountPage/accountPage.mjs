@@ -78,7 +78,7 @@ async function registrationSuccess(username, age, address, phoneNumber) {
     // If all validation is passed then set user's details and proceed
     console.log("Valid Inputs");
 
-    updateButton(regButton, "Registering...", buttonSelectBackgroundColor);
+    updateButton(regButton, "Updating...", buttonSelectBackgroundColor);
 
     userDetails.username = username;
     userDetails.age = age;

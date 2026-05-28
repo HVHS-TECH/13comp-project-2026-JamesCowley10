@@ -62,6 +62,8 @@ function playerLeaves() {
         return;
     }
     otherPlayerLeft = true;
+    sessionStorage.removeItem("playerNumber");
+    sessionStorage.removeItem("gameNumber");
     if (playerNumber == 1) {
         mainTitleGame.innerText = player2Name.innerText + " has left the game!";
     } else if (playerNumber == 2) {
@@ -73,6 +75,8 @@ function playerLeaves() {
     lowerGuessButton.hidden = true;
     higherGuessButton.hidden = true;
     guessNumber.hidden = true;
+    gameNumber = null;
+    playerNumber = null;
 }
 
 // Function to set up game html and start game when there are 2 players in game
@@ -196,6 +200,9 @@ leaveGameButtonWaiting.onclick = function () {
         fb_set('liveGames/game' + gameNumber + '/players/player' + playerNumber, null);
     }
 
+    sessionStorage.removeItem("playerNumber");
+    sessionStorage.removeItem("gameNumber");
+
     window.location.href = gtnLobbyURL;
     updateButton(leaveGameButtonWaiting, "Leaving game...", buttonSelectBackgroundColor);
 }
@@ -205,6 +212,9 @@ leaveGameButtonGame.onclick = function () {
     // Delete whole game from database
     fb_set('liveGames/game' + gameNumber, null);
 
+    sessionStorage.removeItem("playerNumber");
+    sessionStorage.removeItem("gameNumber");
+
     window.location.href = gtnLobbyURL;
     updateButton(leaveGameButtonGame, "Leaving game...", buttonSelectBackgroundColor);
 }
@@ -212,7 +222,7 @@ leaveGameButtonGame.onclick = function () {
 // Onload calls setPlayerInfo function to set player profile info
 setPlayerInfo();
 
-// Calls startGame when there are 2 players in game and sets html
+// On value change of players in game, if there are enough players start game, else fire playerLeaves function
 fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
     players = snapshot.val();
     if (players == null || players.player1 == null || players.player2 == null) {

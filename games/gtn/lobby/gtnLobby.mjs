@@ -28,9 +28,9 @@ function updateButton(button, text, backgroundColor) {
 }
 
 // Function to create a game in the database and join as player 1
-function createGame() {
+function createGame(selectedGameNumber) {
     console.log("No games found");
-    gameNumber = Number(gameNumber);
+    gameNumber = Number(selectedGameNumber);
     console.log("Game number: " + gameNumber);
     sessionStorage.setItem("playerNumber", 1);
     sessionStorage.setItem("gameNumber", gameNumber);
@@ -56,8 +56,9 @@ function createGame() {
 }
 
 // Function to join game as player 2
-function joinGame() {
+function joinGame(selectedGameNumber) {
     console.log("Joining game" + numberOfGames + " as player 2");
+    gameNumber = Number(selectedGameNumber);
     sessionStorage.setItem("playerNumber", 2);
     sessionStorage.setItem("gameNumber", gameNumber);
     fb_set('liveGames/' + "game" + gameNumber + "/players/" + "player2", {
@@ -89,12 +90,12 @@ function searchingForGame(text) {
                     console.log("Players in game" + numberOfGames + ": " + numberOfPlayers);
                     // If there are less than 2 players in game, join the game as player 2
                     if (numberOfPlayers < 2) {
-                        joinGame();
+                        joinGame(numberOfGames);
                     }
 
                     else {
                         // If there are no available games, create new game, and join as player 1
-                        createGame();
+                        createGame(numberOfGames + 1);
                     }
                 }
             }).catch((error) => {
@@ -103,7 +104,7 @@ function searchingForGame(text) {
 
         } else {
             // If no games are found, create a new game with chosen gameNumber, and join as player 1
-            createGame();
+            createGame(1);
         }
     }).catch((error) => {
         console.error(error);
