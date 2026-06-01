@@ -36,6 +36,7 @@ let gameData = {};
 let players = {};
 let gameStarted = false;
 let otherPlayerLeft = false;
+let guessTimeRemaining = 10;
 
 // Function to update a button's text, background colour, and disable it
 function updateButton(button, text, backgroundColor) {
