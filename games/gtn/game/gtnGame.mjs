@@ -31,7 +31,7 @@ const lowerGuessButton = document.getElementById('lowerGuessButton');
 const higherGuessButton = document.getElementById('higherGuessButton');
 const guessButton = document.getElementById('guessButton');
 let playerNumber = sessionStorage.getItem("playerNumber");
-let gameNumber = sessionStorage.getItem("gameNumber");
+let gameId = sessionStorage.getItem("gameId");
 let isInGame = sessionStorage.getItem("isInGame");
 let gameData = {};
 let players = {};
@@ -64,7 +64,7 @@ function playerLeaves() {
     }
     otherPlayerLeft = true;
     sessionStorage.removeItem("playerNumber");
-    sessionStorage.removeItem("gameNumber");
+    sessionStorage.removeItem("gameId");
     if (playerNumber == 1) {
         mainTitleGame.innerText = player2Name.innerText + " has left the game!";
     } else if (playerNumber == 2) {
@@ -76,7 +76,7 @@ function playerLeaves() {
     lowerGuessButton.hidden = true;
     higherGuessButton.hidden = true;
     guessNumber.hidden = true;
-    gameNumber = null;
+    gameId = null;
     playerNumber = null;
     isInGame = false;
     sessionStorage.setItem("isInGame", "false");
@@ -90,7 +90,7 @@ async function startGame() {
     waitingDiv.hidden = true;
     gameDiv.hidden = false;
 
-    await fb_get('liveGames/game' + gameNumber + '/game/').then((snapshot) => {
+    await fb_get('liveGames/' + gameId + '/game/').then((snapshot) => {
         gameData = snapshot;
     }).catch((error) => {
         console.error(error);
@@ -120,18 +120,18 @@ async function checkGuess() {
     const playerGuess = guessNumber.innerHTML;
     if (playerNumber == 1) {
         console.log("Player 1 guessed: " + playerGuess);
-        await fb_set('liveGames/game' + gameNumber + '/game/player1Guess', playerGuess);
+        await fb_set('liveGames/' + gameId + '/game/player1Guess', playerGuess);
     } else if (playerNumber == 2) {
         console.log("Player 2 guessed: " + playerGuess);
-        await fb_set('liveGames/game' + gameNumber + '/game/player2Guess', playerGuess);
+        await fb_set('liveGames/' + gameId + '/game/player2Guess', playerGuess);
     }
 
     if (playerGuess == gameData.randomNumber) {
         console.log("Correct guess!");
         if (playerNumber == 1) {
-            await fb_set('liveGames/game' + gameNumber + '/game/winner', "player1");
+            await fb_set('liveGames/' + gameId + '/game/winner', "player1");
         } else if (playerNumber == 2) {
-            await fb_set('liveGames/game' + gameNumber + '/game/winner', "player2");
+            await fb_set('liveGames/' + gameId + '/game/winner', "player2");
         }
     } else {
         console.log("Wrong guess!");
@@ -148,9 +148,9 @@ async function checkGuess() {
 function setGuessingPlayer() {
     console.log("Changing guessing player...");
     if (playerNumber == 1) {
-        fb_set('liveGames/game' + gameNumber + '/game/playerTurn', 2);
+        fb_set('liveGames/' + gameId + '/game/playerTurn', 2);
     } else if (playerNumber == 2) {
-        fb_set('liveGames/game' + gameNumber + '/game/playerTurn', 1);
+        fb_set('liveGames/' + gameId + '/game/playerTurn', 1);
     }
 }
 
@@ -189,7 +189,7 @@ userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
 console.table(userDetails);
 
 // If player disconnects from page, delete game from database and set html for other player to show other players has left
-fb_onDisconnect('liveGames/game' + gameNumber, () => {
+fb_onDisconnect('liveGames/' + gameId, () => {
     console.log("Player disconnected, removing game from database...");
     playerLeaves();
 });
@@ -207,14 +207,14 @@ leaveGameButtonWaiting.onclick = function () {
     // Removes player from the players section in database
     if (playerNumber == 1) {
         // Delete whole game from database
-        fb_set('liveGames/game' + gameNumber, null);
+        fb_set('liveGames/' + gameId, null);
     } else {
         // Delete player 2 from database
-        fb_set('liveGames/game' + gameNumber + '/players/player' + playerNumber, null);
+        fb_set('liveGames/' + gameId + '/players/player' + playerNumber, null);
     }
 
     sessionStorage.removeItem("playerNumber");
-    sessionStorage.removeItem("gameNumber");
+    sessionStorage.removeItem("gameId");
 
     window.location.href = gtnLobbyURL;
     updateButton(leaveGameButtonWaiting, "Leaving game...", buttonSelectBackgroundColor);
@@ -223,10 +223,10 @@ leaveGameButtonWaiting.onclick = function () {
 // Event listener for on click of leaveGameButtonGame returns player to gtnLobby.html
 leaveGameButtonGame.onclick = function () {
     // Delete whole game from database
-    fb_set('liveGames/game' + gameNumber, null);
+    fb_set('liveGames/' + gameId, null);
 
     sessionStorage.removeItem("playerNumber");
-    sessionStorage.removeItem("gameNumber");
+    sessionStorage.removeItem("gameId");
 
     window.location.href = gtnLobbyURL;
     updateButton(leaveGameButtonGame, "Leaving game...", buttonSelectBackgroundColor);
@@ -236,7 +236,7 @@ leaveGameButtonGame.onclick = function () {
 setPlayerInfo();
 
 // On value change of players in game, if there are enough players start game, else fire playerLeaves function
-fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
+fb_onValueChange('liveGames/' + gameId + '/players/', (snapshot) => {
     players = snapshot.val();
     if (players == null || players.player1 == null || players.player2 == null) {
         if (gameStarted) {
@@ -268,7 +268,7 @@ fb_onValueChange('liveGames/game' + gameNumber + '/players/', (snapshot) => {
 });
 
 // On value change of game data, update html to show who is guessing
-fb_onValueChange('liveGames/game' + gameNumber + '/game/', (snapshot) => {
+fb_onValueChange('liveGames/' + gameId + '/game/', (snapshot) => {
     gameData = snapshot.val();
     if (gameData == null) {
         return;
@@ -339,7 +339,7 @@ higherGuessButton.onclick = function () {
 }
 
 // Calls endGame when there is a winner in database and updates html to show winner
-fb_onValueChange('liveGames/game' + gameNumber + '/game/winner', (snapshot) => {
+fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
     const winner = snapshot.val();
     if (winner == null) {
         return;
@@ -355,7 +355,7 @@ fb_onValueChange('liveGames/game' + gameNumber + '/game/winner', (snapshot) => {
                 fb_set('userScores/gtn/' + players.player1.player1uid + '/wins', 1);
                 fb_set('userScores/gtn/' + players.player1.player1uid + '/name', players.player1.player1username);
             }
-            fb_set('liveGames/game' + gameNumber, null);
+            fb_set('liveGames/' + gameId, null);
             mainTitleGame.innerText = player1Name.innerHTML + " wins!";
             guessButton.hidden = true;
             lowerGuessButton.hidden = true;
@@ -374,7 +374,7 @@ fb_onValueChange('liveGames/game' + gameNumber + '/game/winner', (snapshot) => {
                 fb_set('userScores/gtn/' + players.player2.player2uid + '/wins', 1);
                 fb_set('userScores/gtn/' + players.player2.player2uid + '/name', players.player2.player2username);
             }
-            fb_set('liveGames/game' + gameNumber, null);
+            fb_set('liveGames/' + gameId, null);
             mainTitleGame.innerText = player2Name.innerHTML + " wins!";
             guessButton.hidden = true;
             lowerGuessButton.hidden = true;

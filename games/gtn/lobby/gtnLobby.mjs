@@ -17,8 +17,7 @@ const gtnGameURL = new URL('../game/gtnGame.html', import.meta.url).href;
 const gamePageURL = new URL('../../../main/gamePage/gamePage.html', import.meta.url).href;
 const leaderboardPageURL = new URL('../leaderboard/gtnLeaderboard.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
-let gameNumber = 1;
-let numberOfGames = 0;
+let gameId = null;
 
 // Function to update a button's text, background colour, and disable it
 function updateButton(button, text, backgroundColor) {
@@ -27,15 +26,21 @@ function updateButton(button, text, backgroundColor) {
     button.style.backgroundColor = backgroundColor;
 }
 
-// Function to create a game in the database and join as player 1
-function createGame(selectedGameNumber) {
-    console.log("No games found");
-    gameNumber = Number(selectedGameNumber);
-    console.log("Game number: " + gameNumber);
-    sessionStorage.setItem("playerNumber", 1);
-    sessionStorage.setItem("gameNumber", gameNumber);
+// Function to create a unique lobby id
+function createGameId() {
+    // Use current date and random number to generate unique game id for realtime database
+    return "game-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
+}
 
-    fb_set('liveGames/' + "game" + gameNumber, {
+// Function to create a game in the database and join as player 1
+function createGame(selectedGameId) {
+    console.log("No games found");
+    gameId = selectedGameId;
+    console.log("Game id: " + gameId);
+    sessionStorage.setItem("playerNumber", 1);
+    sessionStorage.setItem("gameId", gameId);
+
+    fb_set('liveGames/' + gameId, {
         players: {
             player1: {
                 player1uid: userDetails.uid,
@@ -57,12 +62,12 @@ function createGame(selectedGameNumber) {
 }
 
 // Function to join game as player 2
-function joinGame(selectedGameNumber) {
-    console.log("Joining game" + numberOfGames + " as player 2");
-    gameNumber = Number(selectedGameNumber);
+function joinGame(selectedGameId) {
+    console.log("Joining game " + selectedGameId + " as player 2");
+    gameId = selectedGameId;
     sessionStorage.setItem("playerNumber", 2);
-    sessionStorage.setItem("gameNumber", gameNumber);
-    fb_set('liveGames/' + "game" + gameNumber + "/players/" + "player2", {
+    sessionStorage.setItem("gameId", gameId);
+    fb_set('liveGames/' + gameId + "/players/" + "player2", {
         player2uid: userDetails.uid,
         player2username: userDetails.username,
         player2photoURL: userDetails.photoURL,
@@ -76,37 +81,38 @@ function joinGame(selectedGameNumber) {
 function searchingForGame(text) {
     updateButton(gameSearchButton, text, buttonSelectBackgroundColor);
 
-    // Read the number of games in the liveGames to determine the gameNumber if a game needs to be created
+    // Read the live games to determine whether an open lobby already exists
     fb_get('liveGames/').then((snapshot) => {
-        const liveGames = snapshot
-        // If liveGames does not have nothing in it, create a game and join as player 1
+        const liveGames = snapshot;
+        // If liveGames has nothing in it, create a game and join as player 1
         if (liveGames != null) {
-            numberOfGames = Object.keys(liveGames).length;
-            numberOfGames = Number(numberOfGames);
-            console.log("Number of games: " + numberOfGames);
+            let availableGameId = null;
+            const liveGameKeys = Object.keys(liveGames);
 
-            fb_get('liveGames/game' + numberOfGames + '/players/').then((snapshot) => {
-                const players = snapshot
-                if (players != null) {
-                    const numberOfPlayers = Object.keys(players).length;
-                    console.log("Players in game" + numberOfGames + ": " + numberOfPlayers);
-                    // If there are less than 2 players in game, join the game as player 2
-                    if (numberOfPlayers < 2) {
-                        joinGame(numberOfGames);
-                    }
+            // Go through the live games and choose the first one with less than 2 players
+            for (let i = 0; i < liveGameKeys.length; i++) {
+                const candidateGameId = liveGameKeys[i];
+                const players = liveGames[candidateGameId].players;
 
-                    else {
-                        // If there are no available games, create new game, and join as player 1
-                        createGame(numberOfGames + 1);
-                    }
+                if (players != null && Object.keys(players).length < 2) {
+                    availableGameId = candidateGameId;
+                    break;
                 }
-            }).catch((error) => {
-                console.error(error);
-            });
+            }
+
+            if (availableGameId != null) {
+                console.log("Joining game: " + availableGameId);
+                joinGame(availableGameId);
+                return;
+            }
+
+            const nextGameId = createGameId();
+            console.log("No available games. Creating game: " + nextGameId);
+            createGame(nextGameId);
 
         } else {
-            // If no games are found, create a new game with chosen gameNumber, and join as player 1
-            createGame(1);
+            // If no games are found, create a new game and join as player 1
+            createGame(createGameId());
         }
     }).catch((error) => {
         console.error(error);
