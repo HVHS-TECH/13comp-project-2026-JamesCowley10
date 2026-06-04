@@ -53,6 +53,7 @@ function createGame(selectedGameNumber) {
     });
     // Send user to gtnGame.html
     window.location.href = gtnGameURL;
+    sessionStorage.setItem("isInGame", "true");
 }
 
 // Function to join game as player 2
@@ -68,6 +69,7 @@ function joinGame(selectedGameNumber) {
     });
     // Send user to gtnGame.html
     window.location.href = gtnGameURL;
+    sessionStorage.setItem("isInGame", "true");
 }
 
 // Function to search for an available game

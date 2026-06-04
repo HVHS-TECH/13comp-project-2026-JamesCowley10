@@ -402,6 +402,7 @@ function fb_onDisconnect(path, callback) {
     const dbReference = ref(FB_GAMEDB, path);
     onDisconnect(dbReference).remove().then(() => {
         console.log("✅ Disconnect handler set for " + path);
+        sessionStorage.setItem("isInGame", "false");
     }).catch((error) => {
         console.error(error);;
     });

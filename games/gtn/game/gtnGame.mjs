@@ -32,6 +32,7 @@ const higherGuessButton = document.getElementById('higherGuessButton');
 const guessButton = document.getElementById('guessButton');
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameNumber = sessionStorage.getItem("gameNumber");
+let isInGame = sessionStorage.getItem("isInGame");
 let gameData = {};
 let players = {};
 let gameStarted = false;
@@ -77,6 +78,8 @@ function playerLeaves() {
     guessNumber.hidden = true;
     gameNumber = null;
     playerNumber = null;
+    isInGame = false;
+    sessionStorage.setItem("isInGame", "false");
 }
 
 // Function to set up game html and start game when there are 2 players in game
@@ -168,11 +171,7 @@ window.fb_onDisconnect = fb_onDisconnect;
 /**************************************************************/
 fb_initialise();
 
-// If player disconnects from page, delete game from database and set html for other player to show other players has left
-fb_onDisconnect('liveGames/game' + gameNumber, () => {
-    console.log("Player disconnected, removing game from database...");
-    playerLeaves();
-});
+console.log(isInGame);
 
 /**************************************************************/
 // gtnGame.html main code
@@ -188,6 +187,20 @@ userDetails.address = sessionStorage.getItem("address");
 userDetails.age = sessionStorage.getItem("age");
 userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
 console.table(userDetails);
+
+// If player disconnects from page, delete game from database and set html for other player to show other players has left
+fb_onDisconnect('liveGames/game' + gameNumber, () => {
+    console.log("Player disconnected, removing game from database...");
+    playerLeaves();
+});
+
+// Onload if sessionStorage.isInGame is not true, then send user to lobby
+window.onload = function () {
+    if (sessionStorage.getItem("isInGame") !== "true") {
+        console.log("Not in game, redirecting to lobby...");
+        location.href = gtnLobbyURL;
+    }
+}
 
 // Event listener for on click of leaveGameButton returns player to gtnLobby.html
 leaveGameButtonWaiting.onclick = function () {
@@ -374,12 +387,12 @@ fb_onValueChange('liveGames/game' + gameNumber + '/game/winner', (snapshot) => {
 });
 
 // Onload if sessionStorage.loggedIn is not y, then send user to last page
-window.onload = function () {
+window.addEventListener("load", function () {
     if (sessionStorage.getItem("loggedIn") != "y") {
         const lastUrl = new URL('../index.html', import.meta.url).href;
         location.href = lastUrl;
     }
-}
+});
 
 /**************************************************************/
 //   END OF CODE
