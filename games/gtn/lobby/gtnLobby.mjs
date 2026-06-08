@@ -17,6 +17,7 @@ const gtnGameURL = new URL('../game/gtnGame.html', import.meta.url).href;
 const gamePageURL = new URL('../../../main/gamePage/gamePage.html', import.meta.url).href;
 const leaderboardPageURL = new URL('../leaderboard/gtnLeaderboard.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
+const mainTitle = document.getElementById('mainTitle');
 let gameId = null;
 
 // Function to update a button's text, background colour, and disable it
