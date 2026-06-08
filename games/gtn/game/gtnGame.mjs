@@ -344,6 +344,8 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
     if (winner == null) {
         return;
     }
+    // Cache the winning number before removing the game from database
+    const winningNumber = gameData?.randomNumber ?? randomNumber;
     // Add 1 win to winning player's wins in database, userScores.gtn.uid.wins
     if (winner == "player1") {
         fb_get('userScores/gtn/' + players.player1.player1uid + '/wins').then((snapshot) => {
@@ -356,7 +358,7 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
                 fb_set('userScores/gtn/' + players.player1.player1uid + '/name', players.player1.player1username);
             }
             fb_set('liveGames/' + gameId, null);
-            mainTitleGame.innerText = player1Name.innerHTML + " wins!";
+            mainTitleGame.innerText = player1Name.innerHTML + " wins! It was " + winningNumber + "!";
             guessButton.hidden = true;
             lowerGuessButton.hidden = true;
             higherGuessButton.hidden = true;
@@ -375,7 +377,7 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
                 fb_set('userScores/gtn/' + players.player2.player2uid + '/name', players.player2.player2username);
             }
             fb_set('liveGames/' + gameId, null);
-            mainTitleGame.innerText = player2Name.innerHTML + " wins!";
+            mainTitleGame.innerText = player2Name.innerHTML + " wins! It was " + winningNumber + "!";
             guessButton.hidden = true;
             lowerGuessButton.hidden = true;
             higherGuessButton.hidden = true;
