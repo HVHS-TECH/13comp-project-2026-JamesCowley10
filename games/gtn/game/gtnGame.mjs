@@ -356,7 +356,7 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
                 fb_set('userScores/gtn/' + players.player1.player1uid + '/name', players.player1.player1username);
             }
             fb_set('liveGames/' + gameId, null);
-            mainTitleGame.innerText = player1Name.innerHTML + " wins!";
+            mainTitleGame.innerText = player1Name.innerHTML + " wins! It was " + gameData.randomNumber + ".";
             guessButton.hidden = true;
             lowerGuessButton.hidden = true;
             higherGuessButton.hidden = true;
@@ -375,7 +375,7 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
                 fb_set('userScores/gtn/' + players.player2.player2uid + '/name', players.player2.player2username);
             }
             fb_set('liveGames/' + gameId, null);
-            mainTitleGame.innerText = player2Name.innerHTML + " wins!";
+            mainTitleGame.innerText = player2Name.innerHTML + " wins! It was " + gameData.randomNumber + ".";
             guessButton.hidden = true;
             lowerGuessButton.hidden = true;
             higherGuessButton.hidden = true;
