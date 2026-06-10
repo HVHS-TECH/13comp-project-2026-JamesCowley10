@@ -21,20 +21,35 @@ let age = document.getElementById("regAge").value;
 let address = document.getElementById("regAddress").value;
 let phoneNumber = document.getElementById("regPhoneNumber").value;
 
-// Displays a warning message
+/**************************************************************/
+// regWarningFade()
+// Called to display a warning message
+// Input: text (string)
+// Return: N/A
+/**************************************************************/
 function regWarningFade(text) {
     regWarning.hidden = false;
     regWarning.innerText = text;
 }
 
-// Function to update a button's text, background colour, and disable it
+/**************************************************************/
+// regWarningFade()
+// Called to update a button's text, background colour, and disable it
+// Input: button (string), text (string), backgroundColor (string)
+// Return: N/A
+/**************************************************************/
 function updateButton(button, text, backgroundColor) {
     button.disabled = true;
     button.innerText = text;
     button.style.backgroundColor = backgroundColor;
 }
 
+/**************************************************************/
+// regWarningFade()
 // Validates user inputs, returns true if valid, else displays corresponding error message and returns false
+// Input: username (string), age (number), address (string), phoneNumber (number)
+// Return: boolean
+/**************************************************************/
 function checkInputs(username, age, address, phoneNumber) {
     // Validate username input is not empty
     if (username.trim() == "") {
@@ -74,6 +89,12 @@ function checkInputs(username, age, address, phoneNumber) {
     return true;
 }
 
+/**************************************************************/
+// registrationSuccess()
+// Called if all user inputs are valid, sets user's details and sends them to gamePage.html, also shows an error message if one occurs
+// Input: username (string), age (number), address (string), phoneNumber (number)
+// Return: N/A
+/**************************************************************/
 async function registrationSuccess(username, age, address, phoneNumber) {
     // If all validation is passed then set user's details and proceed
     console.log("Valid Inputs");
@@ -102,6 +123,12 @@ async function registrationSuccess(username, age, address, phoneNumber) {
     }
 }
 
+/**************************************************************/
+// setInitialDetails()
+// Function to set the initial values of the registration form fields to the user's current details
+// Input: N/A
+// Return: N/A
+/**************************************************************/
 function setInitialDetails () {
     // Sets values and placeholders of input fields to current userDetails values
     document.getElementById("regUsername").value = userDetails.username;

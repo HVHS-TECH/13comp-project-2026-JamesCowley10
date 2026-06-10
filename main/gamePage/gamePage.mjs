@@ -22,6 +22,12 @@ const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const logoutButton = document.getElementById('logoutButton');
 let isAdmin = sessionStorage.getItem('admin');
 
+/**************************************************************/
+// checkAdmin()
+// Called to check if the current user is an admin
+// Input: N/A
+// Return: N/A
+/**************************************************************/
 function checkAdmin() {
     if (isAdmin == 'y') {
         adminButton.hidden = false;
