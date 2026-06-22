@@ -227,12 +227,14 @@ function ad_processUSERReadAll(_result, _path, _snapshot, _save, _error) {
         //  MATCH YOUR FIREBASE RECORDS FOR THE PATH                    //<=======
         ad_adminArray.push({
           displayName: childData.displayName,
+          uid: childKey,
           email: childData.email,
           // Left photoURL out as its so long the table will be too wide for the screen
           //photoURL:   childData.photoURL,  
           name: childData.username,
           age: childData.age,
-          uid: childKey
+          address: childData.address,
+          phoneNumber: childData.phoneNumber
         });
       });
     }

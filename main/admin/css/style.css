@@ -126,6 +126,14 @@
     font-size: 30px;
     background-image: linear-gradient(#f3f3f3, #cecece);
   }
+
+  /*------------------------------------------------------------
+    Admin Table Head Styling
+  /*----------------------------------------------------------*/
+
+  thead {
+    text-align-last: justify;
+  }
   
   /*------------------------------------------------------------
     Fade In Animation Styling
