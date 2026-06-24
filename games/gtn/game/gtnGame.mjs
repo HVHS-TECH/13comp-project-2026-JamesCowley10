@@ -30,6 +30,8 @@ const guessNumber = document.getElementById('guessNumber');
 const lowerGuessButton = document.getElementById('lowerGuessButton');
 const higherGuessButton = document.getElementById('higherGuessButton');
 const guessButton = document.getElementById('guessButton');
+const minGuess = 1;
+const maxGuess = 100;
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameId = sessionStorage.getItem("gameId");
 let isInGame = sessionStorage.getItem("isInGame");
@@ -324,14 +326,14 @@ guessButton.onclick = function () {
 
 // Event listener for on click of lowerGuessButton
 lowerGuessButton.onclick = function () {
-    if (Number(guessNumber.innerHTML) > 1) {
+    if (Number(guessNumber.innerHTML) > minimumGuess) {
         guessNumber.innerHTML = Number(guessNumber.innerHTML) - 1;
     }
 }
 
 // Event listener for on click of higherGuessButton
 higherGuessButton.onclick = function () {
-    if (Number(guessNumber.innerHTML) < 100) {
+    if (Number(guessNumber.innerHTML) < maxGuess) {
         guessNumber.innerHTML = Number(guessNumber.innerHTML) + 1;
     }
 }
