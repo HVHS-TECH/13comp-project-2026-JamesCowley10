@@ -92,11 +92,11 @@ function searchingForGame(text) {
 
             // Go through the live games and choose the first one with less than 2 players
             for (let i = 0; i < liveGameKeys.length; i++) {
-                const candidateGameId = liveGameKeys[i];
-                const players = liveGames[candidateGameId].players;
+                const currentGameId = liveGameKeys[i];
+                const players = liveGames[currentGameId].players;
 
                 if (players != null && Object.keys(players).length < 2) {
-                    availableGameId = candidateGameId;
+                    availableGameId = currentGameId;
                     break;
                 }
             }
