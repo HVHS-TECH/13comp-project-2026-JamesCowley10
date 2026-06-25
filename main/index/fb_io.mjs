@@ -327,7 +327,7 @@ function fb_update() {
         'color: ' + COL_C + '; background-color: ' + COL_B + ';');
 
     const _data = userDetails;
-    const dbReference = ref(FB_GAMEDB, 'userDetails/' + userDetails.uid + '/displayName');
+    const dbReference = ref(FB_GAMEDB, 'userDetails/' + userDetails.uid);
     update(dbReference, _data).then(() => {
         console.log("✅ Successful Update");
         console.table(_data);

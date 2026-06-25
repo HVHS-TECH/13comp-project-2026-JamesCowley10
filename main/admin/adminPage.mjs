@@ -231,7 +231,7 @@ function ad_processUSERReadAll(_result, _path, _snapshot, _save, _error) {
           email: childData.email,
           // Left photoURL out as its so long the table will be too wide for the screen
           //photoURL:   childData.photoURL,  
-          name: childData.username,
+          username: childData.username,
           age: childData.age,
           address: childData.address,
           phoneNumber: childData.phoneNumber
@@ -254,7 +254,7 @@ function ad_processUSERReadAll(_result, _path, _snapshot, _save, _error) {
     console.error('Database read error for ' + _path + '\n' + _error);
     if (para) {
       para.textContent = _result;
-      para.style.color = 'red';
+      para.style.color = 'green';
     }
   }
 
@@ -263,7 +263,7 @@ function ad_processUSERReadAll(_result, _path, _snapshot, _save, _error) {
   //  7 = COLUMMN NUMBER WHICH CONTAINS THE DATABASE KEY.               //<=======
   //  8 = DATABASE PATH THE RECORDS WERE READ FROM.                     //<=======
   ad_displayAll("t_userData", ad_adminArray, true, "", "", "",
-    5, DETAILS);                                            //<=======
+    2, DETAILS);                                            //<=======
 }
 
 /**************************************************************/
