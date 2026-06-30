@@ -82,7 +82,7 @@ function checkInputs(username, age, address, phoneNumber) {
         return false;
     }
     // Validates phone number input
-    if (phoneNumber === null || phoneNumber === "" || isNaN(phoneNumber) || phoneNumber < 1000000000 || phoneNumber > 9999999999) {
+    if (phoneNumber === null || phoneNumber === "" || isNaN(phoneNumber) || phoneNumber < 1000000000 || phoneNumber > 999999999999) {
         regWarningFade("Please enter a valid phone number!");
         return false;
     }
@@ -183,7 +183,7 @@ document.getElementById("regForm").addEventListener("input", function () {
         document.getElementById("regAddress").style.color = "red";
     }
     // If phone number input is valid, change colour to green, else change to red
-    if (!isNaN(phoneNumber) && Number(phoneNumber) >= 1000000000 && Number(phoneNumber) <= 9999999999) {
+    if (!isNaN(phoneNumber) && Number(phoneNumber) >= 1000000000 && Number(phoneNumber) <= 999999999999) {
         document.getElementById("regPhoneNumber").style.color = "green";
     } else {
         document.getElementById("regPhoneNumber").style.color = "red";
