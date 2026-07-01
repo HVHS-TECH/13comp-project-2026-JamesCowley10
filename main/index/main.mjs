@@ -14,7 +14,7 @@ const loginText = document.getElementById('loginText');
 
 /**************************************************************/
 // updateButton(button, text, backgroundColor)
-// Called to update style and state of a button
+// Called by button event listeners to update style and state of button
 // Disables button, updates button text and background colour to inputted values
 // Input: button (string), text (string), backgroundColor (string)
 // Return: N/A

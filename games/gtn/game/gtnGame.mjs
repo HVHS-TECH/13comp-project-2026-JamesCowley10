@@ -42,7 +42,7 @@ let otherPlayerLeft = false;
 
 /**************************************************************/
 // updateButton(button, text, backgroundColor)
-// Called to update style and state of a button
+// Called by button event listeners to update style and state of a button
 // Disables button, updates button text and background colour to inputted values
 // Input: button (string), text (string), backgroundColor (string)
 // Return: N/A
@@ -55,7 +55,7 @@ function updateButton(button, text, backgroundColor) {
 
 /**************************************************************/
 // setPlayerInfo()
-// Called to update player info on the game screen
+// Called by fb_onValueChange() to update player info on the game screen
 // Sets player profile image and username to current player's userDetails
 // Input: N/A
 // Return: N/A
@@ -73,7 +73,7 @@ function setPlayerInfo() {
 
 /**************************************************************/
 // playerLeaves()
-// Called when a player leaves the game
+// Called fb_onValueChange() when a player leaves the game
 // Updates game state and displays message to remaining player
 // Input: N/A
 // Return: N/A
@@ -104,7 +104,7 @@ function playerLeaves() {
 
 /**************************************************************/
 // startGame()
-// Called to start the game
+// Called by fb_onValueChange() to start the game
 // Updates game state and displays necessary game interface
 // Input: N/A
 // Return: N/A
@@ -143,7 +143,7 @@ async function startGame() {
 
 /**************************************************************/
 // checkGuess()
-// Called to check if player's guess is correct
+// Called by guessButton event listener to check if player's guess is correct
 // Checks guess and updates realtime database depending on if guess is correct or not
 // Input: N/A
 // Return: N/A
@@ -178,7 +178,7 @@ async function checkGuess() {
 
 /**************************************************************/
 // setGuessingPlayer()
-// Called to update which player is currently guessing
+// Called by checkGuess() to update which player is currently guessing
 // Updates realtime database to set playerTurn to other player
 // Input: N/A
 // Return: N/A

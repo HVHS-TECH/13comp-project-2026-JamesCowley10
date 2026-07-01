@@ -22,7 +22,7 @@ let phoneNumber = document.getElementById("regPhoneNumber").value;
 
 /**************************************************************/
 // regWarningFade(text)
-// Called to display the warning for the register page
+// Called by checkInputs() to display warning message
 // Makes the warning visible and sets text to inputted text
 // Input: text (string)
 // Return: N/A
@@ -34,7 +34,7 @@ function regWarningFade(text) {
 
 /**************************************************************/
 // updateButton(button, text, backgroundColor)
-// Called to update style and state of a button
+// Called by button event listeners to update style and state of button
 // Disables button, updates button text and background colour to inputted values
 // Input: button (string), text (string), backgroundColor (string)
 // Return: N/A
@@ -47,7 +47,7 @@ function updateButton(button, text, backgroundColor) {
 
 /**************************************************************/
 // checkInputs(username, age, address, phoneNumber)
-// Called to validate user inputs
+// Called by regButton event listener to validate user inputs
 // Validates user inputs, returns true if valid, else displays corresponding error message and returns false
 // Input: username (string), age (number), address (string), phoneNumber (number)
 // Return: boolean
@@ -93,7 +93,7 @@ function checkInputs(username, age, address, phoneNumber) {
 
 /**************************************************************/
 // registrationSuccess()
-// Called if registration is a success
+// Called by regButton event listener if all inputs are valid
 // Sets userDetails and sessionStorage to necessary values, then sends user to gamePage.html
 // Input: username (string), age (number), address (string), phoneNumber (number)
 // Return: N/A

@@ -18,7 +18,7 @@ const leaderboardTable = document.getElementById("leaderboardTable");
 
 /**************************************************************/
 // updateButton(button, text, backgroundColor)
-// Called to update style and state of a button
+// Called by button event listeners to update style and state of a button
 // Disables button, updates button text and background colour to inputted values
 // Input: button (string), text (string), backgroundColor (string)
 // Return: N/A
@@ -75,7 +75,7 @@ returnButton.onclick = function () {
 
 /**************************************************************/
 // displayLeaderboard(leaderboardData)
-// Called to display leaderboard data
+// Called by gtnLeaderboard.html to display leaderboard data
 // Creates leaderboard table with rank, name, and wins for top 10 player in realtime database
 // Input: leaderboardData (array)
 // Return: N/A

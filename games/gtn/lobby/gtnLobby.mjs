@@ -22,7 +22,7 @@ let gameId = null;
 
 /**************************************************************/
 // updateButton(button, text, backgroundColor)
-// Called to update style and state of a button
+// Called by button event listeners to update style and state of a button
 // Disables button, updates button text and background colour to inputted values
 // Input: button (string), text (string), backgroundColor (string)
 // Return: N/A
@@ -35,7 +35,7 @@ function updateButton(button, text, backgroundColor) {
 
 /**************************************************************/
 // createGameId()
-// Called to generate unique game ID
+// Called by searchingForGame() to generate unique game ID
 // Returns a string with the unique game ID that is generated
 // Input: N/A
 // Return: string
@@ -47,7 +47,7 @@ function createGameId() {
 
 /**************************************************************/
 // createGame(selectedGameId)
-// Called to create a new game
+// Called by searchingForGame() to create a new game
 // Create new game in realtime database with selectedGameId, set user as player 1, send to gtnGame.html
 // Input: selectedGameId (string)
 // Return: N/A
@@ -82,7 +82,7 @@ function createGame(selectedGameId) {
 
 /**************************************************************/
 // joinGame(selectedGameId)
-// Called to join an existing game
+// Called by searchingForGame() to join an existing game
 // Joins the user as player 2 in specific game
 // Input: selectedGameId (string)
 // Return: N/A
@@ -104,7 +104,7 @@ function joinGame(selectedGameId) {
 
 /**************************************************************/
 // searchingForGame(text)
-// Called to search for an available game
+// Called by gameSearchButton event listener for an available game
 // If available game is found, join as player 2, else creates new game, joins as player 1
 // Input: text (string)
 // Return: N/A
