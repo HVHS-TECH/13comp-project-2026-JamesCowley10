@@ -16,6 +16,7 @@ const profileImgURL = sessionStorage.getItem("photoURL");
 const maxUsernameLength = 15;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const gamePageURL = new URL('../gamePage/gamePage.html', import.meta.url).href;
+const loginPageURL = new URL('../../index.html', import.meta.url).href;
 let username = document.getElementById("regUsername").value;
 let age = document.getElementById("regAge").value;
 let address = document.getElementById("regAddress").value;
@@ -48,7 +49,7 @@ function updateButton(button, text, backgroundColor) {
 
 /**************************************************************/
 // checkInputs(username, age, address, phoneNumber)
-// Called by updateButton event listener to validate user inputs
+// Called by regButton event listener to validate user inputs
 // Validates user inputs, returns true if valid, else displays corresponding error message and returns false
 // Input: username (string), age (number), address (string), phoneNumber (number)
 // Return: boolean
@@ -94,7 +95,7 @@ function checkInputs(username, age, address, phoneNumber) {
 
 /**************************************************************/
 // registrationSuccess()
-// Called by updateButton event listener if all inputs are valid
+// Called by regButton event listener if all inputs are valid
 // Sets userDetails and sessionStorage to necessary values, then sends user to gamePage.html
 // Input: username (string), age (number), address (string), phoneNumber (number)
 // Return: N/A
@@ -115,7 +116,7 @@ async function registrationSuccess(username, age, address, phoneNumber) {
     sessionStorage.setItem("address", address);
     sessionStorage.setItem("phoneNumber", phoneNumber);
 
-    // Sets the username and age to the user's userDetails and shows an error if one occurs
+    // Sets the username and age to the user's userDetails in the database, then sends user to gamePage.html
     try {
         await fb_set('userDetails/' + userDetails.uid, userDetails);
         console.table(userDetails);
@@ -123,7 +124,7 @@ async function registrationSuccess(username, age, address, phoneNumber) {
         location.href = gameUrl;
     } catch (error) {
         console.error(error);
-        regWarning.hidden = false;
+        regWarningFade("Error updating details. Please try again.");
     }
 }
 
@@ -135,7 +136,7 @@ async function registrationSuccess(username, age, address, phoneNumber) {
 // Return: N/A
 /**************************************************************/
 function setInitialDetails () {
-    // Sets values and placeholders of input fields to current userDetails values
+    // Sets values of input fields to current userDetails values
     document.getElementById("regUsername").value = userDetails.username;
     document.getElementById("regAge").value = userDetails.age;
     document.getElementById("regAddress").value = userDetails.address;
@@ -158,10 +159,10 @@ window.fb_get = fb_get;
 fb_initialise();
 
 /**************************************************************/
-// regPage.html main code
+// accountPage.html main code
 /**************************************************************/
 
-// If input changes in username input field, then changes colour depending on validity
+// If input changes in input field, then changes colour depending on validity
 document.getElementById("regForm").addEventListener("input", function () {
     // Get current values of input fields
     username = document.getElementById("regUsername").value;
@@ -233,17 +234,9 @@ regButton.onclick = async function () {
     }
 }
 
-//  Event listener for on click of returnButton returns user to gamePage.html
+//  Event listener for the return to login button, on click returns user to login page
 returnButton.onclick = function () {
-    location.href = gamePageURL;
-    updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
-}
-
-// Event listener for the return to login button, on click returns user to login page
-returnButton.onclick = function () {
-    // Sends user to loginPage.html
-    const loginUrl = new URL('../../index.html', import.meta.url).href;
-    location.href = loginUrl;
+    location.href = loginPageURL;
     updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
 }
 
