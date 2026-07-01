@@ -25,6 +25,7 @@ let isAdmin = sessionStorage.getItem('admin');
 /**************************************************************/
 // checkAdmin()
 // Called to check if the current user is an admin
+// If user is admin, show admin button, else hide it
 // Input: N/A
 // Return: N/A
 /**************************************************************/

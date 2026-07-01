@@ -12,7 +12,13 @@ const loginButton = document.getElementById('loginButton');
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const loginText = document.getElementById('loginText');
 
-// Function to update a button's text, background colour, and disable it
+/**************************************************************/
+// updateButton(button, text, backgroundColor)
+// Called to update style and state of a button
+// Disables button, updates button text and background colour to inputted values
+// Input: button (string), text (string), backgroundColor (string)
+// Return: N/A
+/**************************************************************/
 function updateButton(button, text, backgroundColor, buttonTextElement) {
     button.disabled = true;
     buttonTextElement.innerText = text;

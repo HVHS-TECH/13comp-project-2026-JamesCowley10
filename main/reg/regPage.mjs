@@ -20,20 +20,38 @@ let age = document.getElementById("regAge").value;
 let address = document.getElementById("regAddress").value;
 let phoneNumber = document.getElementById("regPhoneNumber").value;
 
-// Displays a warning message
+/**************************************************************/
+// regWarningFade(text)
+// Called to display the warning for the register page
+// Makes the warning visible and sets text to inputted text
+// Input: text (string)
+// Return: N/A
+/**************************************************************/
 function regWarningFade(text) {
     regWarning.hidden = false;
     regWarning.innerText = text;
 }
 
-// Function to update a button's text, background colour, and disable it
+/**************************************************************/
+// updateButton(button, text, backgroundColor)
+// Called to update style and state of a button
+// Disables button, updates button text and background colour to inputted values
+// Input: button (string), text (string), backgroundColor (string)
+// Return: N/A
+/**************************************************************/
 function updateButton(button, text, backgroundColor) {
     button.disabled = true;
     button.innerText = text;
     button.style.backgroundColor = backgroundColor;
 }
 
+/**************************************************************/
+// checkInputs(username, age, address, phoneNumber)
+// Called to validate user inputs
 // Validates user inputs, returns true if valid, else displays corresponding error message and returns false
+// Input: username (string), age (number), address (string), phoneNumber (number)
+// Return: boolean
+/**************************************************************/
 function checkInputs(username, age, address, phoneNumber) {
     // Validate username input is not empty
     if (username.trim() == "") {
@@ -73,6 +91,13 @@ function checkInputs(username, age, address, phoneNumber) {
     return true;
 }
 
+/**************************************************************/
+// registrationSuccess()
+// Called if registration is a success
+// Sets userDetails and sessionStorage to necessary values, then sends user to gamePage.html
+// Input: username (string), age (number), address (string), phoneNumber (number)
+// Return: N/A
+/**************************************************************/
 async function registrationSuccess(username, age, address, phoneNumber) {
     // If all validation is passed then set user's details and proceed
     console.log("Valid Inputs");

@@ -24,6 +24,7 @@ let phoneNumber = document.getElementById("regPhoneNumber").value;
 /**************************************************************/
 // regWarningFade()
 // Called to display a warning message
+// Makes warning visible and sets text to inputted text
 // Input: text (string)
 // Return: N/A
 /**************************************************************/
@@ -33,8 +34,9 @@ function regWarningFade(text) {
 }
 
 /**************************************************************/
-// regWarningFade()
-// Called to update a button's text, background colour, and disable it
+// updateButton(button, text, backgroundColor)
+// Called to update style and state of a button
+// Disables button, updates button text and background colour to inputted values
 // Input: button (string), text (string), backgroundColor (string)
 // Return: N/A
 /**************************************************************/
@@ -45,7 +47,8 @@ function updateButton(button, text, backgroundColor) {
 }
 
 /**************************************************************/
-// regWarningFade()
+// checkInputs(username, age, address, phoneNumber)
+// Called to validate user inputs
 // Validates user inputs, returns true if valid, else displays corresponding error message and returns false
 // Input: username (string), age (number), address (string), phoneNumber (number)
 // Return: boolean
@@ -91,7 +94,8 @@ function checkInputs(username, age, address, phoneNumber) {
 
 /**************************************************************/
 // registrationSuccess()
-// Called if all user inputs are valid, sets user's details and sends them to gamePage.html, also shows an error message if one occurs
+// Called if registration is a success
+// Sets userDetails and sessionStorage to necessary values, then sends user to gamePage.html
 // Input: username (string), age (number), address (string), phoneNumber (number)
 // Return: N/A
 /**************************************************************/
@@ -125,7 +129,8 @@ async function registrationSuccess(username, age, address, phoneNumber) {
 
 /**************************************************************/
 // setInitialDetails()
-// Function to set the initial values of the registration form fields to the user's current details
+// Called to set initial values of reigstration fields
+// Sets registration fields to current user's userDetails
 // Input: N/A
 // Return: N/A
 /**************************************************************/

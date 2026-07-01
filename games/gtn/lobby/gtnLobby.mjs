@@ -20,20 +20,38 @@ const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const mainTitle = document.getElementById('mainTitle');
 let gameId = null;
 
-// Function to update a button's text, background colour, and disable it
+/**************************************************************/
+// updateButton(button, text, backgroundColor)
+// Called to update style and state of a button
+// Disables button, updates button text and background colour to inputted values
+// Input: button (string), text (string), backgroundColor (string)
+// Return: N/A
+/**************************************************************/
 function updateButton(button, text, backgroundColor) {
     button.disabled = true;
     button.innerText = text;
     button.style.backgroundColor = backgroundColor;
 }
 
-// Function to create a unique lobby id
+/**************************************************************/
+// createGameId()
+// Called to generate unique game ID
+// Returns a string with the unique game ID that is generated
+// Input: N/A
+// Return: string
+/**************************************************************/
 function createGameId() {
     // Use current date and random number to generate unique game id for realtime database
     return "game-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
 }
 
-// Function to create a game in the database and join as player 1
+/**************************************************************/
+// createGame(selectedGameId)
+// Called to create a new game
+// Create new game in realtime database with selectedGameId, set user as player 1, send to gtnGame.html
+// Input: selectedGameId (string)
+// Return: N/A
+/**************************************************************/
 function createGame(selectedGameId) {
     console.log("No games found");
     gameId = selectedGameId;
@@ -62,7 +80,13 @@ function createGame(selectedGameId) {
     sessionStorage.setItem("isInGame", "true");
 }
 
-// Function to join game as player 2
+/**************************************************************/
+// joinGame(selectedGameId)
+// Called to join an existing game
+// Joins the user as player 2 in specific game
+// Input: selectedGameId (string)
+// Return: N/A
+/**************************************************************/
 function joinGame(selectedGameId) {
     console.log("Joining game " + selectedGameId + " as player 2");
     gameId = selectedGameId;
@@ -78,7 +102,13 @@ function joinGame(selectedGameId) {
     sessionStorage.setItem("isInGame", "true");
 }
 
-// Function to search for an available game
+/**************************************************************/
+// searchingForGame(text)
+// Called to search for an available game
+// If available game is found, join as player 2, else creates new game, joins as player 1
+// Input: text (string)
+// Return: N/A
+/**************************************************************/
 function searchingForGame(text) {
     updateButton(gameSearchButton, text, buttonSelectBackgroundColor);
 

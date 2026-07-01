@@ -16,7 +16,13 @@ const gtnLobbyURL = new URL('../lobby/gtnLobby.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const leaderboardTable = document.getElementById("leaderboardTable");
 
-// Function to update a button's text, background colour, and disable it
+/**************************************************************/
+// updateButton(button, text, backgroundColor)
+// Called to update style and state of a button
+// Disables button, updates button text and background colour to inputted values
+// Input: button (string), text (string), backgroundColor (string)
+// Return: N/A
+/**************************************************************/
 function updateButton(button, text, backgroundColor) {
     button.disabled = true;
     button.innerText = text;
@@ -67,7 +73,13 @@ returnButton.onclick = function () {
     updateButton(returnButton, "Returning...", buttonSelectBackgroundColor);
 }
 
-// Displays leaderboard data found from fb_readSorted
+/**************************************************************/
+// displayLeaderboard(leaderboardData)
+// Called to display leaderboard data
+// Creates leaderboard table with rank, name, and wins for top 10 player in realtime database
+// Input: leaderboardData (array)
+// Return: N/A
+/**************************************************************/
 export async function displayLeaderboard(leaderboardData) {
     console.log(leaderboardData);
 

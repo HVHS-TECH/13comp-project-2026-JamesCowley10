@@ -40,14 +40,26 @@ let players = {};
 let gameStarted = false;
 let otherPlayerLeft = false;
 
-// Function to update a button's text, background colour, and disable it
+/**************************************************************/
+// updateButton(button, text, backgroundColor)
+// Called to update style and state of a button
+// Disables button, updates button text and background colour to inputted values
+// Input: button (string), text (string), backgroundColor (string)
+// Return: N/A
+/**************************************************************/
 function updateButton(button, text, backgroundColor) {
     button.disabled = true;
     button.innerText = text;
     button.style.backgroundColor = backgroundColor;
 }
 
-// Function to set player profile info on load
+/**************************************************************/
+// setPlayerInfo()
+// Called to update player info on the game screen
+// Sets player profile image and username to current player's userDetails
+// Input: N/A
+// Return: N/A
+/**************************************************************/
 function setPlayerInfo() {
     if (playerNumber == 1) {
         player1ProfileImgWaiting.src = userDetails.photoURL;
@@ -59,7 +71,13 @@ function setPlayerInfo() {
     }
 }
 
-// Function when player leaves game to show remaining player that other player has left game
+/**************************************************************/
+// playerLeaves()
+// Called when a player leaves the game
+// Updates game state and displays message to remaining player
+// Input: N/A
+// Return: N/A
+/**************************************************************/
 function playerLeaves() {
     if (otherPlayerLeft) {
         return;
@@ -84,7 +102,13 @@ function playerLeaves() {
     sessionStorage.setItem("isInGame", "false");
 }
 
-// Function to set up game html and start game when there are 2 players in game
+/**************************************************************/
+// startGame()
+// Called to start the game
+// Updates game state and displays necessary game interface
+// Input: N/A
+// Return: N/A
+/**************************************************************/
 async function startGame() {
     console.log("Game starting...");
     console.log("Player number: " + playerNumber);
@@ -117,7 +141,13 @@ async function startGame() {
     }
 }
 
-// Function to check if player's guess is the same as random number
+/**************************************************************/
+// checkGuess()
+// Called to check if player's guess is correct
+// Checks guess and updates realtime database depending on if guess is correct or not
+// Input: N/A
+// Return: N/A
+/**************************************************************/
 async function checkGuess() {
     const playerGuess = guessNumber.innerHTML;
     if (playerNumber == 1) {
@@ -146,7 +176,13 @@ async function checkGuess() {
     }
 }
 
-// Function to change which player is guessing and update html 
+/**************************************************************/
+// setGuessingPlayer()
+// Called to update which player is currently guessing
+// Updates realtime database to set playerTurn to other player
+// Input: N/A
+// Return: N/A
+/**************************************************************/ 
 function setGuessingPlayer() {
     console.log("Changing guessing player...");
     if (playerNumber == 1) {
