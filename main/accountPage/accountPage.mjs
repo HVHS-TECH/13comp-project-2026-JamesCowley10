@@ -1,10 +1,10 @@
 /**************************************************************/
 // accountPage.mjs
 // Main script for accountPage.html
-// Written by James Cowley, Term 1 2026
+// Written by James Cowley, Term 2 2026
 /**************************************************************/
-const COL_C = 'white';	    // These two const are part of the coloured 	
-const COL_B = '#CD7F32';	//  console.log for functions scheme
+const COL_C = 'white';
+const COL_B = '#CD7F32';
 console.log('%c accountPage.mjs',
     'color: blue; background-color: white;');
 
@@ -101,9 +101,7 @@ function checkInputs(username, age, address, phoneNumber) {
 // Return: N/A
 /**************************************************************/
 async function registrationSuccess(username, age, address, phoneNumber) {
-    // If all validation is passed then set user's details and proceed
-    console.log("Valid Inputs");
-
+    // If all validation is passed then set user's details and proceed to gamePage.html
     updateButton(regButton, "Updating...", buttonSelectBackgroundColor);
 
     userDetails.username = username;
@@ -119,7 +117,6 @@ async function registrationSuccess(username, age, address, phoneNumber) {
     // Sets the username and age to the user's userDetails in the database, then sends user to gamePage.html
     try {
         await fb_set('userDetails/' + userDetails.uid, userDetails);
-        console.table(userDetails);
         const gameUrl = new URL('../gamePage/gamePage.html', import.meta.url).href;
         location.href = gameUrl;
     } catch (error) {
@@ -205,12 +202,10 @@ userDetails.username = sessionStorage.getItem("username");
 userDetails.address = sessionStorage.getItem("address");
 userDetails.age = sessionStorage.getItem("age");
 userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
-console.table(userDetails);
 
 // Checks if profileImgURL exists in sessionStorage, if so sets it as src for profileImg
 if (profileImgURL != null) {
     profileImg.src = profileImgURL;
-    console.log("Profile image loaded");
 }
 
 setInitialDetails();
@@ -224,7 +219,6 @@ regButton.onclick = async function () {
     phoneNumber = document.getElementById("regPhoneNumber").value;
     age = Number(age);
     phoneNumber = Number(phoneNumber);
-    console.table({ username, age, address, phoneNumber });
 
     // Check inputs and if valid fires function for registration success
     if (!checkInputs(username, age, address, phoneNumber)) {

@@ -1,10 +1,10 @@
 /**************************************************************/
 // gtnLeaderboard.mjs
 // Main script for gtnLeaderboard.html
-// Written by James Cowley, Term 1 2026
+// Written by James Cowley, Term 2 2026
 /**************************************************************/
-const COL_C = 'white';	    // These two const are part of the coloured 	
-const COL_B = '#CD7F32';	//  console.log for functions scheme
+const COL_C = 'white';
+const COL_B = '#CD7F32';
 console.log('%c gtnLeaderboard.mjs',
     'color: blue; background-color: white;');
 
@@ -15,6 +15,7 @@ const profileImgURL = sessionStorage.getItem("photoURL");
 const gtnLobbyURL = new URL('../lobby/gtnLobby.html', import.meta.url).href;
 const buttonSelectBackgroundColor = 'rgb(226, 226, 226)';
 const leaderboardTable = document.getElementById("leaderboardTable");
+const LEADERBOARD_SIZE = 10;
 
 /**************************************************************/
 // updateButton(button, text, backgroundColor)
@@ -44,7 +45,7 @@ window.fb_readSorted = fb_readSorted;
 fb_initialise();
 
 // Reads sorted top 10 player's wins from database to display on gtn leaderboard
-fb_readSorted('userScores/gtn', 'wins', 10, "../../games/gtn/leaderboard/gtnLeaderboard.mjs");
+fb_readSorted('userScores/gtn', 'wins', LEADERBOARD_SIZE, "../../games/gtn/leaderboard/gtnLeaderboard.mjs");
 
 /**************************************************************/
 // gtnLeaderboard.html main code
@@ -53,7 +54,6 @@ fb_readSorted('userScores/gtn', 'wins', 10, "../../games/gtn/leaderboard/gtnLead
 // Checks if profileImgURL exists in sessionStorage, if so sets it as src for profileImg
 if (profileImgURL != null) {
     profileImg.src = profileImgURL;
-    console.log("Profile image loaded");
 }
 
 // Sets userDetails as items from sessionStorage
@@ -65,7 +65,6 @@ userDetails.username = sessionStorage.getItem("username");
 userDetails.address = sessionStorage.getItem("address");
 userDetails.age = sessionStorage.getItem("age");
 userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
-console.table(userDetails);
 
 //  Event listener for on click of returnButton returns user to gamePage.html
 returnButton.onclick = function () {
@@ -81,8 +80,7 @@ returnButton.onclick = function () {
 // Return: N/A
 /**************************************************************/
 export async function displayLeaderboard(leaderboardData) {
-    console.log(leaderboardData);
-
+    // Loop through leaderboardData array and create new row for each entry with rank, name, and wins
     for (let i = 0; i < leaderboardData.length; i++) {
         let leaderboardEntry = document.createElement("tr");
         leaderboardEntry.classList.add("leaderboardRow");
@@ -92,8 +90,8 @@ export async function displayLeaderboard(leaderboardData) {
         name.classList.add("leaderboardTextItem");
         let wins = document.createElement("td");
         wins.classList.add("leaderboardTextItem");
-        name.innerHTML = leaderboardData[i].name
-        wins.innerHTML = leaderboardData[i].wins
+        name.innerHTML = leaderboardData[i].name;
+        wins.innerHTML = leaderboardData[i].wins;
 
         // Makes rank inner html the value of the current index + 1 to show rank of player
         rank.innerHTML = i + 1;

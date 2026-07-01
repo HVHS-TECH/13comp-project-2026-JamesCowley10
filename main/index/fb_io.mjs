@@ -2,12 +2,9 @@
 // fb_io.mjs
 // Generalised firebase routines
 // Written by James Cowley, Term 1 2026
-//
-// All variables & function begin with fb_  all const with FB_
-// Diagnostic code lines have a comment appended to them //DIAG
 /**************************************************************/
-const COL_C = 'white'; // These two const are part of the coloured 	
-const COL_B = '#CD7F32'; //  console.log for functions scheme
+const COL_C = 'white';
+const COL_B = '#CD7F32';
 console.log('%c ./fb_io.mjs',
     'color: blue; background-color: white;');
 
@@ -28,7 +25,7 @@ export let userDetails = {
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
-
+/**************************************************************/
 import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, onValue, onDisconnect }
@@ -48,8 +45,6 @@ export {
 };
 
 function fb_initialise() {
-    console.log('%c fb_initialise(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     sessionStorage.setItem("mustRegister", "n");
 
     const FB_GAMECONFIG = {
@@ -65,7 +60,6 @@ function fb_initialise() {
 
     const FB_GAMEAPP = initializeApp(FB_GAMECONFIG);
     FB_GAMEDB = getDatabase(FB_GAMEAPP);
-    console.info(FB_GAMEDB);
 
     const AUTH = getAuth();
 
@@ -79,9 +73,6 @@ function fb_initialise() {
 // Return: N/A
 /**************************************************************/
 function fb_login() {
-    console.log('%c fb_login(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
     const FB_GAMECONFIG = {
         apiKey: "AIzaSyCYwD2IYqCFh8TK4j1zgBfVm0XBXQOs_BE",
         authDomain: "comp-james-cowley.firebaseapp.com",
@@ -95,7 +86,6 @@ function fb_login() {
 
     const FB_GAMEAPP = initializeApp(FB_GAMECONFIG);
     FB_GAMEDB = getDatabase(FB_GAMEAPP);
-    console.info(FB_GAMEDB);
 
     const AUTH = getAuth();
     const PROVIDER = new GoogleAuthProvider();
@@ -108,7 +98,6 @@ function fb_login() {
         userDetails.email = result.user.email;
         userDetails.photoURL = result.user.photoURL;
         userDetails.uid = result.user.uid;
-        console.table(userDetails);
 
         sessionStorage.setItem("uid", userDetails.uid);
         sessionStorage.setItem("email", userDetails.email);
@@ -119,7 +108,6 @@ function fb_login() {
         get(dbReference).then((snapshot) => {
             var fb_data = snapshot.val();
             if (fb_data != null) {
-                console.log("✅ Successful Read");
                 userDetails.username = fb_data.username;
                 userDetails.age = fb_data.age;
                 userDetails.address = fb_data.address;
@@ -130,7 +118,6 @@ function fb_login() {
                 sessionStorage.setItem("phoneNumber", userDetails.phoneNumber);
                 sessionStorage.setItem("loggedIn", "y");
                 sessionStorage.setItem("mustRegister", "n");
-                console.table(fb_data);
 
                 /**************************************************************/
                 // USER IS REGISTERED, BUT ARE THEY ADMIN
@@ -139,23 +126,20 @@ function fb_login() {
                     var fb_data = snapshot.val();
                     const gamePageURL = new URL('../gamePage/gamePage.html', import.meta.url).href;
                     if (fb_data != null) {
-                        console.log("✅ User Is An Admin");
                         sessionStorage.setItem('admin', 'y');
                         location.href = gamePageURL;
                     } else {
-                        console.log("Not an admin");
                         sessionStorage.setItem('admin', 'n');
                         location.href = gamePageURL;
                     }
 
                 }).catch((error) => {
-                    console.error(error);;
+                    console.error("fb_login: admin check failed:", error);
                 });
 
                 /**************************************************************/
 
             } else {
-                console.log("❓ No Record Found"); // Succesful read but no record found
                 sessionStorage.setItem("mustRegister", "y");
 
                 /**************************************************************/
@@ -165,28 +149,26 @@ function fb_login() {
                     const regUrl = new URL('../reg/regPage.html', import.meta.url).href;
                     var fb_data = snapshot.val();
                     if (fb_data != null) {
-                        console.log("✅ User Is An Admin");
                         sessionStorage.setItem('admin', 'y');
                         location.href = regUrl;
                     } else {
-                        console.log("Not an admin");
                         sessionStorage.setItem('admin', 'n');
                         location.href = regUrl;
                     }
 
                 }).catch((error) => {
-                    console.error(error);;
+                    console.error("fb_login: admin check failed:", error);
                 });
 
                 /**************************************************************/
             }
         }).catch((error) => {
-            console.error(error);;
+            console.error("fb_login: failed to read userDetails:", error);
         });
 
     })
         .catch((error) => {
-            console.error(error);;
+            console.error("fb_login: Google sign-in failed:", error);
         });
 }
 
@@ -198,18 +180,13 @@ function fb_login() {
 // Return: N/A
 /**************************************************************/
 function fb_onAuthStateChanged() {
-    console.log('%c fb_onAuthStateChanged(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
     const AUTH = getAuth();
     onAuthStateChanged(AUTH, (user) => {
         if (user) {
-            console.log("✅ User Is Logged In");
-        } else {
-            console.log("✅ User Is Logged Out");
+            return;
         }
     }, (error) => {
-        console.error(error);;
+        console.error("fb_onAuthStateChanged: auth state check failed:", error);
     });
 }
 
@@ -221,15 +198,11 @@ function fb_onAuthStateChanged() {
 // Return: N/A
 /**************************************************************/
 function fb_signOut() {
-    console.log('%c fb_signOut(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
     const AUTH = getAuth();
     signOut(AUTH).then(() => {
-        console.log("✅ Logout Successful");
     })
         .catch((error) => {
-            console.error(error);;
+            console.error("fb_signOut: sign out failed:", error);
         });
 }
 
@@ -241,17 +214,13 @@ function fb_signOut() {
 // Return: Promise
 /**************************************************************/
 function fb_set(path, data) {
-    console.log('%c fb_set(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
     const dbReference = ref(FB_GAMEDB, path);
 
     return set(dbReference, data)
         .then(() => {
-            console.log("✅ Successful Write");
         })
         .catch((error) => {
-            console.error(error);;
+            console.error("fb_set: write failed for path:", path, error);
         });
 }
 
@@ -263,22 +232,17 @@ function fb_set(path, data) {
 // Return: Promise
 /**************************************************************/
 function fb_get(path) {
-    console.log('%c fb_get(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
     const dbReference = ref(FB_GAMEDB, path);
     return get(dbReference)
         .then((snapshot) => {
             var fb_data = snapshot.val();
             if (fb_data != null) {
-                console.log("✅ Successful Read");
                 return fb_data;
             } else {
-                console.log("❓ No Record Found");
                 return null;
             }
         }).catch((error) => {
-            console.error(error);;
+            console.error("fb_get: read failed for path:", path, error);
             return null;
         });
 }
@@ -291,9 +255,6 @@ function fb_get(path) {
 // Return: N/A
 /**************************************************************/
 function fb_getAll() {
-    console.log('%c fb_getAll(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
     const dbReference = ref(FB_GAMEDB, 'userDetails');
     get(dbReference).then((snapshot) => {
         var fb_data = snapshot.val();
@@ -301,17 +262,12 @@ function fb_getAll() {
         if (fb_data != null) {
             snapshot.forEach(function (childSnapshot) {
                 var childData = childSnapshot.val();
-                console.log(childData);
                 fb_dataArray = [];
                 fb_dataArray.push(childData);
             });
-            console.log("✅ Successful Read");
-            console.table(fb_dataArray);
-        } else {
-            console.log("❓ No Record Found");
         }
     }).catch((error) => {
-        console.error(error);;
+        console.error("fb_getAll: failed to read userDetails:", error);
     });
 }
 
@@ -323,16 +279,11 @@ function fb_getAll() {
 // Return: N/A
 /**************************************************************/
 function fb_update() {
-    console.log('%c fb_update(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
     const _data = userDetails;
     const dbReference = ref(FB_GAMEDB, 'userDetails/' + userDetails.uid);
     update(dbReference, _data).then(() => {
-        console.log("✅ Successful Update");
-        console.table(_data);
     }).catch((error) => {
-        console.error(error);;
+        console.error("fb_update: update failed:", error);
     });
 }
 
@@ -344,8 +295,6 @@ function fb_update() {
 // Return: N/A but returns sorted data to console
 /**************************************************************/
 async function fb_readSorted(path, sortkey, number, leaderboardPath) {
-    console.log('%c fb_readSorted(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     const dbReference = query(ref(FB_GAMEDB, path), orderByChild(sortkey), limitToFirst(number));
     try {
         const snapshot = await get(dbReference);
@@ -355,17 +304,14 @@ async function fb_readSorted(path, sortkey, number, leaderboardPath) {
             snapshot.forEach(child => {
                 result.push(child.val())
             });
-            console.log("✅ Successful Sorted Read");
             // Import displayLeaderboard when running fb_readSorted to avoid overrunning code
             const { displayLeaderboard } = await import(leaderboardPath);
             // Reverses the scores so that scores are from highest to lowest
             result.reverse(); // Reverses the scores so that scores are from highest to lowest
             displayLeaderboard(result);
-        } else {
-            console.log("✅ No Record Found");
         }
     } catch (error) {
-        console.error(error);;
+        console.error("fb_readSorted: sorted read failed for path:", path, error);
     }
 }
 
@@ -378,14 +324,11 @@ async function fb_readSorted(path, sortkey, number, leaderboardPath) {
 /**************************************************************/
 
 async function fb_onValueChange(path, callback) {
-    console.log('%c fb_onValueChange(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     const dbReference = ref(FB_GAMEDB, path);
     onValue(dbReference, (snapshot) => {
-        console.log("✅ " + path + " Changed");
         callback(snapshot);
     }, (error) => {
-        console.error(error);;
+        console.error("fb_onValueChange: read failed for path:", path, error);
     });
 }
 
@@ -397,14 +340,11 @@ async function fb_onValueChange(path, callback) {
 // Return: N/A
 /**************************************************************/
 function fb_onDisconnect(path, callback) {
-    console.log('%c fb_onDisconnect(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     const dbReference = ref(FB_GAMEDB, path);
     onDisconnect(dbReference).remove().then(() => {
-        console.log("✅ Disconnect handler set for " + path);
         sessionStorage.setItem("isInGame", "false");
     }).catch((error) => {
-        console.error(error);;
+        console.error("fb_onDisconnect: setup failed for path:", path, error);
     });
 }
 

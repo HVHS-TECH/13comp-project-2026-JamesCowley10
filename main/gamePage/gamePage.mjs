@@ -3,8 +3,8 @@
 // Main script for gamePage.html
 // Written by James Cowley, Term 1 2026
 /**************************************************************/
-const COL_C = 'white';	    // These two const are part of the coloured 	
-const COL_B = '#CD7F32';	//  console.log for functions scheme
+const COL_C = 'white';
+const COL_B = '#CD7F32';
 console.log('%c gamePage.mjs',
     'color: blue; background-color: white;');
 
@@ -58,7 +58,6 @@ fb_initialise();
 // Checks if profileImgURL exists in sessionStorage, if so sets it as src for profileImg
 if (profileImgURL != null) {
     profileImg.src = profileImgURL;
-    console.log("Profile image loaded");
 }
 
 // Sets userDetails as items from sessionStorage
@@ -70,7 +69,6 @@ userDetails.username = sessionStorage.getItem("username");
 userDetails.address = sessionStorage.getItem("address");
 userDetails.age = sessionStorage.getItem("age");
 userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
-console.table(userDetails);
 
 // Event listener for the GTN button
 gtnButton.onclick = async function () {

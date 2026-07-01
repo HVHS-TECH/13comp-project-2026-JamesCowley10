@@ -1,11 +1,14 @@
 /*******************************************************/
 // zombzGame.js 
-// Zombz Game
-// Written by James Cowley
+// Main script for zombzGame.html
+// Written by James Cowley, Term 2 2025
 /*******************************************************/
 // Variables
 
-import { fb_initialise, fb_set, userDetails, fb_get } 
+console.log('%c zombzGame.mjs',
+    'color: blue; background-color: white;');
+
+import { fb_initialise, fb_set, userDetails, fb_get }
     from "../../main/index/fb_io.mjs";
 
 /*******************************************************/
@@ -26,7 +29,6 @@ const CONSUMABLE_WIDTH = 18;
 const CONSUMABLE_HEIGHT = 18;
 const sreloadUrl = new URL('./assets/reloadSound.mp3', import.meta.url).href;
 const RELOAD_SOUND = new Audio(sreloadUrl);
-//const RELOAD_SOUND = new Audio("/games/zg/assets/reloadSound.mp3");
 
 const GUNS = {
     pistol: {
@@ -123,7 +125,6 @@ window.draw = draw;
 
 userDetails.uid = sessionStorage.getItem("uid");
 userDetails.name = sessionStorage.getItem("name");
-console.table(userDetails);
 
 /*******************************************************/
 // preload()
@@ -133,28 +134,27 @@ console.table(userDetails);
 // Output: N/A
 /*******************************************************/
 function preload() {
-    console.log("Preloading Assets...");
     const ASSETS = './assets/';  // relative to games/zg/index.html
-    sheetImg            = loadImage(ASSETS + 'tileMap.png');
-    zombieImg           = loadImage(ASSETS + 'zombieCharacter.png');
-    playerImgRight      = loadImage(ASSETS + 'playerRight.png');
-    playerImgLeft       = loadImage(ASSETS + 'playerLeft.png');
-    characterShadowImg  = loadImage(ASSETS + 'characterShadow.png');
-    assaultRifleRight   = loadImage(ASSETS + 'assaultRifleRight.png');
-    assaultRifleLeft    = loadImage(ASSETS + 'assaultRifleLeft.png');
-    shotgunRight        = loadImage(ASSETS + 'shotgunRight.png');
-    shotgunLeft         = loadImage(ASSETS + 'shotgunLeft.png');
-    pistolRight         = loadImage(ASSETS + 'pistolRight.png');
-    pistolLeft          = loadImage(ASSETS + 'pistolLeft.png');
+    sheetImg = loadImage(ASSETS + 'tileMap.png');
+    zombieImg = loadImage(ASSETS + 'zombieCharacter.png');
+    playerImgRight = loadImage(ASSETS + 'playerRight.png');
+    playerImgLeft = loadImage(ASSETS + 'playerLeft.png');
+    characterShadowImg = loadImage(ASSETS + 'characterShadow.png');
+    assaultRifleRight = loadImage(ASSETS + 'assaultRifleRight.png');
+    assaultRifleLeft = loadImage(ASSETS + 'assaultRifleLeft.png');
+    shotgunRight = loadImage(ASSETS + 'shotgunRight.png');
+    shotgunLeft = loadImage(ASSETS + 'shotgunLeft.png');
+    pistolRight = loadImage(ASSETS + 'pistolRight.png');
+    pistolLeft = loadImage(ASSETS + 'pistolLeft.png');
     healthBarOutlineImg = loadImage(ASSETS + 'healthBarOutline.png');
-    healthBarFillImg    = loadImage(ASSETS + 'healthBarFill.png');
-    gunFrameImg         = loadImage(ASSETS + 'gunFrame.png');
-    bulletImg           = loadImage(ASSETS + 'bullet.png');
-    wallTopImg          = loadImage(ASSETS + 'wallTop.png');
-    wallBotImg          = loadImage(ASSETS + 'wallBot.png');
-    wallLeftImg         = loadImage(ASSETS + 'wallLeft.png');
-    wallRightImg        = loadImage(ASSETS + 'wallRight.png');
-    consumableImg       = loadImage(ASSETS + 'healthKit.png');
+    healthBarFillImg = loadImage(ASSETS + 'healthBarFill.png');
+    gunFrameImg = loadImage(ASSETS + 'gunFrame.png');
+    bulletImg = loadImage(ASSETS + 'bullet.png');
+    wallTopImg = loadImage(ASSETS + 'wallTop.png');
+    wallBotImg = loadImage(ASSETS + 'wallBot.png');
+    wallLeftImg = loadImage(ASSETS + 'wallLeft.png');
+    wallRightImg = loadImage(ASSETS + 'wallRight.png');
+    consumableImg = loadImage(ASSETS + 'healthKit.png');
 }
 
 /*******************************************************/
@@ -168,7 +168,6 @@ function setup() {
     fb_initialise();
     highscore = fb_get('userScores/zombz/' + sessionStorage.getItem("uid") + '/score');
     frameRate(60);
-    console.log("Starting Setup...");
     cnv = new Canvas(336, 240, "pixelated x4");
     wallGroup = new Group();
     zombieGroup = new Group();
@@ -184,35 +183,6 @@ function setup() {
     createWalls();
     startWave();
 
-    // For debugging as per request of teacher
-    document.addEventListener('keydown', function (event) {
-        if (event.ctrlKey && event.key === 'z') {
-            console.log('%c html_listen4Debug(): ACTIVE',
-                'color: white; background-color: purple;');
-            // Place debug code here ***************************
-            // EG to set debug mode for all sprites 
-            allSprites.debug = true;
-
-            // To slow the frame rate down to 1 frame/sec
-            frameRate(1);
-
-            // OR to tell P5 to NOT call the draw loop again (freeze the screen)
-            //noLoop();
-
-        } else if (event.ctrlKey && event.key === 'x') {
-            console.log('%c html_listen4Debug(): INACTIVE',
-                'color: white; background-color: purple;');
-            // Place code to turn off debug mode here *********
-            // EG to turn off debug mode for all sprites
-            allSprites.debug = false;
-
-            // To reset frame rate to 60 frame/sec
-            frameRate(60);
-
-            // OR if you set noLoop() - to start P5 calling the draw loop again
-            //loop();
-        }
-    });
 }
 
 /*******************************************************/
@@ -223,7 +193,6 @@ function setup() {
 // Output: N/A
 /*******************************************************/
 function tileSetUp() {
-    console.log("Setting Up Tiles...");
     let grass = new Group();
     grass.collider = "none";
     grass.spriteSheet = sheetImg;
@@ -293,8 +262,6 @@ function tileSetUp() {
 // Output: N/A
 /*******************************************************/
 function createWalls() {
-    console.log("Creating Walls...");
-
     wallLeft = new Sprite(-WALL_THICKNESS + 13, height / 2, WALL_THICKNESS, WALL_HEIGHT, 's');
     wallLeft.image = (wallLeftImg);
     wallGroup.add(wallLeft);
@@ -319,8 +286,6 @@ function createWalls() {
 // Output: N/A
 /*******************************************************/
 function createPlayer(x, y) {
-    console.log("Creating Player...");
-
     playerShadow = new Sprite(0, 0, PLAYER_SHADOW_SIZE, PLAYER_SHADOW_SIZE, "n");
     playerShadow.opacity = 0.3;
     player = new Sprite(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, "d");
@@ -345,8 +310,6 @@ function createPlayer(x, y) {
 // Output: N/A
 /*******************************************************/
 function createZombies() {
-    console.log("Creating Zombies...");
-
     zombieGroup.w = ZOMBIE_WIDTH;
     zombieGroup.h = ZOMBIE_HEIGHT;
     zombieGroup.rotationLock = true;
@@ -364,8 +327,6 @@ function createZombies() {
 // Output: N/A
 /*******************************************************/
 function createBulletGroup() {
-    console.log("Creating BulletGroup...");
-
     bulletsGroup.speed = currentBulletSpeed;
     bulletsGroup.diameter = 2;
     bulletsGroup.color = "yellow";
@@ -382,8 +343,6 @@ function createBulletGroup() {
 // Output: N/A
 /*******************************************************/
 function spawnConsumable() {
-    console.log("Creating Consumables...");
-
     consumablesGroup.collider = "n";
     consumablesGroup.image = (consumableImg);
     consumablesGroup.layer = 1;
@@ -404,8 +363,6 @@ function spawnConsumable() {
 // Output: N/A
 /*******************************************************/
 function changeGun(newGun) {
-    console.log("Changing Gun...");
-
     if (GUNS[newGun]) {
         currentGun = newGun;
     }
@@ -419,8 +376,6 @@ function changeGun(newGun) {
 // Output: N/A
 /*******************************************************/
 function startWave() {
-    console.log("Starting Wave...");
-
     wave = wave + 1;
     zombiesRemaining = Math.floor(2 + wave * ZOMBIE_SPAWNER_MULTIPLIER);
     spawnZombies();
@@ -437,8 +392,6 @@ function startWave() {
 // Output: N/A
 /*******************************************************/
 function spawnZombies() {
-    console.log("Spawning Zombies...");
-
     if (zombiesRemaining > 0) {
         setTimeout(() => {
             newZombie = new zombieGroup.Sprite();
@@ -463,8 +416,6 @@ function spawnZombies() {
 // Output: N/A
 /*******************************************************/
 function createStatsUI() {
-    console.log("Creating Stats UI...");
-
     healthBarOutline = new Sprite(45, 45, 67, 16, "n");
     healthBarOutline.image = (healthBarOutlineImg);
     statsUIGroup.add(healthBarOutline);
@@ -535,7 +486,6 @@ function createStatsUI() {
 // Output: N/A
 /*******************************************************/
 function endScreen() {
-    console.log("endScreen(): Creating End Screen...");
     let score = Number(kills * time.toFixed(0));
     let name = userDetails.name;
     let uid = sessionStorage.getItem("uid");
@@ -546,15 +496,10 @@ function endScreen() {
 
         if (highscore === null || highscore === undefined) {
             // No previous score, set as highscore
-            console.log("No previous highscore. Setting new highscore: " + score);
             fb_set('userScores/zombz/' + uid, { score: score, name: name });
         } else if (score > highscore) {
             // New highscore
-            console.log("New High Score! Previous: " + highscore + " New: " + score);
             fb_set('userScores/zombz/' + uid, { score: score, name: name });
-        } else {
-            // Not a highscore
-            console.log("No New High Score. Current: " + score + ", Highscore: " + highscore);
         }
 
         statsUIGroup.remove();
@@ -598,7 +543,6 @@ function updateStats() {
 /*******************************************************/
 function updateGun() {
     if (kills == 20) { // If player has 30 kills, give them the shotgun and change needed variables
-        console.log("Gun Changing To Shotgun...");
         currentGun = "shotgun";
         currentBulletSpeed = GUNS[currentGun].bulletSpeed;
         currentGunAmmo = GUNS[currentGun].ammo;
@@ -608,7 +552,6 @@ function updateGun() {
     }
 
     if (kills == 40) { // If player has 70 kills, give them the assault rifle and change needed variables
-        console.log("Gun Changing To Assault Rifle...");
         currentGun = "assaultRifle";
         currentBulletSpeed = GUNS[currentGun].bulletSpeed;
         currentGunAmmo = GUNS[currentGun].ammo;
@@ -619,8 +562,6 @@ function updateGun() {
 
     if (currentGunAmmo <= 0) {
         if (canReload === true) {
-            console.log("Gun is out of ammo");
-            console.log("Reloading...");
             canReload = false;
             ammoText.innerText = ("Reloading..");
             RELOAD_SOUND.volume = 0.4;
@@ -637,7 +578,6 @@ function updateGun() {
 
     if (mouse.presses()) { // Check if player clicks, if so then shoot gun
         if (currentGunAmmo > 0) {
-            console.log("Gun Fired...");
             let bullet = new bulletsGroup.Sprite();
             bullet.collider = "none";
             bullet.x = gun.x;
@@ -747,9 +687,8 @@ function updateZombies() {
     }
 
     if (playerHealth <= 0) { // Checks if player has lost all of their health
-        console.log("Player Dead, Running End Screen Function...");
         endScreen();
-    }  
+    }
 }
 
 /*******************************************************/
@@ -763,7 +702,6 @@ function checkOverlapping() {
     for (let wall of wallGroup) {
         for (let bullet of bulletsGroup) {
             if (bullet.overlapping(wall)) { // Checks if bullet hits a wall
-                console.log("Bullet Hit Wall...");
                 bullet.remove(); // Removes bullet if it hits a wall
             }
         }

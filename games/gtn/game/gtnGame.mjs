@@ -1,10 +1,10 @@
 /**************************************************************/
 // gtnGame.mjs
 // Main script for gtnGame.html
-// Written by James Cowley, Term 1 2026
+// Written by James Cowley, Term 2 2026
 /**************************************************************/
-const COL_C = 'white';	    // These two const are part of the coloured 	
-const COL_B = '#CD7F32';	//  console.log for functions scheme
+const COL_C = 'white';
+const COL_B = '#CD7F32';
 console.log('%c gtnGame.mjs',
     'color: blue; background-color: white;');
 
@@ -30,8 +30,8 @@ const guessNumber = document.getElementById('guessNumber');
 const lowerGuessButton = document.getElementById('lowerGuessButton');
 const higherGuessButton = document.getElementById('higherGuessButton');
 const guessButton = document.getElementById('guessButton');
-const minGuess = 1;
-const maxGuess = 100;
+const MINIMUM_GUESS = 1;
+const MAXIMUM_GUESS = 100;
 let playerNumber = sessionStorage.getItem("playerNumber");
 let gameId = sessionStorage.getItem("gameId");
 let isInGame = sessionStorage.getItem("isInGame");
@@ -110,8 +110,6 @@ function playerLeaves() {
 // Return: N/A
 /**************************************************************/
 async function startGame() {
-    console.log("Game starting...");
-    console.log("Player number: " + playerNumber);
     gameStarted = true;
     waitingDiv.hidden = true;
     gameDiv.hidden = false;
@@ -151,27 +149,18 @@ async function startGame() {
 async function checkGuess() {
     const playerGuess = guessNumber.innerHTML;
     if (playerNumber == 1) {
-        console.log("Player 1 guessed: " + playerGuess);
         await fb_set('liveGames/' + gameId + '/game/player1Guess', playerGuess);
     } else if (playerNumber == 2) {
-        console.log("Player 2 guessed: " + playerGuess);
         await fb_set('liveGames/' + gameId + '/game/player2Guess', playerGuess);
     }
 
     if (playerGuess == gameData.randomNumber) {
-        console.log("Correct guess!");
         if (playerNumber == 1) {
             await fb_set('liveGames/' + gameId + '/game/winner', "player1");
         } else if (playerNumber == 2) {
             await fb_set('liveGames/' + gameId + '/game/winner', "player2");
         }
     } else {
-        console.log("Wrong guess!");
-        if (playerGuess < gameData.randomNumber) {
-            console.log("Guess is too low!");
-        } else if (playerGuess > gameData.randomNumber) {
-            console.log("Guess is too high!");
-        }
         setGuessingPlayer();
     }
 }
@@ -184,7 +173,6 @@ async function checkGuess() {
 // Return: N/A
 /**************************************************************/ 
 function setGuessingPlayer() {
-    console.log("Changing guessing player...");
     if (playerNumber == 1) {
         fb_set('liveGames/' + gameId + '/game/playerTurn', 2);
     } else if (playerNumber == 2) {
@@ -222,18 +210,15 @@ userDetails.username = sessionStorage.getItem("username");
 userDetails.address = sessionStorage.getItem("address");
 userDetails.age = sessionStorage.getItem("age");
 userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
-console.table(userDetails);
 
 // If player disconnects from page, delete game from database and set html for other player to show other players has left
 fb_onDisconnect('liveGames/' + gameId, () => {
-    console.log("Player disconnected, removing game from database...");
     playerLeaves();
 });
 
 // Onload if sessionStorage.isInGame is not true, then send user to lobby
 window.onload = function () {
     if (sessionStorage.getItem("isInGame") !== "true") {
-        console.log("Not in game, redirecting to lobby...");
         location.href = gtnLobbyURL;
     }
 }
@@ -362,14 +347,14 @@ guessButton.onclick = function () {
 
 // Event listener for on click of lowerGuessButton
 lowerGuessButton.onclick = function () {
-    if (Number(guessNumber.innerHTML) > minimumGuess) {
+    if (Number(guessNumber.innerHTML) > MINIMUM_GUESS) {
         guessNumber.innerHTML = Number(guessNumber.innerHTML) - 1;
     }
 }
 
 // Event listener for on click of higherGuessButton
 higherGuessButton.onclick = function () {
-    if (Number(guessNumber.innerHTML) < maxGuess) {
+    if (Number(guessNumber.innerHTML) < MAXIMUM_GUESS) {
         guessNumber.innerHTML = Number(guessNumber.innerHTML) + 1;
     }
 }
@@ -381,7 +366,7 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
         return;
     }
     // Cache the winning number before removing the game from database
-    const winningNumber = gameData?.randomNumber ?? randomNumber;
+    const winningNumber = gameData?.randomNumber;
     // Add 1 win to winning player's wins in database, userScores.gtn.uid.wins
     if (winner == "player1") {
         fb_get('userScores/gtn/' + players.player1.player1uid + '/wins').then((snapshot) => {

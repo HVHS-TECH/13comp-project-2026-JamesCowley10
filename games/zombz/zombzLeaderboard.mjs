@@ -1,10 +1,10 @@
 /**************************************************************/
 // zombzLeaderboard.mjs
-// Main script for zombzLeaderboard.mjs
+// Main script for zombzLeaderboard.html
 // Written by James Cowley, Term 2 2025
 /**************************************************************/
-const COL_C = 'white';	    // These two const are part of the coloured 	
-const COL_B = '#CD7F32';	//  console.log for functions scheme
+const COL_C = 'white';	
+const COL_B = '#CD7F32';
 console.log('%c zombzLeaderboard.mjs',
     'color: blue; background-color: white;');
 
@@ -28,7 +28,6 @@ fb_readSorted('userScores/zombz', 'score', 10, "../../games/zombz/zombzLeaderboa
 /**************************************************************/
 // Displays leaderboard data found from fb_readSorted
 export async function displayLeaderboard(leaderboardData) {
-    console.log(leaderboardData);
     let leaderboardTable = document.createElement("table");
 
     for (let i = 0; i < leaderboardData.length; i++) {

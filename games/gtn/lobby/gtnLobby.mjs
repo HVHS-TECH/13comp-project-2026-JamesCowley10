@@ -1,10 +1,10 @@
 /**************************************************************/
 // gtnLobby.mjs
 // Main script for gtnLobby.html
-// Written by James Cowley, Term 1 2026
+// Written by James Cowley, Term 2 2026
 /**************************************************************/
-const COL_C = 'white';	    // These two const are part of the coloured 	
-const COL_B = '#CD7F32';	//  console.log for functions scheme
+const COL_C = 'white';	
+const COL_B = '#CD7F32';
 console.log('%c gtnLobby.mjs',
     'color: blue; background-color: white;');
 
@@ -53,9 +53,7 @@ function createGameId() {
 // Return: N/A
 /**************************************************************/
 function createGame(selectedGameId) {
-    console.log("No games found");
     gameId = selectedGameId;
-    console.log("Game id: " + gameId);
     sessionStorage.setItem("playerNumber", 1);
     sessionStorage.setItem("gameId", gameId);
 
@@ -88,7 +86,6 @@ function createGame(selectedGameId) {
 // Return: N/A
 /**************************************************************/
 function joinGame(selectedGameId) {
-    console.log("Joining game " + selectedGameId + " as player 2");
     gameId = selectedGameId;
     sessionStorage.setItem("playerNumber", 2);
     sessionStorage.setItem("gameId", gameId);
@@ -132,13 +129,11 @@ function searchingForGame(text) {
             }
 
             if (availableGameId != null) {
-                console.log("Joining game: " + availableGameId);
                 joinGame(availableGameId);
                 return;
             }
 
             const nextGameId = createGameId();
-            console.log("No available games. Creating game: " + nextGameId);
             createGame(nextGameId);
 
         } else {
@@ -174,7 +169,6 @@ fb_initialise();
 // Checks if profileImgURL exists in sessionStorage, if so sets it as src for profileImg
 if (profileImgURL != null) {
     profileImg.src = profileImgURL;
-    console.log("Profile image loaded");
 }
 
 // Sets userDetails as items from sessionStorage
@@ -186,7 +180,6 @@ userDetails.username = sessionStorage.getItem("username");
 userDetails.address = sessionStorage.getItem("address");
 userDetails.age = sessionStorage.getItem("age");
 userDetails.phoneNumber = sessionStorage.getItem("phoneNumber");
-console.table(userDetails);
 
 // Event listener for the play button
 gameSearchButton.onclick = function () {

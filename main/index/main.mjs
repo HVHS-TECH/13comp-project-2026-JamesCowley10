@@ -3,8 +3,8 @@
 // Main script for index.html
 // Written by James Cowley, Term 1 2026
 /**************************************************************/
-const COL_C = 'white';	    // These two const are part of the coloured 	
-const COL_B = '#CD7F32';	//  console.log for functions scheme
+const COL_C = 'white';	
+const COL_B = '#CD7F32';
 console.log('%c main.mjs',
     'color: blue; background-color: white;');
 
