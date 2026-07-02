@@ -39,6 +39,7 @@ let gameData = {};
 let players = {};
 let gameStarted = false;
 let otherPlayerLeft = false;
+let gameEnded = false;
 
 /**************************************************************/
 // updateButton(button, text, backgroundColor)
@@ -260,7 +261,7 @@ setPlayerInfo();
 fb_onValueChange('liveGames/' + gameId + '/players/', (snapshot) => {
     players = snapshot.val();
     if (players == null || players.player1 == null || players.player2 == null) {
-        if (gameStarted) {
+        if (gameStarted && !gameEnded) {
             playerLeaves();
         }
         return;
@@ -365,6 +366,7 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
     if (winner == null) {
         return;
     }
+    gameEnded = true;
     // Cache the winning number before removing the game from database
     const winningNumber = gameData?.randomNumber;
     // Add 1 win to winning player's wins in database, userScores.gtn.uid.wins
