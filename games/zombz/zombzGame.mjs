@@ -124,7 +124,7 @@ window.setup = setup;
 window.draw = draw;
 
 userDetails.uid = sessionStorage.getItem("uid");
-userDetails.name = sessionStorage.getItem("name");
+userDetails.username = sessionStorage.getItem("username");
 
 /*******************************************************/
 // preload()
@@ -487,7 +487,7 @@ function createStatsUI() {
 /*******************************************************/
 function endScreen() {
     let score = Number(kills * time.toFixed(0));
-    let name = userDetails.name;
+    let name = userDetails.username;
     let uid = sessionStorage.getItem("uid");
 
     // Get the user's current highscore first
