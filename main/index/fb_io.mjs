@@ -41,7 +41,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 // Return: N/A
 /**************************************************************/
 export {
-    fb_initialise, fb_login, fb_onAuthStateChanged, fb_signOut, fb_set, fb_get, fb_getAll, fb_update, fb_readSorted, fb_onValueChange, fb_onDisconnect
+    fb_initialise, fb_login, fb_onAuthStateChanged, fb_signOut, fb_set, fb_get, fb_update, fb_readSorted, fb_onValueChange, fb_onDisconnect
 };
 
 function fb_initialise() {
@@ -245,30 +245,6 @@ function fb_get(path) {
             console.error("fb_get: read failed for path:", path, error);
             return null;
         });
-}
-
-/**************************************************************/
-// fb_getAll()
-// Called by html READ ALL button
-// Reads all data from 'userDetails'
-// Input:  N/A
-// Return: N/A
-/**************************************************************/
-function fb_getAll() {
-    const dbReference = ref(FB_GAMEDB, 'userDetails');
-    get(dbReference).then((snapshot) => {
-        var fb_data = snapshot.val();
-
-        if (fb_data != null) {
-            snapshot.forEach(function (childSnapshot) {
-                var childData = childSnapshot.val();
-                fb_dataArray = [];
-                fb_dataArray.push(childData);
-            });
-        }
-    }).catch((error) => {
-        console.error("fb_getAll: failed to read userDetails:", error);
-    });
 }
 
 /**************************************************************/

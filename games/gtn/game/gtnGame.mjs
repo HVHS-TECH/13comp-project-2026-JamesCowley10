@@ -172,7 +172,7 @@ async function checkGuess() {
 // Updates realtime database to set playerTurn to other player
 // Input: N/A
 // Return: N/A
-/**************************************************************/ 
+/**************************************************************/
 function setGuessingPlayer() {
     if (playerNumber == 1) {
         fb_set('liveGames/' + gameId + '/game/playerTurn', 2);
