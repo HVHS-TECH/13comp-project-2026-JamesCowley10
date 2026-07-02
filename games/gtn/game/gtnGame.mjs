@@ -148,7 +148,7 @@ async function startGame() {
 // Return: N/A
 /**************************************************************/
 async function checkGuess() {
-    const playerGuess = guessNumber.innerHTML;
+    const playerGuess = Number(guessNumber.innerHTML);
     if (playerNumber == 1) {
         await fb_set('liveGames/' + gameId + '/game/player1Guess', playerGuess);
     } else if (playerNumber == 2) {
