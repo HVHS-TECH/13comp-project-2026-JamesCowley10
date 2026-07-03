@@ -371,14 +371,18 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
     const winningNumber = gameData?.randomNumber;
     // Add 1 win to winning player's wins in database, userScores.gtn.uid.wins
     if (winner == "player1") {
-        fb_get('userScores/gtn/' + players.player1.player1uid + '/wins').then((snapshot) => {
+        const winningPlayer = players?.player1;
+        if (winningPlayer == null) {
+            return;
+        }
+        fb_get('userScores/gtn/' + winningPlayer.player1uid + '/wins').then((snapshot) => {
             const wins = snapshot
             if (wins != null) {
-                fb_set('userScores/gtn/' + players.player1.player1uid + '/wins', wins + 1);
-                fb_set('userScores/gtn/' + players.player1.player1uid + '/name', players.player1.player1username);
+                fb_set('userScores/gtn/' + winningPlayer.player1uid + '/wins', wins + 1);
+                fb_set('userScores/gtn/' + winningPlayer.player1uid + '/name', winningPlayer.player1username);
             } else {
-                fb_set('userScores/gtn/' + players.player1.player1uid + '/wins', 1);
-                fb_set('userScores/gtn/' + players.player1.player1uid + '/name', players.player1.player1username);
+                fb_set('userScores/gtn/' + winningPlayer.player1uid + '/wins', 1);
+                fb_set('userScores/gtn/' + winningPlayer.player1uid + '/name', winningPlayer.player1username);
             }
             fb_set('liveGames/' + gameId, null);
             mainTitleGame.innerText = player1Name.innerHTML + " wins! It was " + winningNumber + "!";
@@ -390,14 +394,18 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
             player2Status.innerText = "Loser!";
         });
     } else if (winner == "player2") {
-        fb_get('userScores/gtn/' + players.player2.player2uid + '/wins').then((snapshot) => {
+        const winningPlayer = players?.player2;
+        if (winningPlayer == null) {
+            return;
+        }
+        fb_get('userScores/gtn/' + winningPlayer.player2uid + '/wins').then((snapshot) => {
             const wins = snapshot
             if (wins != null) {
-                fb_set('userScores/gtn/' + players.player2.player2uid + '/wins', wins + 1);
-                fb_set('userScores/gtn/' + players.player2.player2uid + '/name', players.player2.player2username);
+                fb_set('userScores/gtn/' + winningPlayer.player2uid + '/wins', wins + 1);
+                fb_set('userScores/gtn/' + winningPlayer.player2uid + '/name', winningPlayer.player2username);
             } else {
-                fb_set('userScores/gtn/' + players.player2.player2uid + '/wins', 1);
-                fb_set('userScores/gtn/' + players.player2.player2uid + '/name', players.player2.player2username);
+                fb_set('userScores/gtn/' + winningPlayer.player2uid + '/wins', 1);
+                fb_set('userScores/gtn/' + winningPlayer.player2uid + '/name', winningPlayer.player2username);
             }
             fb_set('liveGames/' + gameId, null);
             mainTitleGame.innerText = player2Name.innerHTML + " wins! It was " + winningNumber + "!";
