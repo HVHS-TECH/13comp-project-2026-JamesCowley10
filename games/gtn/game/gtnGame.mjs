@@ -295,16 +295,11 @@ fb_onValueChange('liveGames/' + gameId + '/game/', (snapshot) => {
     if (gameData == null) {
         return;
     }
-    if (gameEnded) {
-        return;
-    }
     if (gameData.playerTurn == 1) {
-        if (gameData.player2Guess !== "" && gameData.player2Guess != null) {
-            if (Number(gameData.player2Guess) < gameData.randomNumber) {
-                mainTitleGame.innerText = "Wrong! " + gameData.player2Guess + " is too low!";
-            } else if (Number(gameData.player2Guess) > gameData.randomNumber) {
-                mainTitleGame.innerText = "Wrong! " + gameData.player2Guess + " is too high!";
-            }
+        if (Number(gameData.player2Guess) < gameData.randomNumber) {
+            mainTitleGame.innerText = "Wrong! " + gameData.player2Guess + " is too low!";
+        } else if (Number(gameData.player2Guess) > gameData.randomNumber) {
+            mainTitleGame.innerText = "Wrong! " + gameData.player2Guess + " is too high!";
         }
         if (playerNumber == 1) {
             guessButton.hidden = false;
@@ -322,12 +317,10 @@ fb_onValueChange('liveGames/' + gameId + '/game/', (snapshot) => {
             player1Status.innerText = "Guessing...";
         }
     } else if (gameData.playerTurn == 2) {
-        if (gameData.player1Guess !== "" && gameData.player1Guess != null) {
-            if (Number(gameData.player1Guess) < gameData.randomNumber) {
-                mainTitleGame.innerText = "Wrong! " + gameData.player1Guess + " is too low!";
-            } else if (Number(gameData.player1Guess) > gameData.randomNumber) {
-                mainTitleGame.innerText = "Wrong! " + gameData.player1Guess + " is too high!";
-            }
+        if (Number(gameData.player1Guess) < gameData.randomNumber) {
+            mainTitleGame.innerText = "Wrong! " + gameData.player1Guess + " is too low!";
+        } else if (Number(gameData.player1Guess) > gameData.randomNumber) {
+            mainTitleGame.innerText = "Wrong! " + gameData.player1Guess + " is too high!";
         }
         if (playerNumber == 1) {
             guessButton.hidden = true;
@@ -376,57 +369,46 @@ fb_onValueChange('liveGames/' + gameId + '/game/winner', (snapshot) => {
     gameEnded = true;
     // Cache the winning number before removing the game from database
     const winningNumber = gameData?.randomNumber;
-    // Add 1 win to winning player's wins in database
+    const winningPlayerName = winner == "player1" ? players.player1.player1username : players.player2.player2username;
+    // Add 1 win to winning player's wins in database, userScores.gtn.uid.wins
     if (winner == "player1") {
-        const winningPlayer = players?.player1;
-        if (winningPlayer == null) {
-            return;
-        }
-        if (winner == "player1" && playerNumber == 1) {
-            fb_get('userScores/gtn/' + winningPlayer.player1uid + '/wins').then((snapshot) => {
-                const wins = snapshot
-                if (wins != null) {
-                    fb_set('userScores/gtn/' + winningPlayer.player1uid + '/wins', wins + 1);
-                    fb_set('userScores/gtn/' + winningPlayer.player1uid + '/name', winningPlayer.player1username);
-                } else {
-                    fb_set('userScores/gtn/' + winningPlayer.player1uid + '/wins', 1);
-                    fb_set('userScores/gtn/' + winningPlayer.player1uid + '/name', winningPlayer.player1username);
-                }
-                fb_set('liveGames/' + gameId, null);
-            });
-        }
-        mainTitleGame.innerText = player1Name.innerHTML + " wins! It was " + winningNumber + "!";
-        guessButton.hidden = true;
-        lowerGuessButton.hidden = true;
-        higherGuessButton.hidden = true;
-        guessNumber.hidden = true;
-        player1Status.innerText = "Winner!";
-        player2Status.innerText = "Loser!";
+        fb_get('userScores/gtn/' + players.player1.player1uid + '/wins').then((snapshot) => {
+            const wins = snapshot
+            if (wins != null) {
+                fb_set('userScores/gtn/' + players.player1.player1uid + '/wins', wins + 1);
+                fb_set('userScores/gtn/' + players.player1.player1uid + '/name', players.player1.player1username);
+            } else {
+                fb_set('userScores/gtn/' + players.player1.player1uid + '/wins', 1);
+                fb_set('userScores/gtn/' + players.player1.player1uid + '/name', players.player1.player1username);
+            }
+            fb_set('liveGames/' + gameId, null);
+            mainTitleGame.innerText = winningPlayerName + " wins! It was " + winningNumber + "!";
+            guessButton.hidden = true;
+            lowerGuessButton.hidden = true;
+            higherGuessButton.hidden = true;
+            guessNumber.hidden = true;
+            player1Status.innerText = "Winner!";
+            player2Status.innerText = "Loser!";
+        });
     } else if (winner == "player2") {
-        const winningPlayer = players?.player2;
-        if (winningPlayer == null) {
-            return;
-        }
-        if (winner == "player2" && playerNumber == 2) {
-            fb_get('userScores/gtn/' + winningPlayer.player2uid + '/wins').then((snapshot) => {
-                const wins = snapshot
-                if (wins != null) {
-                    fb_set('userScores/gtn/' + winningPlayer.player2uid + '/wins', wins + 1);
-                    fb_set('userScores/gtn/' + winningPlayer.player2uid + '/name', winningPlayer.player2username);
-                } else {
-                    fb_set('userScores/gtn/' + winningPlayer.player2uid + '/wins', 1);
-                    fb_set('userScores/gtn/' + winningPlayer.player2uid + '/name', winningPlayer.player2username);
-                }
-                fb_set('liveGames/' + gameId, null);
-            });
-        }
-        mainTitleGame.innerText = player2Name.innerHTML + " wins! It was " + winningNumber + "!";
-        guessButton.hidden = true;
-        lowerGuessButton.hidden = true;
-        higherGuessButton.hidden = true;
-        guessNumber.hidden = true;
-        player1Status.innerText = "Loser!";
-        player2Status.innerText = "Winner!";
+        fb_get('userScores/gtn/' + players.player2.player2uid + '/wins').then((snapshot) => {
+            const wins = snapshot
+            if (wins != null) {
+                fb_set('userScores/gtn/' + players.player2.player2uid + '/wins', wins + 1);
+                fb_set('userScores/gtn/' + players.player2.player2uid + '/name', players.player2.player2username);
+            } else {
+                fb_set('userScores/gtn/' + players.player2.player2uid + '/wins', 1);
+                fb_set('userScores/gtn/' + players.player2.player2uid + '/name', players.player2.player2username);
+            }
+            fb_set('liveGames/' + gameId, null);
+            mainTitleGame.innerText = winningPlayerName + " wins! It was " + winningNumber + "!";
+            guessButton.hidden = true;
+            lowerGuessButton.hidden = true;
+            higherGuessButton.hidden = true;
+            guessNumber.hidden = true;
+            player1Status.innerText = "Loser!";
+            player2Status.innerText = "Winner!";
+        });
     }
 });
 
