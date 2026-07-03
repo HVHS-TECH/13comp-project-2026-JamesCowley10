@@ -213,6 +213,14 @@ returnToLoginButton.onclick = function () {
     updateButton(returnToLoginButton, "Returning to login...", buttonSelectBackgroundColor);
 }
 
+// Onload if sessionStorage.loggedIn is not y, then send user to last page
+window.onload = function () {
+    if (sessionStorage.getItem("loggedIn") != "y") {
+        const lastUrl = new URL('../index.html', import.meta.url).href;
+        location.href = lastUrl;
+    }
+}
+
 /**************************************************************/
 //   END OF CODE
 /**************************************************************/
